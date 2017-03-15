@@ -25,6 +25,7 @@ public class Client {
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 
 		try {
+			
 			Bootstrap b = new Bootstrap(); // (1)
 			b.group(workerGroup); // (2)
 			b.option(ChannelOption.TCP_NODELAY, true);

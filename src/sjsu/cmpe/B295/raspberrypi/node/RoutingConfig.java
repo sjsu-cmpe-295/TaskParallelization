@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 @XmlRootElement(name = "conf")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -17,39 +17,57 @@ public class RoutingConfig {
 	private AtomicInteger nodeId;
 	private AtomicInteger commandPort;
 	private AtomicInteger workPort;
+	private AtomicLong heartbeatDt;
 
-	public AtomicInteger getNodeId() {
-		return nodeId;
+	public List<RoutingEntry> routingEntries = Collections
+		.synchronizedList(new ArrayList<RoutingEntry>());
+
+	public int getNodeId() {
+		return nodeId.get();
 	}
 
-	public AtomicInteger getCommandPort() {
-		return commandPort;
+	public Integer getCommandPort() {
+		return commandPort.get();
 	}
 
-	public AtomicInteger getWorkPort() {
-		return workPort;
+	public Integer getWorkPort() {
+		return workPort.get();
 	}
 
-	public void setNodeId(AtomicInteger nodeId) {
-		this.nodeId = nodeId;
+	public void setNodeId(int nodeId) {
+		this.nodeId.getAndSet(nodeId);
 	}
 
-	public void setCommandPort(AtomicInteger commandPort) {
-		this.commandPort = commandPort;
+	public void setCommandPort(int commandPort) {
+		this.commandPort.getAndSet(commandPort);
 	}
 
-	public void setWorkPort(AtomicInteger workPort) {
-		this.workPort = workPort;
+	public void setWorkPort(int workPort) {
+		this.workPort.getAndSet(workPort);
+	}
+
+	public long getHeartbeatDt() {
+		return heartbeatDt.get();
+	}
+
+	public void setHeartbeatDt(long heartbeatDt) {
+		this.heartbeatDt.getAndSet(heartbeatDt);
+	}
+
+	public List<RoutingEntry> getRoutingEntries() {
+		return routingEntries;
+	}
+
+	public void setRoutingEntries(List<RoutingEntry> routingEntries) {
+		this.routingEntries = routingEntries;
 	}
 
 	public RoutingConfig() {
 		this.nodeId = new AtomicInteger();
 		this.commandPort = new AtomicInteger();
 		this.workPort = new AtomicInteger();
+		this.heartbeatDt = new AtomicLong();
 	}
-
-	public List<RoutingEntry> routingEntries = Collections
-		.synchronizedList(new ArrayList<RoutingEntry>());
 
 	public HashMap<String, Integer> asHashMap() {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -112,4 +130,5 @@ public class RoutingConfig {
 
 		routingEntries.add(entry);
 	}
+
 }

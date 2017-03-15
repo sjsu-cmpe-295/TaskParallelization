@@ -9,19 +9,51 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sjsu.cmpe.B295.raspberrypi.node.Node.JsonUtil;
+import sjsu.cmpe.B295.raspberrypi.node.RoutingConfig.RoutingEntry;
+import sjsu.cmpe.B295.raspberrypi.node.edges.EdgeMonitor;
+
 
 public class NodeState implements Observer{
 	protected static Logger logger = LoggerFactory.getLogger("NodeState");
 	protected static RoutingConfig routingConfig;
-	protected ConcreteSubject subject;
+	protected ConcreteFileMonitor subject;
+	private EdgeMonitor edgeMonitor;
 	
-	public NodeState(ConcreteSubject subject){
+	public NodeState(ConcreteFileMonitor subject){
 		this.subject = subject;
 		this.subject.addObserver(this);
 	}
 
 	private boolean verifyConf(RoutingConfig conf) {
 		return (conf != null);
+	}
+	
+	/**
+	 * @return the edgeMonitor
+	 */
+	public EdgeMonitor getEdgeMonitor() {
+		return edgeMonitor;
+	}
+
+	/**
+	 * @param edgeMonitor the edgeMonitor to set
+	 */
+	public void setEdgeMonitor(EdgeMonitor edgeMonitor) {
+		this.edgeMonitor = edgeMonitor;
+	}
+	
+	/**
+	 * @return the routingConfig
+	 */
+	public static RoutingConfig getRoutingConfig() {
+		return routingConfig;
+	}
+
+	/**
+	 * @param routingConfig the routingConfig to set
+	 */
+	public static void setRoutingConfig(RoutingConfig routingConfig) {
+		NodeState.routingConfig = routingConfig;
 	}
 
 	@Override
@@ -55,8 +87,14 @@ public class NodeState implements Observer{
 				}
 			}
 		}
-		this.routingConfig = conf;
-		logger.info(this.routingConfig.routingEntries.size()+"");
+//		this.routingConfig = conf;
+		setRoutingConfig(conf);
+//		for (RoutingEntry routingEntry : routingConfig.routingEntries) {
+//			System.out.println(routingEntry.getId());
+//			System.out.println(routingEntry.getHost());
+//			System.out.println(routingEntry.getPort());
+//			System.out.println();
+//		}
+//		logger.info("*************************************************");
 	}
-
 }

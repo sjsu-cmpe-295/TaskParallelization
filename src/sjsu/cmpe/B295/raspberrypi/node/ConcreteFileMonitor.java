@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConcreteSubject implements Subject {
-	protected static Logger logger = LoggerFactory.getLogger("ConcreteSubject");
+public class ConcreteFileMonitor implements Subject {
+	protected static Logger logger = LoggerFactory.getLogger("ConcreteFileMonitor");
 	private File configFile;
 	private ArrayList<Observer> observers = new ArrayList<>();
 

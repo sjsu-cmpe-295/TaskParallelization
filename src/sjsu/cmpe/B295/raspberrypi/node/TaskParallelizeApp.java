@@ -2,6 +2,9 @@ package sjsu.cmpe.B295.raspberrypi.node;
 
 import java.io.File;
 import org.slf4j.LoggerFactory;
+
+import sjsu.cmpe.B295.raspberrypi.node.RoutingConfig.RoutingEntry;
+
 import org.slf4j.Logger;
 
 public class TaskParallelizeApp {
@@ -20,6 +23,9 @@ public class TaskParallelizeApp {
 		try {
 			Node node = new Node(configFilePath);
 			node.start();
+//			for(RoutingEntry entry: node.nodeState.routingConfig.routingEntries){
+//				logger.info(entry.getId()+":"+entry.getHost());
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

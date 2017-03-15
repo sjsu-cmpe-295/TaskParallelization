@@ -1,41 +1,112 @@
 package sjsu.cmpe.B295.raspberrypi.node;
 
 import java.io.File;
+import java.util.HashMap;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import sjsu.cmpe.B295.raspberrypi.node.edges.EdgeMonitor;
+
 public class Node {
-	
+
 	public static String configFilePath;
-	public static ConcreteSubject monitor;
+	public static ConcreteFileMonitor monitor;
 	public static NodeState nodeState;
-	
-	
+	protected static HashMap<Integer, ServerBootstrap> bootstrap = new HashMap<Integer, ServerBootstrap>();
+
 	public Node(String configFilePath) {
 		this.configFilePath = configFilePath;
 		this.monitor = new FileMonitor(this.configFilePath);
 		this.nodeState = new NodeState(monitor);
 		this.monitor.monitorFile();
-		
-		
-//		this.configFile = new FileMonitor(configFilePath);
-//		this.configFile.monitorFile();
+
 	}
-	
+
 	public void start() {
-		if (nodeState == null) {
-			System.out.println("Empty Node State");
-		} else {
-			System.out.println("Got NodeState");
-			if (nodeState.routingConfig == null) {
-				System.out.println("Routing Config is null");
-			}
-			else{
-				System.out.println(nodeState.routingConfig.routingEntries.size());
-			}
-		}
+		StartCommunication comm = new StartCommunication(this.nodeState,
+			this.monitor);
+		Thread workThread = new Thread(comm);
+		workThread.start();
 	}
-	
+
+	private static class StartCommunication implements Runnable {
+		NodeState nodeState;
+		ConcreteFileMonitor monitor;
+
+		/**
+		 * @param state
+		 */
+		public StartCommunication(NodeState nodeState,
+			ConcreteFileMonitor monitor) {
+			if (nodeState == null)
+				throw new RuntimeException("missing state");
+			this.nodeState = nodeState;
+			this.monitor = monitor;
+
+			EdgeMonitor edgeMonitor = new EdgeMonitor(this.nodeState,
+				this.monitor);
+			Thread t = new Thread(edgeMonitor);
+			t.start();
+
+		}
+
+		@Override
+		public void run() {
+			EventLoopGroup bossGroup = new NioEventLoopGroup();
+			EventLoopGroup workerGroup = new NioEventLoopGroup();
+
+			try {
+				ServerBootstrap b = new ServerBootstrap();
+				bootstrap.put(nodeState.getRoutingConfig().getWorkPort(), b);
+
+				b.group(bossGroup, workerGroup);
+				b.channel(NioServerSocketChannel.class);
+				b.option(ChannelOption.SO_BACKLOG, 100);
+				b.option(ChannelOption.TCP_NODELAY, true);
+				b.option(ChannelOption.SO_KEEPALIVE, true);
+
+				// b.option(ChannelOption.MESSAGE_SIZE_ESTIMATOR);
+
+				b.childHandler(new CommunicationChannelInitializer(nodeState));
+
+				// Start the server.
+//				logger.info("Starting work server ("
+//					+ state.getConf().getNodeId() + "), listening on port = "
+//					+ state.getConf().getWorkPort());
+				ChannelFuture f = b.bind(nodeState.getRoutingConfig().getWorkPort())
+					.syncUninterruptibly();
+
+//				logger.info(f.channel().localAddress() + " -> open: "
+//					+ f.channel().isOpen() + ", write: "
+//					+ f.channel().isWritable() + ", act: "
+//					+ f.channel().isActive());
+
+				// block until the server socket is closed.
+				f.channel().closeFuture().sync();
+			} catch (Exception ex) {
+				// on bind().sync()
+//				logger.error("Failed to setup handler.", ex);
+			} finally {
+				// Shut down all event loops to terminate all threads.
+				bossGroup.shutdownGracefully();
+				workerGroup.shutdownGracefully();
+
+				// shutdown monitor
+				EdgeMonitor emon = nodeState.getEdgeMonitor();
+				if (emon != null)
+					emon.shutdown();
+			}
+
+		}
+
+	}
+
 	public static class JsonUtil {
 		private static JsonUtil instance;
 
@@ -70,5 +141,4 @@ public class Node {
 		}
 	}
 
-	
 }
