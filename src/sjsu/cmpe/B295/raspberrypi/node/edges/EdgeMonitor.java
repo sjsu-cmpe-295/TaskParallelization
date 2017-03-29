@@ -1,5 +1,7 @@
 package sjsu.cmpe.B295.raspberrypi.node.edges;
 
+import java.util.Timer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,14 +12,15 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import sjsu.cmpe.B295.election.HeartbeatMsg;
 import sjsu.cmpe.B295.raspberrypi.node.CommunicationChannelInitializer;
 import sjsu.cmpe.B295.raspberrypi.node.ConcreteFileMonitor;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
-import sjsu.cmpe.B295.raspberrypi.node.Observer;
+import sjsu.cmpe.B295.raspberrypi.node.IFileObserver;
 import sjsu.cmpe.B295.raspberrypi.node.RoutingConfig;
 import sjsu.cmpe.B295.raspberrypi.node.RoutingConfig.RoutingEntry;
 
-public class EdgeMonitor implements Runnable, Observer {
+public class EdgeMonitor implements Runnable, IFileObserver {
 	protected static Logger logger = LoggerFactory.getLogger("EdgeMonitor");
 	private static final boolean debug = false;
 
@@ -28,7 +31,7 @@ public class EdgeMonitor implements Runnable, Observer {
 	protected ConcreteFileMonitor subject;
 	private boolean forever = true;
 	private EventLoopGroup group;
-	// private EdgeHealthMonitorTask edgeHealthMonitorTask;
+	private EdgeHealthMonitorTask edgeHealthMonitorTask;
 
 	public EdgeMonitor(NodeState state, ConcreteFileMonitor subject) {
 		if (state == null)
@@ -56,12 +59,17 @@ public class EdgeMonitor implements Runnable, Observer {
 		if (state.getRoutingConfig().getHeartbeatDt() > this.dt)
 			this.dt = state.getRoutingConfig().getHeartbeatDt();
 
-		// edgeHealthMonitorTask = new EdgeHealthMonitorTask (this);
-		//
-		// // Schedule this task only after Delay Time is set..
-		// Timer timer = new Timer ();
-		// timer.scheduleAtFixedRate (edgeHealthMonitorTask, 0, getDelayTime
-		// ()); //getDelayTime=10000
+		edgeHealthMonitorTask = new EdgeHealthMonitorTask(this);
+
+		// Schedule this task only after Delay Time is set..
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(edgeHealthMonitorTask, 0, getDelayTime());
+		// getDelayTime=10000
+	}
+
+	private long getDelayTime() {
+		// TODO Auto-generated method stub
+		return this.dt;
 	}
 
 	public void createInboundIfNew(int ref, String host, int port,
@@ -84,11 +92,22 @@ public class EdgeMonitor implements Runnable, Observer {
 					if (ei.isActive() && ei.getChannel() != null) {
 						logger.info(ei.isActive() + "-" + ei.getChannel() + "-"
 							+ ei.getRef());
-						
-						logger.info("This channel is active now. Send heartbeats.");
+
+						logger.info(
+							"This channel is active now. Send heartbeats.");
 						// if (debug)
 						// logger.info("*******Sending Heartbeat to: " +
 						// ei.getRef());
+
+						HeartbeatMsg beatMessage = new HeartbeatMsg(
+							"Message from "
+								+ nodeState.getRoutingConfig().getNodeId()
+								+ " to " + ei.getRef(),
+							nodeState.getRoutingConfig().getNodeId(),
+							ei.getRef());
+
+						ei.getChannel().writeAndFlush(
+							beatMessage.getCommunicationMessage());
 						// BeatMessage beatMessage = new BeatMessage(
 						// state.getConf().getNodeId());
 						// beatMessage.setDestination(ei.getRef());
@@ -97,7 +116,8 @@ public class EdgeMonitor implements Runnable, Observer {
 						logger.info(ei.isActive() + "-" + ei.getChannel() + "-"
 							+ ei.getRef());
 						try {
-							CommunicationChannelInitializer wi = new CommunicationChannelInitializer(nodeState);
+							CommunicationChannelInitializer wi = new CommunicationChannelInitializer(
+								nodeState);
 							Bootstrap b = new Bootstrap();
 							b.group(group).channel(NioSocketChannel.class)
 								.handler(wi);

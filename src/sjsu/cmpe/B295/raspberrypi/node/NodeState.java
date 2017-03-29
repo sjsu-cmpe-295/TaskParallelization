@@ -13,7 +13,7 @@ import sjsu.cmpe.B295.raspberrypi.node.RoutingConfig.RoutingEntry;
 import sjsu.cmpe.B295.raspberrypi.node.edges.EdgeMonitor;
 
 
-public class NodeState implements Observer{
+public class NodeState implements IFileObserver{
 	protected static Logger logger = LoggerFactory.getLogger("NodeState");
 	protected static RoutingConfig routingConfig;
 	protected ConcreteFileMonitor subject;

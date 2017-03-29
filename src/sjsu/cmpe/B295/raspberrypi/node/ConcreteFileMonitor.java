@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConcreteFileMonitor implements Subject {
+public class ConcreteFileMonitor implements IFileSubject {
 	protected static Logger logger = LoggerFactory.getLogger("ConcreteFileMonitor");
 	private File configFile;
-	private ArrayList<Observer> observers = new ArrayList<>();
+	private ArrayList<IFileObserver> observers = new ArrayList<>();
 
 	public File getConfigFile() {
 		return configFile;
@@ -21,13 +21,13 @@ public class ConcreteFileMonitor implements Subject {
 	}
 
 	@Override
-	public void addObserver(Observer observer) {
+	public void addObserver(IFileObserver observer) {
 		logger.info("Adding Observer");
 		observers.add(observer);
 	}
 
 	@Override
-	public void removeObserver(Observer observer) {
+	public void removeObserver(IFileObserver observer) {
 		logger.info("Removing Observer");
 		observers.remove(observer);
 	}
@@ -35,7 +35,7 @@ public class ConcreteFileMonitor implements Subject {
 	@Override
 	public void notifyObservers() {
 		logger.info("Notifying Observers");
-		for (Observer observer : observers) {
+		for (IFileObserver observer : observers) {
 			observer.update();
 		}
 	}
