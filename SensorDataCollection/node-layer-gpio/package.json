@@ -1,0 +1,42 @@
+{
+  "name": "node-layer-gpio",
+  "version": "1.0.0",
+  "description": "Node server file to receive temperature data from C code",
+  "main": "index.js",
+  "scripts": {
+    "start": "node newApi.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjsu-cmpe-295/TaskParallelization.git"
+  },
+  "keywords": [
+    "node-server",
+    "GPIO",
+    "sensor",
+    "Data-collection"
+  ],
+  "author": "Darshan Modh",
+  "contributors": [
+    {
+      "name": "Darshan Modh",
+      "email": "darshanmodh@gmail.com"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sjsu-cmpe-295/TaskParallelization/issues"
+  },
+  "homepage": "https://github.com/sjsu-cmpe-295/TaskParallelization#readme",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "body-parser": "^1.11.0",
+    "cookie-parser": "^1.4.0",
+    "express": "^4.13.3",
+    "express-partials": "^0.3.0",
+    "express-rate-limit": "^2.0.2",
+    "express-secure-only": "^0.2.1",
+    "http": "0.0.0",
+    "request": "^2.72.0"
+  }
+}

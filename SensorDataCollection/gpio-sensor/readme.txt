@@ -1,0 +1,1 @@
+arm-linux-gnueabihf-gcc rpi_wire.c -o rpi_wire -I/home/pi/pi-sensor/curl-7.48.0/build/include /home/pi/pi-sensor/curl-7.48.0/build/lib/libcurl.a -lrt
