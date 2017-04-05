@@ -1,0 +1,25 @@
+package sjsu.cmpe.B295;
+
+option java_package = "sjsu.cmpe.B295.common";
+option java_outer_classname = "MessageProto";
+
+message Message {
+  required MessageType messageType = 1;
+  optional string messageStr = 2;
+  enum MessageType {
+    INPUT = 0;
+    INPUT_RESULT = 1;
+
+    ANALYZE = 2;
+    ANALYSIS_RESULT = 3;
+
+    SPLIT = 4;
+    SPLIT_RESULT = 5;
+
+    MAP = 6;
+    MAP_RESULT = 7;
+
+    REDUCE = 8;
+    REDUCE_RESULT = 9;
+  }
+}
