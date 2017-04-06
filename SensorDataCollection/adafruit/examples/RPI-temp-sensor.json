@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "rpi-temp-sensor",
+  "private_key_id": "c0de1941960479da364e1aec5554294003b57dba",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDw7Mpz+AKCO1QI\nCG/hWnp7STy2g/M+2EllmcnmJ++e0y3aCd/5wR06eJKMGWkJKDP/RH/2p+P+/O58\nDi/ss7SZYqF00KW7375mohJnI1SU7diQoyAQkuvfecrZjAgl6AxpAfsGcQ634LPO\nuZACNVyzXz0i07vhndjzI4V3l3uS/IZjIykJAgpQnP/mSOY88e5ttJcm/8RK2hPl\nX1t1D98Dg71jgrBs3+gVcCISdh+3QMv5rFGInYFG4iFFy3zxiNWOMSv6Cb8/nwSV\nTQhOubK6S8NzUa3OCmoOkdnuR91cmcqg/IJ/pxq5quqG48d2+UjagSSdGWhpVUuW\n8t/wHQRLAgMBAAECggEBALCKYwO9jWEOxlGolQsF+NBUZze60siPRqE7ovWS+ARi\n7KtkJwplVtycs44TpKMAIbIA6N++QNR9VOf0oWuKd2EaJANsTLWxi1y7kE6hVf5X\nlyTNU9axQkQcg+cLtIDKXCWqPN6Ig+d7sWZfFUZ5AbeypyLZEkiOGQZ5Vfi/ON8H\n3hVKm8/tarEkUrc/W1eY+5krGkfy+3iczE1opzH3Qlmzlhy/HplPjH4e3kY4ctWI\nDQK+M/fyKlchMcZqbKxUET1q2WxqfntUChsjAgN6FRAMDlmkY/Su/O9CSOziRxPN\nHKMtfHd1q4VF3sI34onfaJdaZaZ8orLbVP5f6WrhBEkCgYEA++RhadhiDYsDOJeF\nqX1T08CInuY3r7Ic6hhrQ/RU1J9ZLhrSxbLuw+3Eq7w8/56QmOf0OL7cTtGx44pg\nt0w8GM1MYRE4LKHr9ihUkafceq85kyWf17qQhw5mguZNWiOW+Af9zFxc9QqKsXOH\nlSUvtsP/zHLRXufKjLfdtKRTI+8CgYEA9NqfsByUevLM3/RC+cHA5av1OxyFK+5+\nZNEJfzsu0BFDJs3hewtSIsPwjAsTniMyI8FGyuut1Y0nHCqQENJYofFCaEMQV9sU\noOzZmlFFy5Z92jETOfQCQsA0QIYSXNnw3x+YssDKx2zxMdSj3WbGYr2/cqz9liPX\nu8aasLSKmWUCgYEAsIw7sqIU54UddtbMuiS7UllJ6IVXVm+yUGlZFUH1Cym8qdHn\nFOX675yBEhVXc5pBospApF0xsJTM57yfWRm3rXKHLCmTg8Thy6As1gIfSGX0Jqxi\nQiPjFKYFN44PfTQgpiuDuW6rQJxo5UMiLmjn7mOlsDhxguFXWBWu8OOT2kUCgYEA\nve3n+J/yvPwh14aNfVbB3mXor5WL52v0Nxe/GiY6RcNeJ3eD9AHwEG+U48yjxwLe\nHcYKt9Tg3snDEKIjZikD/3o5XM7Imp2h/sI6eO2aCjYOIXX3x/hy2HxnC7X0AHo9\n0ZWcyOurX84tuc2L3m2ebXFqU/XELvZWnZ2M2IzzBdECgYAz53rEMdoo3srGWga/\nOOWG33oB2PZCblEie/1yeHgkHynF99rUiCW9mFGUAvf/fckE9bpCSNtcRVRjfy7C\nyYxWOLTpwGG0lCCQh/cpFiI9LjYT3o/3+hKhAaGIFGpZKJ8mcFGNsF+qWtVGs/Cw\nITYVtoZ0jartMF048JPaf4oDWw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "darshan@rpi-temp-sensor.iam.gserviceaccount.com",
+  "client_id": "115413696137828804319",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/darshan%40rpi-temp-sensor.iam.gserviceaccount.com"
+}
