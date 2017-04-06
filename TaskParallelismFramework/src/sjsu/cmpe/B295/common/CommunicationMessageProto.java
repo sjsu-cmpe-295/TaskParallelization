@@ -960,6 +960,482 @@ public final class CommunicationMessageProto {
     // @@protoc_insertion_point(class_scope:sjsu.cmpe.B295.HeartbeatAcknowledgement)
   }
 
+  public interface ElectionOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sjsu.cmpe.B295.Election)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string msg = 1;</code>
+     */
+    boolean hasMsg();
+    /**
+     * <code>optional string msg = 1;</code>
+     */
+    java.lang.String getMsg();
+    /**
+     * <code>optional string msg = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getMsgBytes();
+  }
+  /**
+   * Protobuf type {@code sjsu.cmpe.B295.Election}
+   */
+  public static final class Election extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:sjsu.cmpe.B295.Election)
+      ElectionOrBuilder {
+    // Use Election.newBuilder() to construct.
+    private Election(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private Election(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final Election defaultInstance;
+    public static Election getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public Election getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Election(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              msg_ = bs;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_Election_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_Election_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sjsu.cmpe.B295.common.CommunicationMessageProto.Election.class, sjsu.cmpe.B295.common.CommunicationMessageProto.Election.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Election> PARSER =
+        new com.google.protobuf.AbstractParser<Election>() {
+      public Election parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Election(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Election> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int MSG_FIELD_NUMBER = 1;
+    private java.lang.Object msg_;
+    /**
+     * <code>optional string msg = 1;</code>
+     */
+    public boolean hasMsg() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional string msg = 1;</code>
+     */
+    public java.lang.String getMsg() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          msg_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string msg = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMsgBytes() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        msg_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      msg_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getMsgBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getMsgBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Election parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Election parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Election parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Election parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Election parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Election parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Election parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Election parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Election parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Election parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(sjsu.cmpe.B295.common.CommunicationMessageProto.Election prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sjsu.cmpe.B295.Election}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sjsu.cmpe.B295.Election)
+        sjsu.cmpe.B295.common.CommunicationMessageProto.ElectionOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_Election_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_Election_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sjsu.cmpe.B295.common.CommunicationMessageProto.Election.class, sjsu.cmpe.B295.common.CommunicationMessageProto.Election.Builder.class);
+      }
+
+      // Construct using sjsu.cmpe.B295.common.CommunicationMessageProto.Election.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        msg_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_Election_descriptor;
+      }
+
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.Election getDefaultInstanceForType() {
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.Election.getDefaultInstance();
+      }
+
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.Election build() {
+        sjsu.cmpe.B295.common.CommunicationMessageProto.Election result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.Election buildPartial() {
+        sjsu.cmpe.B295.common.CommunicationMessageProto.Election result = new sjsu.cmpe.B295.common.CommunicationMessageProto.Election(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.msg_ = msg_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sjsu.cmpe.B295.common.CommunicationMessageProto.Election) {
+          return mergeFrom((sjsu.cmpe.B295.common.CommunicationMessageProto.Election)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sjsu.cmpe.B295.common.CommunicationMessageProto.Election other) {
+        if (other == sjsu.cmpe.B295.common.CommunicationMessageProto.Election.getDefaultInstance()) return this;
+        if (other.hasMsg()) {
+          bitField0_ |= 0x00000001;
+          msg_ = other.msg_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sjsu.cmpe.B295.common.CommunicationMessageProto.Election parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sjsu.cmpe.B295.common.CommunicationMessageProto.Election) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object msg_ = "";
+      /**
+       * <code>optional string msg = 1;</code>
+       */
+      public boolean hasMsg() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional string msg = 1;</code>
+       */
+      public java.lang.String getMsg() {
+        java.lang.Object ref = msg_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            msg_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string msg = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMsgBytes() {
+        java.lang.Object ref = msg_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          msg_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string msg = 1;</code>
+       */
+      public Builder setMsg(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        msg_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string msg = 1;</code>
+       */
+      public Builder clearMsg() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        msg_ = getDefaultInstance().getMsg();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string msg = 1;</code>
+       */
+      public Builder setMsgBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        msg_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:sjsu.cmpe.B295.Election)
+    }
+
+    static {
+      defaultInstance = new Election(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:sjsu.cmpe.B295.Election)
+  }
+
   public interface CommunicationMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:sjsu.cmpe.B295.CommunicationMessage)
       com.google.protobuf.MessageOrBuilder {
@@ -1014,6 +1490,19 @@ public final class CommunicationMessageProto {
      * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
      */
     sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgementOrBuilder getBeatAckOrBuilder();
+
+    /**
+     * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+     */
+    boolean hasElectionMessage();
+    /**
+     * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+     */
+    sjsu.cmpe.B295.common.CommunicationMessageProto.Election getElectionMessage();
+    /**
+     * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+     */
+    sjsu.cmpe.B295.common.CommunicationMessageProto.ElectionOrBuilder getElectionMessageOrBuilder();
   }
   /**
    * Protobuf type {@code sjsu.cmpe.B295.CommunicationMessage}
@@ -1110,6 +1599,19 @@ public final class CommunicationMessageProto {
               payloadCase_ = 3;
               break;
             }
+            case 34: {
+              sjsu.cmpe.B295.common.CommunicationMessageProto.Election.Builder subBuilder = null;
+              if (payloadCase_ == 4) {
+                subBuilder = ((sjsu.cmpe.B295.common.CommunicationMessageProto.Election) payload_).toBuilder();
+              }
+              payload_ = input.readMessage(sjsu.cmpe.B295.common.CommunicationMessageProto.Election.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((sjsu.cmpe.B295.common.CommunicationMessageProto.Election) payload_);
+                payload_ = subBuilder.buildPartial();
+              }
+              payloadCase_ = 4;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1156,6 +1658,7 @@ public final class CommunicationMessageProto {
         implements com.google.protobuf.Internal.EnumLite {
       BEAT(2),
       BEATACK(3),
+      ELECTIONMESSAGE(4),
       PAYLOAD_NOT_SET(0);
       private int value = 0;
       private PayloadCase(int value) {
@@ -1165,6 +1668,7 @@ public final class CommunicationMessageProto {
         switch (value) {
           case 2: return BEAT;
           case 3: return BEATACK;
+          case 4: return ELECTIONMESSAGE;
           case 0: return PAYLOAD_NOT_SET;
           default: throw new java.lang.IllegalArgumentException(
             "Value is undefined for this oneof enum.");
@@ -1266,6 +1770,32 @@ public final class CommunicationMessageProto {
       return sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.getDefaultInstance();
     }
 
+    public static final int ELECTIONMESSAGE_FIELD_NUMBER = 4;
+    /**
+     * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+     */
+    public boolean hasElectionMessage() {
+      return payloadCase_ == 4;
+    }
+    /**
+     * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+     */
+    public sjsu.cmpe.B295.common.CommunicationMessageProto.Election getElectionMessage() {
+      if (payloadCase_ == 4) {
+         return (sjsu.cmpe.B295.common.CommunicationMessageProto.Election) payload_;
+      }
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.Election.getDefaultInstance();
+    }
+    /**
+     * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+     */
+    public sjsu.cmpe.B295.common.CommunicationMessageProto.ElectionOrBuilder getElectionMessageOrBuilder() {
+      if (payloadCase_ == 4) {
+         return (sjsu.cmpe.B295.common.CommunicationMessageProto.Election) payload_;
+      }
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.Election.getDefaultInstance();
+    }
+
     private void initFields() {
       header_ = sjsu.cmpe.B295.common.CommonProto.Header.getDefaultInstance();
     }
@@ -1299,6 +1829,9 @@ public final class CommunicationMessageProto {
       if (payloadCase_ == 3) {
         output.writeMessage(3, (sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_);
       }
+      if (payloadCase_ == 4) {
+        output.writeMessage(4, (sjsu.cmpe.B295.common.CommunicationMessageProto.Election) payload_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1319,6 +1852,10 @@ public final class CommunicationMessageProto {
       if (payloadCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, (sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_);
+      }
+      if (payloadCase_ == 4) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, (sjsu.cmpe.B295.common.CommunicationMessageProto.Election) payload_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1500,6 +2037,13 @@ public final class CommunicationMessageProto {
             result.payload_ = beatAckBuilder_.build();
           }
         }
+        if (payloadCase_ == 4) {
+          if (electionMessageBuilder_ == null) {
+            result.payload_ = payload_;
+          } else {
+            result.payload_ = electionMessageBuilder_.build();
+          }
+        }
         result.bitField0_ = to_bitField0_;
         result.payloadCase_ = payloadCase_;
         onBuilt();
@@ -1527,6 +2071,10 @@ public final class CommunicationMessageProto {
           }
           case BEATACK: {
             mergeBeatAck(other.getBeatAck());
+            break;
+          }
+          case ELECTIONMESSAGE: {
+            mergeElectionMessage(other.getElectionMessage());
             break;
           }
           case PAYLOAD_NOT_SET: {
@@ -2005,6 +2553,141 @@ public final class CommunicationMessageProto {
         return beatAckBuilder_;
       }
 
+      private com.google.protobuf.SingleFieldBuilder<
+          sjsu.cmpe.B295.common.CommunicationMessageProto.Election, sjsu.cmpe.B295.common.CommunicationMessageProto.Election.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.ElectionOrBuilder> electionMessageBuilder_;
+      /**
+       * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+       */
+      public boolean hasElectionMessage() {
+        return payloadCase_ == 4;
+      }
+      /**
+       * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+       */
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.Election getElectionMessage() {
+        if (electionMessageBuilder_ == null) {
+          if (payloadCase_ == 4) {
+            return (sjsu.cmpe.B295.common.CommunicationMessageProto.Election) payload_;
+          }
+          return sjsu.cmpe.B295.common.CommunicationMessageProto.Election.getDefaultInstance();
+        } else {
+          if (payloadCase_ == 4) {
+            return electionMessageBuilder_.getMessage();
+          }
+          return sjsu.cmpe.B295.common.CommunicationMessageProto.Election.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+       */
+      public Builder setElectionMessage(sjsu.cmpe.B295.common.CommunicationMessageProto.Election value) {
+        if (electionMessageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          payload_ = value;
+          onChanged();
+        } else {
+          electionMessageBuilder_.setMessage(value);
+        }
+        payloadCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+       */
+      public Builder setElectionMessage(
+          sjsu.cmpe.B295.common.CommunicationMessageProto.Election.Builder builderForValue) {
+        if (electionMessageBuilder_ == null) {
+          payload_ = builderForValue.build();
+          onChanged();
+        } else {
+          electionMessageBuilder_.setMessage(builderForValue.build());
+        }
+        payloadCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+       */
+      public Builder mergeElectionMessage(sjsu.cmpe.B295.common.CommunicationMessageProto.Election value) {
+        if (electionMessageBuilder_ == null) {
+          if (payloadCase_ == 4 &&
+              payload_ != sjsu.cmpe.B295.common.CommunicationMessageProto.Election.getDefaultInstance()) {
+            payload_ = sjsu.cmpe.B295.common.CommunicationMessageProto.Election.newBuilder((sjsu.cmpe.B295.common.CommunicationMessageProto.Election) payload_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            payload_ = value;
+          }
+          onChanged();
+        } else {
+          if (payloadCase_ == 4) {
+            electionMessageBuilder_.mergeFrom(value);
+          }
+          electionMessageBuilder_.setMessage(value);
+        }
+        payloadCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+       */
+      public Builder clearElectionMessage() {
+        if (electionMessageBuilder_ == null) {
+          if (payloadCase_ == 4) {
+            payloadCase_ = 0;
+            payload_ = null;
+            onChanged();
+          }
+        } else {
+          if (payloadCase_ == 4) {
+            payloadCase_ = 0;
+            payload_ = null;
+          }
+          electionMessageBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+       */
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.Election.Builder getElectionMessageBuilder() {
+        return getElectionMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+       */
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.ElectionOrBuilder getElectionMessageOrBuilder() {
+        if ((payloadCase_ == 4) && (electionMessageBuilder_ != null)) {
+          return electionMessageBuilder_.getMessageOrBuilder();
+        } else {
+          if (payloadCase_ == 4) {
+            return (sjsu.cmpe.B295.common.CommunicationMessageProto.Election) payload_;
+          }
+          return sjsu.cmpe.B295.common.CommunicationMessageProto.Election.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          sjsu.cmpe.B295.common.CommunicationMessageProto.Election, sjsu.cmpe.B295.common.CommunicationMessageProto.Election.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.ElectionOrBuilder> 
+          getElectionMessageFieldBuilder() {
+        if (electionMessageBuilder_ == null) {
+          if (!(payloadCase_ == 4)) {
+            payload_ = sjsu.cmpe.B295.common.CommunicationMessageProto.Election.getDefaultInstance();
+          }
+          electionMessageBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              sjsu.cmpe.B295.common.CommunicationMessageProto.Election, sjsu.cmpe.B295.common.CommunicationMessageProto.Election.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.ElectionOrBuilder>(
+                  (sjsu.cmpe.B295.common.CommunicationMessageProto.Election) payload_,
+                  getParentForChildren(),
+                  isClean());
+          payload_ = null;
+        }
+        payloadCase_ = 4;
+        return electionMessageBuilder_;
+      }
+
       // @@protoc_insertion_point(builder_scope:sjsu.cmpe.B295.CommunicationMessage)
     }
 
@@ -2027,6 +2710,11 @@ public final class CommunicationMessageProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sjsu_cmpe_B295_Election_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_sjsu_cmpe_B295_Election_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sjsu_cmpe_B295_CommunicationMessage_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -2043,13 +2731,15 @@ public final class CommunicationMessageProto {
       "\n\033communication_message.proto\022\016sjsu.cmpe" +
       ".B295\032\014common.proto\"\030\n\tHeartbeat\022\013\n\003msg\030" +
       "\001 \001(\t\"1\n\030HeartbeatAcknowledgement\022\025\n\rhea" +
-      "rtBeatResp\030\001 \001(\t\"\261\001\n\024CommunicationMessag" +
-      "e\022&\n\006header\030\001 \002(\0132\026.sjsu.cmpe.B295.Heade" +
-      "r\022)\n\004beat\030\002 \001(\0132\031.sjsu.cmpe.B295.Heartbe" +
-      "atH\000\022;\n\007beatAck\030\003 \001(\0132(.sjsu.cmpe.B295.H" +
-      "eartbeatAcknowledgementH\000B\t\n\007payloadB4\n\025" +
-      "sjsu.cmpe.B295.commonB\031CommunicationMess" +
-      "ageProtoH\001"
+      "rtBeatResp\030\001 \001(\t\"\027\n\010Election\022\013\n\003msg\030\001 \001(" +
+      "\t\"\346\001\n\024CommunicationMessage\022&\n\006header\030\001 \002" +
+      "(\0132\026.sjsu.cmpe.B295.Header\022)\n\004beat\030\002 \001(\013" +
+      "2\031.sjsu.cmpe.B295.HeartbeatH\000\022;\n\007beatAck" +
+      "\030\003 \001(\0132(.sjsu.cmpe.B295.HeartbeatAcknowl" +
+      "edgementH\000\0223\n\017electionMessage\030\004 \001(\0132\030.sj" +
+      "su.cmpe.B295.ElectionH\000B\t\n\007payloadB4\n\025sj",
+      "su.cmpe.B295.commonB\031CommunicationMessag" +
+      "eProtoH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2076,12 +2766,18 @@ public final class CommunicationMessageProto {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_descriptor,
         new java.lang.String[] { "HeartBeatResp", });
-    internal_static_sjsu_cmpe_B295_CommunicationMessage_descriptor =
+    internal_static_sjsu_cmpe_B295_Election_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_sjsu_cmpe_B295_Election_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_sjsu_cmpe_B295_Election_descriptor,
+        new java.lang.String[] { "Msg", });
+    internal_static_sjsu_cmpe_B295_CommunicationMessage_descriptor =
+      getDescriptor().getMessageTypes().get(3);
     internal_static_sjsu_cmpe_B295_CommunicationMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_sjsu_cmpe_B295_CommunicationMessage_descriptor,
-        new java.lang.String[] { "Header", "Beat", "BeatAck", "Payload", });
+        new java.lang.String[] { "Header", "Beat", "BeatAck", "ElectionMessage", "Payload", });
     sjsu.cmpe.B295.common.CommonProto.getDescriptor();
   }
 

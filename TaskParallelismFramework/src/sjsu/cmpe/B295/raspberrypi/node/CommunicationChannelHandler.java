@@ -9,6 +9,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
+import sjsu.cmpe.B295.communicationMessageHandlers.ElectionMessageHandler;
 import sjsu.cmpe.B295.communicationMessageHandlers.HeartbeatMessageHandler;
 import sjsu.cmpe.B295.communicationMessageHandlers.ICommunicationMessageHandler;
 
@@ -37,14 +38,12 @@ public class CommunicationChannelHandler
 		// Define Handlers
 		ICommunicationMessageHandler heartbeatMessageHandler = new HeartbeatMessageHandler(
 			nodeState);
+		ICommunicationMessageHandler electionMessageHandler = new ElectionMessageHandler(
+			nodeState);
 
-		// //Chain all the handlers
-		// beatMessageHandler.setNextHandler (failureMessageHandler);
-		// failureMessageHandler.setNextHandler (pingMessageHandler);
-		// pingMessageHandler.setNextHandler (stateMessageHandler);
-		// stateMessageHandler.setNextHandler (taskMessageHandler);
-		// taskMessageHandler.setNextHandler(electionMessageHandler);
-
+		// Chain all the handlers
+		heartbeatMessageHandler
+			.setNextCommunicationMessageHandler(electionMessageHandler);
 		// Define the start of Chain
 		communicationMessageHandler = heartbeatMessageHandler;
 	}

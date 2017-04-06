@@ -17,3 +17,6 @@ buildNumber.properties
 .settings/
 org.eclipse.*
 bin/
+
+#Apple
+.DS_Store
