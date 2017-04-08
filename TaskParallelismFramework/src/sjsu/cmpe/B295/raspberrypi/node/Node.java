@@ -57,11 +57,13 @@ public class Node {
 			Thread t = new Thread(edgeMonitor);
 			t.start();
 			
-			randomMessageSenderTask = new RandomMessageSenderTask(this.nodeState);
-
-			// Schedule this task only after Delay Time is set..
-			Timer timer = new Timer();
-			timer.scheduleAtFixedRate(randomMessageSenderTask, 0, 6000);			
+			this.nodeState.currentElectionNodeState.bePartOfCluster();
+			
+//			randomMessageSenderTask = new RandomMessageSenderTask(this.nodeState);
+//
+//			// Schedule this task only after Delay Time is set..
+//			Timer timer = new Timer();
+//			timer.scheduleAtFixedRate(randomMessageSenderTask, 0, 6000);			
 
 		}
 

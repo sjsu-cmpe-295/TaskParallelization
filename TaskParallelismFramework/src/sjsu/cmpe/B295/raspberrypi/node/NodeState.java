@@ -32,6 +32,10 @@ public class NodeState implements IFileObserver {
 
 //	private RandomMessageSenderTask randomMessageSenderTask;
 
+	public ElectionNodeState getCurrentElectionNodeState() {
+		return currentElectionNodeState;
+	}
+
 	public NodeState(ConcreteFileMonitor subject) {
 		this.subject = subject;
 		this.subject.addObserver(this);
@@ -39,7 +43,7 @@ public class NodeState implements IFileObserver {
 		this.follower = new Follower(this);
 		this.candidate = new Candidate(this);
 		this.leader = new Leader(this);
-		this.currentElectionNodeState = follower;
+		setElectionNodeState(ElectionNodeStates.FOLLOWER);
 //		randomMessageSenderTask = new RandomMessageSenderTask(this);
 //
 //		// Schedule this task only after Delay Time is set..

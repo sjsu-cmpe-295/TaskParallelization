@@ -18,6 +18,7 @@ public class RoutingConfig {
 	private AtomicInteger commandPort;
 	private AtomicInteger workPort;
 	private AtomicLong heartbeatDt;
+	private AtomicInteger electionTimeout;
 
 	public List<RoutingEntry> routingEntries = Collections
 		.synchronizedList(new ArrayList<RoutingEntry>());
@@ -33,6 +34,10 @@ public class RoutingConfig {
 	public Integer getWorkPort() {
 		return workPort.get();
 	}
+	
+	public Integer getElectionTimeout(){
+		return electionTimeout.get();
+	}
 
 	public void setNodeId(int nodeId) {
 		this.nodeId.getAndSet(nodeId);
@@ -44,6 +49,10 @@ public class RoutingConfig {
 
 	public void setWorkPort(int workPort) {
 		this.workPort.getAndSet(workPort);
+	}
+	
+	public void setElectionTimeout(int electionTimeout){
+		this.electionTimeout.getAndSet(electionTimeout);
 	}
 
 	public long getHeartbeatDt() {
@@ -67,6 +76,7 @@ public class RoutingConfig {
 		this.commandPort = new AtomicInteger();
 		this.workPort = new AtomicInteger();
 		this.heartbeatDt = new AtomicLong();
+		this.electionTimeout = new AtomicInteger();
 	}
 
 	public HashMap<String, Integer> asHashMap() {
