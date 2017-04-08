@@ -11,5 +11,12 @@ buildNumber.properties
 .classpath
 .project
 .settings/
+=======
+.classpath
+.project
+.settings/
 org.eclipse.*
 bin/
+
+#Apple
+.DS_Store

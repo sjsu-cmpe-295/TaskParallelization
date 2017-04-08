@@ -2,6 +2,7 @@ package sjsu.cmpe.B295.raspberrypi.node;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Timer;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -11,6 +12,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import sjsu.cmpe.B295.election.RandomMessageSenderTask;
 import sjsu.cmpe.B295.raspberrypi.node.edges.EdgeMonitor;
 
 public class Node {
@@ -38,6 +40,7 @@ public class Node {
 	private static class StartCommunication implements Runnable {
 		NodeState nodeState;
 		ConcreteFileMonitor monitor;
+		private RandomMessageSenderTask randomMessageSenderTask;
 
 		/**
 		 * @param state
@@ -53,6 +56,14 @@ public class Node {
 				this.monitor);
 			Thread t = new Thread(edgeMonitor);
 			t.start();
+			
+			this.nodeState.currentElectionNodeState.bePartOfCluster();
+			
+//			randomMessageSenderTask = new RandomMessageSenderTask(this.nodeState);
+//
+//			// Schedule this task only after Delay Time is set..
+//			Timer timer = new Timer();
+//			timer.scheduleAtFixedRate(randomMessageSenderTask, 0, 6000);			
 
 		}
 
