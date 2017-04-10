@@ -16,11 +16,12 @@ public class Follower extends ElectionNodeState implements ITimeoutListener {
 	private static final Random random = new Random();
 	private Timer timer;
 	private int retries;
+	private ElectionUtil util;
 
 	public Follower(NodeState nodeState) {
 		super(nodeState);
 		retries = 1;
-
+		util = new ElectionUtil();
 	}
 
 	private int getElectionTimeout() {
@@ -48,14 +49,26 @@ public class Follower extends ElectionNodeState implements ITimeoutListener {
 	@Override
 	public void handleHeartBeat(CommunicationMessage msg, Channel channel) {
 		// TODO Auto-generated method stub
-		logger.info(
-			"Got Heartbeat from:" + msg.getElectionMessage().getLeaderId());
-		timer.reset(getHeartBeatTimeout());
+		int incomingTermId = msg.getElectionMessage().getTermId();
+		int currentTermId = nodeState.getTermId();
+		if (incomingTermId >= currentTermId) {
+			logger.info(
+				"Got Heartbeat from:" + msg.getElectionMessage().getLeaderId());
+			timer.reset(getElectionTimeout());	
+		}
 	}
 
 	@Override
 	public void handleVoteRequest(CommunicationMessage msg, Channel channel) {
-		// TODO Auto-generated method stub
+		logger.info("Got VoteRequest from:" + msg.getHeader().getNodeId());
+		int incomingTermId = msg.getElectionMessage().getTermId();
+		int currentTermId = nodeState.getTermId();
+		if (incomingTermId > currentTermId) {
+			nodeState.setTermId(incomingTermId);
+			nodeState.setVotedFor(msg.getHeader().getNodeId());
+			channel.writeAndFlush(util.createVoteResponse(nodeState,
+				incomingTermId, msg.getHeader().getNodeId()));
+		}
 
 	}
 

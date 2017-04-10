@@ -54,13 +54,13 @@ public final class ElectionProto {
     int getLeaderId();
 
     /**
-     * <code>optional int32 election_id = 5;</code>
+     * <code>optional int32 termId = 5;</code>
      */
-    boolean hasElectionId();
+    boolean hasTermId();
     /**
-     * <code>optional int32 election_id = 5;</code>
+     * <code>optional int32 termId = 5;</code>
      */
-    int getElectionId();
+    int getTermId();
 
     /**
      * <code>optional int32 votedFor = 6;</code>
@@ -196,7 +196,7 @@ public final class ElectionProto {
             }
             case 40: {
               bitField0_ |= 0x00000010;
-              electionId_ = input.readInt32();
+              termId_ = input.readInt32();
               break;
             }
             case 48: {
@@ -586,19 +586,19 @@ public final class ElectionProto {
       return leaderId_;
     }
 
-    public static final int ELECTION_ID_FIELD_NUMBER = 5;
-    private int electionId_;
+    public static final int TERMID_FIELD_NUMBER = 5;
+    private int termId_;
     /**
-     * <code>optional int32 election_id = 5;</code>
+     * <code>optional int32 termId = 5;</code>
      */
-    public boolean hasElectionId() {
+    public boolean hasTermId() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional int32 election_id = 5;</code>
+     * <code>optional int32 termId = 5;</code>
      */
-    public int getElectionId() {
-      return electionId_;
+    public int getTermId() {
+      return termId_;
     }
 
     public static final int VOTEDFOR_FIELD_NUMBER = 6;
@@ -670,7 +670,7 @@ public final class ElectionProto {
       state_ = sjsu.cmpe.B295.common.ElectionProto.Election.LeaderState.LEADERUNKNOWN;
       leaderHost_ = "";
       leaderId_ = 0;
-      electionId_ = 0;
+      termId_ = 0;
       votedFor_ = 0;
       voteGranted_ = false;
       path_ = java.util.Collections.emptyList();
@@ -705,7 +705,7 @@ public final class ElectionProto {
         output.writeInt32(4, leaderId_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, electionId_);
+        output.writeInt32(5, termId_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeInt32(6, votedFor_);
@@ -743,7 +743,7 @@ public final class ElectionProto {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, electionId_);
+          .computeInt32Size(5, termId_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
@@ -891,7 +891,7 @@ public final class ElectionProto {
         bitField0_ = (bitField0_ & ~0x00000004);
         leaderId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
-        electionId_ = 0;
+        termId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000010);
         votedFor_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
@@ -946,7 +946,7 @@ public final class ElectionProto {
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.electionId_ = electionId_;
+        result.termId_ = termId_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
@@ -990,8 +990,8 @@ public final class ElectionProto {
         if (other.hasLeaderId()) {
           setLeaderId(other.getLeaderId());
         }
-        if (other.hasElectionId()) {
-          setElectionId(other.getElectionId());
+        if (other.hasTermId()) {
+          setTermId(other.getTermId());
         }
         if (other.hasVotedFor()) {
           setVotedFor(other.getVotedFor());
@@ -1218,34 +1218,34 @@ public final class ElectionProto {
         return this;
       }
 
-      private int electionId_ ;
+      private int termId_ ;
       /**
-       * <code>optional int32 election_id = 5;</code>
+       * <code>optional int32 termId = 5;</code>
        */
-      public boolean hasElectionId() {
+      public boolean hasTermId() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional int32 election_id = 5;</code>
+       * <code>optional int32 termId = 5;</code>
        */
-      public int getElectionId() {
-        return electionId_;
+      public int getTermId() {
+        return termId_;
       }
       /**
-       * <code>optional int32 election_id = 5;</code>
+       * <code>optional int32 termId = 5;</code>
        */
-      public Builder setElectionId(int value) {
+      public Builder setTermId(int value) {
         bitField0_ |= 0x00000010;
-        electionId_ = value;
+        termId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 election_id = 5;</code>
+       * <code>optional int32 termId = 5;</code>
        */
-      public Builder clearElectionId() {
+      public Builder clearTermId() {
         bitField0_ = (bitField0_ & ~0x00000010);
-        electionId_ = 0;
+        termId_ = 0;
         onChanged();
         return this;
       }
@@ -1433,19 +1433,19 @@ public final class ElectionProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016election.proto\022\016sjsu.cmpe.B295\"\260\003\n\010Ele" +
+      "\n\016election.proto\022\016sjsu.cmpe.B295\"\253\003\n\010Ele" +
       "ction\0226\n\006action\030\001 \002(\0162&.sjsu.cmpe.B295.E" +
       "lection.ElectionQuery\0223\n\005state\030\002 \001(\0162$.s" +
       "jsu.cmpe.B295.Election.LeaderState\022\023\n\013le" +
-      "ader_host\030\003 \001(\t\022\021\n\tleader_id\030\004 \001(\005\022\023\n\013el" +
-      "ection_id\030\005 \001(\005\022\020\n\010votedFor\030\006 \001(\005\022\023\n\013vot" +
-      "eGranted\030\007 \001(\010\022\014\n\004path\030\010 \003(\005\"A\n\013LeaderSt" +
-      "ate\022\021\n\rLEADERUNKNOWN\020\001\022\017\n\013LEADERALIVE\020\002\022" +
-      "\016\n\nLEADERDEAD\020\003\"\201\001\n\rElectionQuery\022\022\n\016WHO" +
-      "ISTHELEADER\020\001\022\017\n\013THELEADERIS\020\002\022\022\n\016GETCLU",
-      "STERSIZE\020\003\022\n\n\006SIZEIS\020\004\022\017\n\013VOTEREQUEST\020\005\022" +
-      "\020\n\014VOTERESPONSE\020\006\022\010\n\004BEAT\020\007B&\n\025sjsu.cmpe" +
-      ".B295.commonB\rElectionProto"
+      "ader_host\030\003 \001(\t\022\021\n\tleader_id\030\004 \001(\005\022\016\n\006te" +
+      "rmId\030\005 \001(\005\022\020\n\010votedFor\030\006 \001(\005\022\023\n\013voteGran" +
+      "ted\030\007 \001(\010\022\014\n\004path\030\010 \003(\005\"A\n\013LeaderState\022\021" +
+      "\n\rLEADERUNKNOWN\020\001\022\017\n\013LEADERALIVE\020\002\022\016\n\nLE" +
+      "ADERDEAD\020\003\"\201\001\n\rElectionQuery\022\022\n\016WHOISTHE" +
+      "LEADER\020\001\022\017\n\013THELEADERIS\020\002\022\022\n\016GETCLUSTERS",
+      "IZE\020\003\022\n\n\006SIZEIS\020\004\022\017\n\013VOTEREQUEST\020\005\022\020\n\014VO" +
+      "TERESPONSE\020\006\022\010\n\004BEAT\020\007B&\n\025sjsu.cmpe.B295" +
+      ".commonB\rElectionProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1464,7 +1464,7 @@ public final class ElectionProto {
     internal_static_sjsu_cmpe_B295_Election_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_sjsu_cmpe_B295_Election_descriptor,
-        new java.lang.String[] { "Action", "State", "LeaderHost", "LeaderId", "ElectionId", "VotedFor", "VoteGranted", "Path", });
+        new java.lang.String[] { "Action", "State", "LeaderHost", "LeaderId", "TermId", "VotedFor", "VoteGranted", "Path", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

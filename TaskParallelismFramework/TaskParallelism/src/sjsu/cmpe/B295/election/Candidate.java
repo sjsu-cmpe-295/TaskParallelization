@@ -17,7 +17,9 @@ public class Candidate extends ElectionNodeState implements ITimeoutListener {
 	private Timer timer;
 	private int clusterSize;
 	private int minimumVotesRequired = 0;
-	private int votesObtained = 1;
+	private int votesObtained;
+	private ElectionUtil util;
+	private VoteRequestorTask voteRequestorTask;
 
 	public void setClusterSize(int clusterSize) {
 		this.clusterSize = clusterSize;
@@ -30,6 +32,7 @@ public class Candidate extends ElectionNodeState implements ITimeoutListener {
 	public Candidate(NodeState nodeState) {
 		super(nodeState);
 		setClusterSize(1);
+		util = new ElectionUtil();
 	}
 
 	private int getElectionTimeout() {
@@ -56,20 +59,39 @@ public class Candidate extends ElectionNodeState implements ITimeoutListener {
 		// TODO Auto-generated method stub
 		logger.info("Got heartbeat in Candidate state from leader:"
 			+ msg.getElectionMessage().getLeaderId());
-		nodeState.setElectionNodeState(ElectionNodeStates.FOLLOWER);
-
+		if (msg.getElectionMessage().getTermId() >= nodeState.getTermId()) {
+			nodeState.setLeaderId(msg.getElectionMessage().getLeaderId());
+			nodeState.setVotedFor(msg.getElectionMessage().getLeaderId());
+			nodeState.setTermId(msg.getElectionMessage().getTermId());
+			nodeState.setElectionNodeState(ElectionNodeStates.FOLLOWER);
+		}
 	}
 
 	@Override
 	public void handleVoteRequest(CommunicationMessage msg, Channel channel) {
 		// TODO Auto-generated method stub
-
+		logger.info("Got Vote Request from:"+msg.getHeader().getNodeId());
+		logger.info("My term id:"+nodeState.getTermId());
+		logger.info("Incoming Term Id:"+ msg.getElectionMessage().getTermId());
+		if (msg.getElectionMessage().getTermId() > nodeState.getTermId()) {
+			nodeState.setTermId(msg.getElectionMessage().getTermId());
+			nodeState.setVotedFor(msg.getHeader().getNodeId());
+			channel.writeAndFlush(util.createVoteResponse(nodeState,
+				msg.getElectionMessage().getTermId(), msg.getHeader().getNodeId()));
+			nodeState.setElectionNodeState(ElectionNodeStates.FOLLOWER);
+		}
 	}
 
 	@Override
 	public void handleVoteResponse(CommunicationMessage msg, Channel channel) {
-		// TODO Auto-generated method stub
 
+		if (msg.getElectionMessage().getVotedFor() == nodeState
+			.getRoutingConfig().getNodeId()) {
+
+			votesObtained += 1;
+			logger.info("Got Vote from " + msg.getHeader().getNodeId()
+				+ "; Total vote count:" + votesObtained);
+		}
 	}
 
 	@Override
@@ -99,9 +121,15 @@ public class Candidate extends ElectionNodeState implements ITimeoutListener {
 	@Override
 	public void afterStateChange() {
 		// TODO Auto-generated method stub
+		nodeState.setTermId(nodeState.getTermId() + 1);
+		votesObtained = 1;
 		calculateClusterSize();
-		logger.info("Start Election by sending Vote Requests");
 		
+		logger.info("Start Election by sending Vote Requests");
+
+		voteRequestorTask = new VoteRequestorTask(this, nodeState);
+		voteRequestorTask.run();
+
 		logger.info("Start Election Timeout Timer");
 		timer = new Timer(this, getElectionTimeout(),
 			"Candidate- Election Timeout Timer");
@@ -120,7 +148,7 @@ public class Candidate extends ElectionNodeState implements ITimeoutListener {
 		// TODO Auto-generated method stub
 
 		calculateClusterSize();
-		minimumVotesRequired = Math.round((clusterSize / 2) + 0.5f);
+		minimumVotesRequired = Math.round((getClusterSize() / 2) + 0.5f);
 
 		if (votesObtained >= minimumVotesRequired) {
 			logger.info(this.nodeState.getRoutingConfig().getNodeId() + " got "

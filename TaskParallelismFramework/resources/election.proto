@@ -9,7 +9,7 @@ message Election {
    optional LeaderState state = 2;
    optional string leader_host= 3;
    optional int32 leader_id = 4;
-   optional int32 election_id = 5;
+   optional int32 termId = 5;
    optional int32 votedFor = 6;
    optional bool voteGranted = 7;
    repeated int32 path = 8; // This will be the list which contains path from current node to leader

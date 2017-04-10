@@ -33,7 +33,7 @@ public class NodeState implements IFileObserver {
 
 	private AtomicInteger leaderId;
 	private AtomicInteger votedFor;
-	private AtomicInteger electionId; // termId
+	private AtomicInteger termId; // termId
 
 	public int getLeaderId() {
 		return leaderId.get();
@@ -43,8 +43,8 @@ public class NodeState implements IFileObserver {
 		return votedFor.get();
 	}
 
-	public int getElectionId() {
-		return electionId.get();
+	public int getTermId() {
+		return termId.get();
 	}
 
 	public void setLeaderId(int leaderId) {
@@ -55,8 +55,8 @@ public class NodeState implements IFileObserver {
 		this.votedFor.getAndSet(votedFor);
 	}
 
-	public void setElectionId(int electionId) {
-		this.electionId.getAndSet(electionId);
+	public void setTermId(int termId) {
+		this.termId.getAndSet(termId);
 	}
 
 
@@ -71,7 +71,7 @@ public class NodeState implements IFileObserver {
 
 		this.leaderId = new AtomicInteger(-1);
 		// To ensure that I will wait for heart beat timeout
-		this.electionId = new AtomicInteger(0);
+		this.termId = new AtomicInteger(0);
 		this.votedFor = new AtomicInteger(-1);
 	}
 

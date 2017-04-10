@@ -17,7 +17,7 @@ public class ElectionUtil {
 			nodeState.getRoutingConfig().getNodeId(), destination);
 		Election.Builder electionMsg = Election.newBuilder();
 		electionMsg.setAction(ElectionQuery.BEAT);
-		electionMsg.setElectionId(nodeState.getElectionId());
+		electionMsg.setTermId(nodeState.getTermId());
 		electionMsg.setLeaderId(nodeState.getRoutingConfig().getNodeId());
 
 		commMsg.setHeader(header);
@@ -27,16 +27,36 @@ public class ElectionUtil {
 	}
 
 	public CommunicationMessage createVoteRequest(NodeState nodeState,
-		int electionId) {
+		int termId, int destination) {
 		CommunicationMessage.Builder commMsg = CommunicationMessage
 			.newBuilder();
 		Header.Builder header = createHeader(
-			nodeState.getRoutingConfig().getNodeId(), -1);
+			nodeState.getRoutingConfig().getNodeId(), destination);
 
 		Election.Builder electionMsg = Election.newBuilder();
 		electionMsg.setAction(ElectionQuery.VOTEREQUEST);
-		electionMsg.setElectionId(electionId);
-		electionMsg.setLeaderId(nodeState.getRoutingConfig().getNodeId());
+		electionMsg.setTermId(termId);
+//		electionMsg.setLeaderId(nodeState.getRoutingConfig().getNodeId());
+
+		commMsg.setHeader(header);
+		commMsg.setElectionMessage(electionMsg);
+
+		return commMsg.build();
+	}
+	
+	public CommunicationMessage createVoteResponse(NodeState nodeState,
+		int termId, int destination) {
+		CommunicationMessage.Builder commMsg = CommunicationMessage
+			.newBuilder();
+		Header.Builder header = createHeader(
+			nodeState.getRoutingConfig().getNodeId(), destination);
+
+		Election.Builder electionMsg = Election.newBuilder();
+		electionMsg.setAction(ElectionQuery.VOTERESPONSE);
+		electionMsg.setTermId(termId);
+		electionMsg.setVotedFor(destination);
+		electionMsg.setVoteGranted(true);
+//		electionMsg.setLeaderId(nodeState.getRoutingConfig().getNodeId());
 
 		commMsg.setHeader(header);
 		commMsg.setElectionMessage(electionMsg);
@@ -53,7 +73,7 @@ public class ElectionUtil {
 
 		Election.Builder electionMsg = Election.newBuilder();
 		electionMsg.setAction(ElectionQuery.THELEADERIS);
-		electionMsg.setElectionId(nodeState.getElectionId());
+		electionMsg.setTermId(nodeState.getTermId());
 		electionMsg.setLeaderId(nodeState.getRoutingConfig().getNodeId());
 		electionMsg.setState(LeaderState.LEADERALIVE);
 		commMsg.setHeader(header);
