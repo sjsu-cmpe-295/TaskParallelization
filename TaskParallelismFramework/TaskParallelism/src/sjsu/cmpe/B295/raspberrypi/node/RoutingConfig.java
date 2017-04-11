@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RoutingConfig {
 	private AtomicInteger nodeId;
+	private String host;
 	private AtomicInteger commandPort;
 	private AtomicInteger workPort;
 	private AtomicLong heartbeatDt;
@@ -27,6 +28,10 @@ public class RoutingConfig {
 		return nodeId.get();
 	}
 
+	public String getHost() {
+		return host;
+	}
+
 	public Integer getCommandPort() {
 		return commandPort.get();
 	}
@@ -34,13 +39,17 @@ public class RoutingConfig {
 	public Integer getWorkPort() {
 		return workPort.get();
 	}
-	
-	public Integer getElectionTimeout(){
+
+	public Integer getElectionTimeout() {
 		return electionTimeout.get();
 	}
 
 	public void setNodeId(int nodeId) {
 		this.nodeId.getAndSet(nodeId);
+	}
+
+	public void setHost(String host) {
+		this.host = host;
 	}
 
 	public void setCommandPort(int commandPort) {
@@ -50,8 +59,8 @@ public class RoutingConfig {
 	public void setWorkPort(int workPort) {
 		this.workPort.getAndSet(workPort);
 	}
-	
-	public void setElectionTimeout(int electionTimeout){
+
+	public void setElectionTimeout(int electionTimeout) {
 		this.electionTimeout.getAndSet(electionTimeout);
 	}
 
