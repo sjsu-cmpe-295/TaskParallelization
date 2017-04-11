@@ -10,7 +10,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
 import sjsu.cmpe.B295.communicationMessageHandlers.ElectionMessageHandler;
-import sjsu.cmpe.B295.communicationMessageHandlers.HeartbeatMessageHandler;
+import sjsu.cmpe.B295.communicationMessageHandlers.EdgeBeatMessageHandler;
 import sjsu.cmpe.B295.communicationMessageHandlers.ICommunicationMessageHandler;
 
 public class CommunicationChannelHandler
@@ -36,7 +36,7 @@ public class CommunicationChannelHandler
 	private void initializeMessageHandlers() {
 
 		// Define Handlers
-		ICommunicationMessageHandler heartbeatMessageHandler = new HeartbeatMessageHandler(
+		ICommunicationMessageHandler heartbeatMessageHandler = new EdgeBeatMessageHandler(
 			nodeState);
 		ICommunicationMessageHandler electionMessageHandler = new ElectionMessageHandler(
 			nodeState);

@@ -5,6 +5,7 @@ option java_outer_classname = "CommunicationMessageProto";
 option optimize_for = SPEED;
 
 import "common.proto";
+import "election.proto";
 
 message Heartbeat {
    optional string msg = 1;
@@ -12,10 +13,6 @@ message Heartbeat {
 
 message HeartbeatAcknowledgement {
   optional string heartBeatResp = 1;
-}
-
-message Election {
-	optional string msg = 1;
 }
 
 // These are messages to keep the network running (not to perform work)

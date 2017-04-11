@@ -47,6 +47,17 @@ public class Timer {
 
 		timerThread.interrupt();
 	}
+	
+	public void reset(long heartbeatTimeout){
+		if (debug)
+			logger.info("********" + identifier + ", Request to reset timer: "
+				+ Thread.currentThread().getName());
+		
+		timerThread.interrupt();
+		
+		start(heartbeatTimeout);
+	}
+	
 
 	private class TimerThread extends Thread {
 

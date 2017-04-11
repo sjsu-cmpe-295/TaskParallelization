@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,35 @@ public class NodeState implements IFileObserver {
 	ElectionNodeState leader;
 	ElectionNodeState currentElectionNodeState;
 
+	private AtomicInteger leaderId;
+	private AtomicInteger votedFor;
+	private AtomicInteger electionId; // termId
+
+	public int getLeaderId() {
+		return leaderId.get();
+	}
+
+	public int getVotedFor() {
+		return votedFor.get();
+	}
+
+	public int getElectionId() {
+		return electionId.get();
+	}
+
+	public void setLeaderId(int leaderId) {
+		this.leaderId.getAndSet(leaderId);
+	}
+
+	public void setVotedFor(int votedFor) {
+		this.votedFor.getAndSet(votedFor);
+	}
+
+	public void setElectionId(int electionId) {
+		this.electionId.getAndSet(electionId);
+	}
+
+
 	public NodeState(ConcreteFileMonitor subject) {
 		this.subject = subject;
 		this.subject.addObserver(this);
@@ -38,6 +68,11 @@ public class NodeState implements IFileObserver {
 		this.candidate = new Candidate(this);
 		this.leader = new Leader(this);
 		this.currentElectionNodeState = follower;
+
+		this.leaderId = new AtomicInteger(-1);
+		// To ensure that I will wait for heart beat timeout
+		this.electionId = new AtomicInteger(0);
+		this.votedFor = new AtomicInteger(-1);
 	}
 
 	public ElectionNodeState getCurrentElectionNodeState() {

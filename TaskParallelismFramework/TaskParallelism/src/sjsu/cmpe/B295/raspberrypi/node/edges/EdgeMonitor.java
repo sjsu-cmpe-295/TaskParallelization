@@ -12,7 +12,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import sjsu.cmpe.B295.election.HeartbeatMsg;
+import sjsu.cmpe.B295.election.EdgeBeat;
 import sjsu.cmpe.B295.raspberrypi.node.CommunicationChannelInitializer;
 import sjsu.cmpe.B295.raspberrypi.node.ConcreteFileMonitor;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
@@ -99,7 +99,7 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 						// logger.info("*******Sending Heartbeat to: " +
 						// ei.getRef());
 
-						HeartbeatMsg beatMessage = new HeartbeatMsg(
+						EdgeBeat beatMessage = new EdgeBeat(
 							"Message from "
 								+ nodeState.getRoutingConfig().getNodeId()
 								+ " to " + ei.getRef(),

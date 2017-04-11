@@ -8,5 +8,15 @@ public interface IElectionNodeState extends ILeaderElection {
 
 	void afterStateChange();
 
+	void handleWhoIsTheLeader(CommunicationMessage msg, Channel channel);
+
+	void handleLeaderIs(CommunicationMessage msg, Channel channel);
+
+	void handleHeartBeat(CommunicationMessage msg, Channel channel);
+
+	void handleVoteRequest(CommunicationMessage msg, Channel channel);
+
+	void handleVoteResponse(CommunicationMessage msg, Channel channel);
+
 	void handleElectionEvent(CommunicationMessage msg, Channel channel);
 }
