@@ -27,7 +27,7 @@ public class ElectionMessageHandler implements ICommunicationMessageHandler {
 			if (successor != null) {
 				successor.handleCommunicationMessage(commMsg, channel);
 			} else {
-				logger.info("No handler available");
+				logger.debug("No handler available");
 			}
 
 		}

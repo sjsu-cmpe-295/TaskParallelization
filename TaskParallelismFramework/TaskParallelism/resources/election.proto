@@ -1,0 +1,42 @@
+package sjsu.cmpe.B295;
+
+option java_package = "sjsu.cmpe.B295.common";
+option java_outer_classname = "ElectionProto";
+
+// enquire about the state of the leader/election
+message Election {
+   required ElectionQuery action = 1;
+   optional LeaderState state = 2;
+   optional string leader_host= 3;
+   optional int32 leader_id = 4;
+   optional int32 termId = 5;
+   optional int32 votedFor = 6;
+   optional bool voteGranted = 7;
+   repeated int32 path = 8; // This will be the list which contains path from current node to leader
+   
+   enum LeaderState {
+      LEADERUNKNOWN = 1;
+      LEADERALIVE = 2;
+      LEADERDEAD = 3;
+   }
+
+   enum ElectionQuery {
+      WHOISTHELEADER = 1;
+      THELEADERIS = 2;   
+      GETCLUSTERSIZE = 3;
+      SIZEIS = 4;
+      VOTEREQUEST = 5;
+      VOTERESPONSE = 6;
+      BEAT = 7; // Heart Beat between Leader and Followers.
+   }
+   
+   // Request: WHOISTHELEADER
+   // Response: leaderid,electionid
+   
+   //Request: get cluster size
+   //Response: nodeid
+   
+   //request: vote request(candidate id, election id)
+   //response: (election id,vote granted, candidate id)
+   
+}

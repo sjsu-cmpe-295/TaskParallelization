@@ -7,14 +7,14 @@ import io.netty.channel.Channel;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
 
-public class HeartbeatMessageHandler implements ICommunicationMessageHandler {
+public class EdgeBeatMessageHandler implements ICommunicationMessageHandler {
 	private static Logger logger = LoggerFactory
-		.getLogger("HeartbeatMessageHandler");
+		.getLogger("EdgeBeatMessageHandler");
 	private ICommunicationMessageHandler successor;
 
 	private NodeState nodeState;
 
-	public HeartbeatMessageHandler(NodeState nodeState) {
+	public EdgeBeatMessageHandler(NodeState nodeState) {
 		this.nodeState = nodeState;
 	}
 
@@ -27,7 +27,7 @@ public class HeartbeatMessageHandler implements ICommunicationMessageHandler {
 			if (successor != null) {
 				successor.handleCommunicationMessage(commMsg, channel);
 			} else {
-				logger.info("No handler available");
+				logger.debug("No handler available");
 			}
 
 		}
@@ -35,10 +35,10 @@ public class HeartbeatMessageHandler implements ICommunicationMessageHandler {
 	}
 
 	private void handle(CommunicationMessage commMsg, Channel channel) {
-		// TODO Auto-generated method stub
-		logger.info("Handling message " + commMsg.getHeader().getNodeId() + " "
-			+ commMsg.getHeader().getDestination()+ " "+ this.nodeState.getRoutingConfig().getNodeId());
-		logger.info(commMsg.getBeat().getMsg());
+		logger.debug("Node " + this.nodeState.getRoutingConfig().getNodeId()
+			+ " got EdgeBeat from node " + commMsg.getHeader().getNodeId()
+			+ " as I(" + commMsg.getHeader().getDestination()
+			+ ") was supposed to get it.");
 	}
 
 	@Override

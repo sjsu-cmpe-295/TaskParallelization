@@ -5,17 +5,14 @@ option java_outer_classname = "CommunicationMessageProto";
 option optimize_for = SPEED;
 
 import "common.proto";
+import "election.proto";
 
-message Heartbeat {
+message EdgeBeat {
    optional string msg = 1;
 }
 
-message HeartbeatAcknowledgement {
+message EdgeBeatAcknowledgement {
   optional string heartBeatResp = 1;
-}
-
-message Election {
-	optional string msg = 1;
 }
 
 // These are messages to keep the network running (not to perform work)
@@ -30,9 +27,9 @@ message CommunicationMessage {
    oneof payload {
    
       // status updates between adjacent workers
-      Heartbeat beat = 2;
+      EdgeBeat beat = 2;
 
-      HeartbeatAcknowledgement beatAck = 3;
+      EdgeBeatAcknowledgement beatAck = 3;
       
       Election electionMessage = 4;
    }

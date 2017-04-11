@@ -12,7 +12,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import sjsu.cmpe.B295.election.HeartbeatMsg;
+import sjsu.cmpe.B295.election.EdgeBeatMsg;
 import sjsu.cmpe.B295.raspberrypi.node.CommunicationChannelInitializer;
 import sjsu.cmpe.B295.raspberrypi.node.ConcreteFileMonitor;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
@@ -22,7 +22,6 @@ import sjsu.cmpe.B295.raspberrypi.node.RoutingConfig.RoutingEntry;
 
 public class EdgeMonitor implements Runnable, IFileObserver {
 	protected static Logger logger = LoggerFactory.getLogger("EdgeMonitor");
-	private static final boolean debug = false;
 
 	private EdgeList outboundEdges;
 	private EdgeList inboundEdges;
@@ -64,11 +63,9 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 		// Schedule this task only after Delay Time is set..
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(edgeHealthMonitorTask, 0, getDelayTime());
-		// getDelayTime=10000
 	}
 
 	private long getDelayTime() {
-		// TODO Auto-generated method stub
 		return this.dt;
 	}
 
@@ -88,18 +85,13 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 		while (forever) {
 			try {
 				for (EdgeInfo ei : outboundEdges.getEdgesMap().values()) {
-					// logger.info(ei.isActive()+"-"+ei.getChannel()+"-"+ei.getRef());
 					if (ei.isActive() && ei.getChannel() != null) {
-						logger.info(ei.isActive() + "-" + ei.getChannel() + "-"
+						logger.debug(ei.isActive() + "-" + ei.getChannel() + "-"
 							+ ei.getRef());
 
-						logger.info(
-							"This channel is active now. Send heartbeats.");
-						// if (debug)
-						// logger.info("*******Sending Heartbeat to: " +
-						// ei.getRef());
-
-						HeartbeatMsg beatMessage = new HeartbeatMsg(
+						logger.info(nodeState.getRoutingConfig().getNodeId()
+							+ " sending edgeBeat to " + ei.getRef());
+						EdgeBeatMsg beatMessage = new EdgeBeatMsg(
 							"Message from "
 								+ nodeState.getRoutingConfig().getNodeId()
 								+ " to " + ei.getRef(),
@@ -108,12 +100,8 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 
 						ei.getChannel().writeAndFlush(
 							beatMessage.getCommunicationMessage());
-						// BeatMessage beatMessage = new BeatMessage(
-						// state.getConf().getNodeId());
-						// beatMessage.setDestination(ei.getRef());
-						// ei.getChannel().writeAndFlush(beatMessage.getMessage());
 					} else {
-						logger.info(ei.isActive() + "-" + ei.getChannel() + "-"
+						logger.debug(ei.isActive() + "-" + ei.getChannel() + "-"
 							+ ei.getRef());
 						try {
 							CommunicationChannelInitializer wi = new CommunicationChannelInitializer(
@@ -139,7 +127,7 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 							ei.setChannel(channel.channel());
 							ei.setActive(channel.channel().isActive());
 							ei.setLastHeartbeat(System.currentTimeMillis());
-							logger.info(channel.channel().localAddress()
+							logger.debug(channel.channel().localAddress()
 								+ " -> open: " + channel.channel().isOpen()
 								+ ", write: " + channel.channel().isWritable()
 								+ ", reg: " + channel.channel().isRegistered());

@@ -20,8 +20,6 @@ public class EdgeHealthMonitorTask extends TimerTask {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-
 		// Make the Edge Inactive in case of connection lost/ node is down. 
 		// Can also add code here for updating UI
 		edgeMonitor.getOutboundEdges().getEdgesMap().values().stream()

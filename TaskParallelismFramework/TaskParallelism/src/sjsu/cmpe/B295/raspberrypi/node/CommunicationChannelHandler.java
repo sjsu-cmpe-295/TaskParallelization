@@ -10,7 +10,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
 import sjsu.cmpe.B295.communicationMessageHandlers.ElectionMessageHandler;
-import sjsu.cmpe.B295.communicationMessageHandlers.HeartbeatMessageHandler;
+import sjsu.cmpe.B295.communicationMessageHandlers.EdgeBeatMessageHandler;
 import sjsu.cmpe.B295.communicationMessageHandlers.ICommunicationMessageHandler;
 
 public class CommunicationChannelHandler
@@ -26,9 +26,6 @@ public class CommunicationChannelHandler
 			this.nodeState = nodeState;
 		}
 
-		// if (state != null) {
-		// this.state = state;
-		// }
 		this.messageRouter = new MessageRouter(nodeState);
 		initializeMessageHandlers();
 	}
@@ -36,22 +33,21 @@ public class CommunicationChannelHandler
 	private void initializeMessageHandlers() {
 
 		// Define Handlers
-		ICommunicationMessageHandler heartbeatMessageHandler = new HeartbeatMessageHandler(
+		ICommunicationMessageHandler edgeBeatMessageHandler = new EdgeBeatMessageHandler(
 			nodeState);
 		ICommunicationMessageHandler electionMessageHandler = new ElectionMessageHandler(
 			nodeState);
 
 		// Chain all the handlers
-		heartbeatMessageHandler
+		edgeBeatMessageHandler
 			.setNextCommunicationMessageHandler(electionMessageHandler);
 		// Define the start of Chain
-		communicationMessageHandler = heartbeatMessageHandler;
+		communicationMessageHandler = edgeBeatMessageHandler;
 	}
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx,
 		CommunicationMessage msg) throws java.lang.Exception {
-		// TODO Auto-generated method stub
 		handleMessage(msg, ctx.channel());
 	}
 
@@ -61,18 +57,13 @@ public class CommunicationChannelHandler
 			return;
 		}
 
-		// if (debug)
-		// PrintUtil.printWork(msg);
-
 		msg = messageRouter.route(msg);
 
 		if (msg == null) {
-			logger.info("No need to handle message.. ");
+			logger.debug("No need to handle message.. ");
 			return;
 		}
 
-		// TODO How can you implement this without if-else statements? -
-		// Implemented COR
 		try {
 			communicationMessageHandler.handleCommunicationMessage(msg,
 				channel);
@@ -87,7 +78,7 @@ public class CommunicationChannelHandler
 				msg.getHeader().getNodeId(), socketAddress.getHostName(),
 				socketAddress.getPort(), channel);
 		} catch (Exception e) {
-			logger.info("Got an exception in work");
+			logger.error("Got an exception in work");
 			e.printStackTrace();
 			// FailureMessage failureMessage = new FailureMessage (msg, e);
 			// failureMessage.setNodeId (state.getConf ().getNodeId ());

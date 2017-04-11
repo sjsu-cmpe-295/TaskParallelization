@@ -2,7 +2,6 @@ package sjsu.cmpe.B295.raspberrypi.node;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Timer;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -12,7 +11,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import sjsu.cmpe.B295.election.RandomMessageSenderTask;
+import sjsu.cmpe.B295.election.ElectionNodeStates;
 import sjsu.cmpe.B295.raspberrypi.node.edges.EdgeMonitor;
 
 public class Node {
@@ -40,7 +39,6 @@ public class Node {
 	private static class StartCommunication implements Runnable {
 		NodeState nodeState;
 		ConcreteFileMonitor monitor;
-		private RandomMessageSenderTask randomMessageSenderTask;
 
 		/**
 		 * @param state
@@ -56,15 +54,10 @@ public class Node {
 				this.monitor);
 			Thread t = new Thread(edgeMonitor);
 			t.start();
-			
-			this.nodeState.currentElectionNodeState.bePartOfCluster();
-			
-//			randomMessageSenderTask = new RandomMessageSenderTask(this.nodeState);
-//
-//			// Schedule this task only after Delay Time is set..
-//			Timer timer = new Timer();
-//			timer.scheduleAtFixedRate(randomMessageSenderTask, 0, 6000);			
 
+			this.nodeState.setElectionNodeState(ElectionNodeStates.FOLLOWER);
+			// completed leader election
+			// start Task parallelism-input analyzing, bla, bla
 		}
 
 		@Override
@@ -87,22 +80,15 @@ public class Node {
 				b.childHandler(new CommunicationChannelInitializer(nodeState));
 
 				// Start the server.
-//				logger.info("Starting work server ("
-//					+ state.getConf().getNodeId() + "), listening on port = "
-//					+ state.getConf().getWorkPort());
-				ChannelFuture f = b.bind(nodeState.getRoutingConfig().getWorkPort())
+				ChannelFuture f = b
+					.bind(nodeState.getRoutingConfig().getWorkPort())
 					.syncUninterruptibly();
-
-//				logger.info(f.channel().localAddress() + " -> open: "
-//					+ f.channel().isOpen() + ", write: "
-//					+ f.channel().isWritable() + ", act: "
-//					+ f.channel().isActive());
 
 				// block until the server socket is closed.
 				f.channel().closeFuture().sync();
 			} catch (Exception ex) {
 				// on bind().sync()
-//				logger.error("Failed to setup handler.", ex);
+				// logger.error("Failed to setup handler.", ex);
 			} finally {
 				// Shut down all event loops to terminate all threads.
 				bossGroup.shutdownGracefully();

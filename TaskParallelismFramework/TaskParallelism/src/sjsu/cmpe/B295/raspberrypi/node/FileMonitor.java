@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FileMonitor extends ConcreteFileMonitor {
-	protected static Logger logger = LoggerFactory.getLogger("ConfigFile");
+	protected static Logger logger = LoggerFactory.getLogger("FileMonitor");
 	String dirPath;
 
 	public FileMonitor() {
@@ -24,23 +24,22 @@ public class FileMonitor extends ConcreteFileMonitor {
 	public FileMonitor(String dirPath) {
 		this.dirPath = dirPath;
 	}
-	
+
 	@Override
 	public void monitorFile() {
-		logger.info("In monitor File");
+		logger.debug("In monitor File");
 		File file = new File(this.dirPath);
-		
+
 		if (!file.exists())
-			throw new RuntimeException(
-				file.getAbsolutePath() + " not found");
-		
+			throw new RuntimeException(file.getAbsolutePath() + " not found");
+
 		super.setConfigFile(file);
 		FileWatcher f = new FileWatcher(file);
 		f.start();
 	}
-	
+
 	public void setConfigFile(File file) {
-		logger.info("In setConfigFile File");
+		logger.debug("In setConfigFile File");
 		super.setConfigFile(file);
 	}
 
@@ -55,7 +54,7 @@ public class FileMonitor extends ConcreteFileMonitor {
 
 		@Override
 		public void run() {
-			logger.info("In File Watcher run");
+			logger.debug("In File Watcher run");
 			try (WatchService watcher = FileSystems.getDefault()
 				.newWatchService()) {
 				Path path = file.toPath().getParent();
@@ -82,8 +81,7 @@ public class FileMonitor extends ConcreteFileMonitor {
 						if (kind == StandardWatchEventKinds.OVERFLOW) {
 							Thread.yield();
 							continue;
-						} else
-							if (kind == java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY) {
+						} else if (kind == java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY) {
 							// super.
 							setConfigFile(file);
 							// notifyObservers(file);
@@ -110,5 +108,4 @@ public class FileMonitor extends ConcreteFileMonitor {
 
 	}
 
-	
 }
