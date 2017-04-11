@@ -6,11 +6,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.netty.channel.Channel;
+import sjsu.cmpe.B295.clusterMonitoring.Cluster;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
 
 public class Leader extends ElectionNodeState {
 	protected static Logger logger = LoggerFactory.getLogger("Leader");
+	private Cluster cluster;
+
+	public Cluster getCluster() {
+		return cluster;
+	}
+
 	private Timer heartbeatTimeoutTimer;
 	private HeartbeatSenderTask heartbeatSenderTask;
 	private ElectionUtil util;
@@ -18,6 +25,7 @@ public class Leader extends ElectionNodeState {
 	public Leader(NodeState nodeState) {
 		super(nodeState);
 		util = new ElectionUtil();
+		cluster = new Cluster();
 	}
 
 	@Override
