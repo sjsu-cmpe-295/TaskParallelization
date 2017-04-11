@@ -42,43 +42,43 @@ public class Candidate extends ElectionNodeState implements ITimeoutListener {
 	}
 
 	@Override
-	public void handleWhoIsTheLeader(CommunicationMessage msg,
-		Channel channel) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void handleLeaderIs(CommunicationMessage msg, Channel channel) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void handleHeartBeat(CommunicationMessage msg, Channel channel) {
 		// TODO Auto-generated method stub
 		logger.info("Got heartbeat in Candidate state from leader:"
 			+ msg.getElectionMessage().getLeaderId());
+		logger.debug("My term id:" + nodeState.getTermId());
+		logger
+			.debug("Incoming Term Id:" + msg.getElectionMessage().getTermId());
 		if (msg.getElectionMessage().getTermId() >= nodeState.getTermId()) {
 			nodeState.setLeaderId(msg.getElectionMessage().getLeaderId());
 			nodeState.setVotedFor(msg.getElectionMessage().getLeaderId());
 			nodeState.setTermId(msg.getElectionMessage().getTermId());
 			nodeState.setElectionNodeState(ElectionNodeStates.FOLLOWER);
+		} else {
+			logger.info("Ignoring Heartbeat from:"
+				+ msg.getElectionMessage().getLeaderId());
 		}
 	}
 
 	@Override
 	public void handleVoteRequest(CommunicationMessage msg, Channel channel) {
 		// TODO Auto-generated method stub
-		logger.info("Got Vote Request from:"+msg.getHeader().getNodeId());
-		logger.info("My term id:"+nodeState.getTermId());
-		logger.info("Incoming Term Id:"+ msg.getElectionMessage().getTermId());
+		logger.info("Got Vote Request from:" + msg.getHeader().getNodeId());
+		logger.debug("My term id:" + nodeState.getTermId());
+		logger
+			.debug("Incoming Term Id:" + msg.getElectionMessage().getTermId());
 		if (msg.getElectionMessage().getTermId() > nodeState.getTermId()) {
+			logger.info(
+				"Acknowledging vote request" + msg.getHeader().getNodeId());
 			nodeState.setTermId(msg.getElectionMessage().getTermId());
 			nodeState.setVotedFor(msg.getHeader().getNodeId());
 			channel.writeAndFlush(util.createVoteResponse(nodeState,
-				msg.getElectionMessage().getTermId(), msg.getHeader().getNodeId()));
+				msg.getElectionMessage().getTermId(),
+				msg.getHeader().getNodeId()));
 			nodeState.setElectionNodeState(ElectionNodeStates.FOLLOWER);
+		} else {
+			logger.info(
+				"Ignoring vote request from" + msg.getHeader().getNodeId());
 		}
 	}
 
@@ -104,7 +104,6 @@ public class Candidate extends ElectionNodeState implements ITimeoutListener {
 	}
 
 	private void calculateClusterSize() {
-		// TODO Auto-generated method stub
 		logger.info("Calculating cluster size...");
 		setClusterSize(1);
 		nodeState.getEdgeMonitor().getOutboundEdges().getEdgesMap().values()
@@ -123,14 +122,14 @@ public class Candidate extends ElectionNodeState implements ITimeoutListener {
 		// TODO Auto-generated method stub
 		nodeState.setTermId(nodeState.getTermId() + 1);
 		votesObtained = 1;
-		calculateClusterSize();
-		
-		logger.info("Start Election by sending Vote Requests");
+		// calculateClusterSize();
+
+		logger.info("Sending Vote Requests");
 
 		voteRequestorTask = new VoteRequestorTask(this, nodeState);
 		voteRequestorTask.run();
 
-		logger.info("Start Election Timeout Timer");
+		logger.debug("Start Election Timeout Timer");
 		timer = new Timer(this, getElectionTimeout(),
 			"Candidate- Election Timeout Timer");
 		timer.start();
@@ -139,24 +138,22 @@ public class Candidate extends ElectionNodeState implements ITimeoutListener {
 
 	@Override
 	public void notifyTimeout() {
-		// TODO Auto-generated method stub
 		timer.cancel();
 		onElectionTimeout();
 	}
 
 	private void onElectionTimeout() {
-		// TODO Auto-generated method stub
 
 		calculateClusterSize();
 		minimumVotesRequired = Math.round((getClusterSize() / 2) + 0.5f);
 
 		if (votesObtained >= minimumVotesRequired) {
-			logger.info(this.nodeState.getRoutingConfig().getNodeId() + " got "
-				+ votesObtained + " votes. Becoming leader now...");
+			logger.info("Node " + this.nodeState.getRoutingConfig().getNodeId()
+				+ " got " + votesObtained + " votes. Becoming leader now...");
 			nodeState.setElectionNodeState(ElectionNodeStates.LEADER);
 		} else {
-			logger.info(this.nodeState.getRoutingConfig().getNodeId() + " got "
-				+ votesObtained + " votes; Min required were "
+			logger.info("Node " + this.nodeState.getRoutingConfig().getNodeId()
+				+ " got " + votesObtained + " votes; Min required were "
 				+ minimumVotesRequired + ". Requesting votes again...");
 			afterStateChange();
 		}

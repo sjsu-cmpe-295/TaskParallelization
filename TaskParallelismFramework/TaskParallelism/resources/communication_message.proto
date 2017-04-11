@@ -7,11 +7,11 @@ option optimize_for = SPEED;
 import "common.proto";
 import "election.proto";
 
-message Heartbeat {
+message EdgeBeat {
    optional string msg = 1;
 }
 
-message HeartbeatAcknowledgement {
+message EdgeBeatAcknowledgement {
   optional string heartBeatResp = 1;
 }
 
@@ -27,9 +27,9 @@ message CommunicationMessage {
    oneof payload {
    
       // status updates between adjacent workers
-      Heartbeat beat = 2;
+      EdgeBeat beat = 2;
 
-      HeartbeatAcknowledgement beatAck = 3;
+      EdgeBeatAcknowledgement beatAck = 3;
       
       Election electionMessage = 4;
    }

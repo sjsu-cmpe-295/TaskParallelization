@@ -23,12 +23,6 @@ public class ElectionNodeState implements IElectionNodeState {
 		// TODO Auto-generated method stub
 		Election electionMsg = msg.getElectionMessage();
 		switch (electionMsg.getAction()) {
-		case WHOISTHELEADER:
-			handleWhoIsTheLeader(msg, channel);
-			break;
-		case THELEADERIS:
-			handleLeaderIs(msg, channel);
-			break;
 		case VOTEREQUEST:
 			handleVoteRequest(msg, channel);
 			break;
@@ -44,45 +38,31 @@ public class ElectionNodeState implements IElectionNodeState {
 	@Override
 	public void beforeStateChange() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void afterStateChange() {
 		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void handleWhoIsTheLeader(CommunicationMessage msg,
-		Channel channel) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void handleLeaderIs(CommunicationMessage msg, Channel channel) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void handleHeartBeat(CommunicationMessage msg, Channel channel) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void handleVoteRequest(CommunicationMessage msg, Channel channel) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void handleVoteResponse(CommunicationMessage msg, Channel channel) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }

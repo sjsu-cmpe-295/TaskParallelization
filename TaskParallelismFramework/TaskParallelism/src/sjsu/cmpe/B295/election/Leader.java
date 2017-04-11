@@ -1,6 +1,5 @@
 package sjsu.cmpe.B295.election;
 
-import java.util.HashMap;
 import java.util.Timer;
 
 import org.slf4j.Logger;
@@ -13,56 +12,64 @@ import sjsu.cmpe.B295.raspberrypi.node.NodeState;
 public class Leader extends ElectionNodeState {
 	protected static Logger logger = LoggerFactory.getLogger("Leader");
 	private Timer heartbeatTimeoutTimer;
-	private HashMap<Integer, Channel> workers;
 	private HeartbeatSenderTask heartbeatSenderTask;
+	private ElectionUtil util;
 
 	public Leader(NodeState nodeState) {
 		super(nodeState);
-		workers = new HashMap<>();
-	}
-
-	public void addWorker(Integer nodeId, Channel channel) {
-		workers.put(nodeId, channel);
-	}
-
-	public Channel getWorker(Integer nodeId) {
-		return workers.get(nodeId);
-	}
-
-	@Override
-	public void handleWhoIsTheLeader(CommunicationMessage msg,
-		Channel channel) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void handleLeaderIs(CommunicationMessage msg, Channel channel) {
-		// TODO Auto-generated method stub
-		
+		util = new ElectionUtil();
 	}
 
 	@Override
 	public void handleHeartBeat(CommunicationMessage msg, Channel channel) {
-		// TODO Auto-generated method stub
-		
+		logger.info("Got heartbeat in Leader state from leader:"
+			+ msg.getElectionMessage().getLeaderId());
+		logger.debug("My term id:" + nodeState.getTermId());
+		logger
+			.debug("Incoming Term Id:" + msg.getElectionMessage().getTermId());
+		if (msg.getElectionMessage().getTermId() > nodeState.getTermId()) {
+			nodeState.setLeaderId(msg.getElectionMessage().getLeaderId());
+			nodeState.setVotedFor(msg.getElectionMessage().getLeaderId());
+			nodeState.setTermId(msg.getElectionMessage().getTermId());
+			nodeState.setElectionNodeState(ElectionNodeStates.FOLLOWER);
+		} else if (msg.getElectionMessage().getTermId() == nodeState
+			.getTermId()) {
+			nodeState.setElectionNodeState(ElectionNodeStates.CANDIDATE);
+		} else {
+			logger.info("Ignoring Heartbeat from:"
+				+ msg.getElectionMessage().getLeaderId());
+		}
 	}
 
 	@Override
 	public void handleVoteRequest(CommunicationMessage msg, Channel channel) {
-		// TODO Auto-generated method stub
-		
+		logger.info("Got Vote Request from:" + msg.getHeader().getNodeId());
+		logger.debug("My term id:" + nodeState.getTermId());
+		logger
+			.debug("Incoming Term Id:" + msg.getElectionMessage().getTermId());
+		if (msg.getElectionMessage().getTermId() > nodeState.getTermId()) {
+			logger.info(
+				"Acknowledging vote request" + msg.getHeader().getNodeId());
+			nodeState.setTermId(msg.getElectionMessage().getTermId());
+			nodeState.setVotedFor(msg.getHeader().getNodeId());
+			channel.writeAndFlush(util.createVoteResponse(nodeState,
+				msg.getElectionMessage().getTermId(),
+				msg.getHeader().getNodeId()));
+			nodeState.setElectionNodeState(ElectionNodeStates.FOLLOWER);
+		} else {
+			logger.info(
+				"Ignoring vote request from" + msg.getHeader().getNodeId());
+		}
 	}
 
 	@Override
 	public void handleVoteResponse(CommunicationMessage msg, Channel channel) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void beforeStateChange() {
-		// TODO Auto-generated method stub
 		// stop sending heartbeats
 		heartbeatTimeoutTimer.cancel();
 		// cleanup tasks
@@ -83,8 +90,8 @@ public class Leader extends ElectionNodeState {
 	public long getHeartBeatTimeout() {
 		return nodeState.getRoutingConfig().getHeartbeatDt();
 	}
-	
-	public void cleanup(){
-		workers = new HashMap<>();
+
+	public void cleanup() {
+
 	}
 }

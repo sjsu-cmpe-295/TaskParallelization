@@ -36,14 +36,14 @@ public class ElectionUtil {
 		Election.Builder electionMsg = Election.newBuilder();
 		electionMsg.setAction(ElectionQuery.VOTEREQUEST);
 		electionMsg.setTermId(termId);
-//		electionMsg.setLeaderId(nodeState.getRoutingConfig().getNodeId());
+		// electionMsg.setLeaderId(nodeState.getRoutingConfig().getNodeId());
 
 		commMsg.setHeader(header);
 		commMsg.setElectionMessage(electionMsg);
 
 		return commMsg.build();
 	}
-	
+
 	public CommunicationMessage createVoteResponse(NodeState nodeState,
 		int termId, int destination) {
 		CommunicationMessage.Builder commMsg = CommunicationMessage
@@ -56,7 +56,7 @@ public class ElectionUtil {
 		electionMsg.setTermId(termId);
 		electionMsg.setVotedFor(destination);
 		electionMsg.setVoteGranted(true);
-//		electionMsg.setLeaderId(nodeState.getRoutingConfig().getNodeId());
+		// electionMsg.setLeaderId(nodeState.getRoutingConfig().getNodeId());
 
 		commMsg.setHeader(header);
 		commMsg.setElectionMessage(electionMsg);

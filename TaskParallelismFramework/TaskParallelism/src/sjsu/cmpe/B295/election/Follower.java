@@ -34,27 +34,27 @@ public class Follower extends ElectionNodeState implements ITimeoutListener {
 	}
 
 	@Override
-	public void handleWhoIsTheLeader(CommunicationMessage msg,
-		Channel channel) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void handleLeaderIs(CommunicationMessage msg, Channel channel) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void handleHeartBeat(CommunicationMessage msg, Channel channel) {
-		// TODO Auto-generated method stub
+		timer.reset(getElectionTimeout());
+
+		logger.info("Got heartbeat in Follower state from leader:"
+			+ msg.getElectionMessage().getLeaderId());
+
 		int incomingTermId = msg.getElectionMessage().getTermId();
 		int currentTermId = nodeState.getTermId();
-		if (incomingTermId >= currentTermId) {
-			logger.info(
-				"Got Heartbeat from:" + msg.getElectionMessage().getLeaderId());
-			timer.reset(getElectionTimeout());	
+		logger.debug("My term id:" + currentTermId);
+		logger.debug("Incoming Term Id:" + incomingTermId);
+
+		if ((incomingTermId > currentTermId) && (msg.getElectionMessage()
+			.getLeaderId() != nodeState.getLeaderId())) {
+			logger.info("Acknowledging Heartbeat from:"
+				+ msg.getElectionMessage().getLeaderId());
+			nodeState.setLeaderId(msg.getElectionMessage().getLeaderId());
+			nodeState.setTermId(msg.getElectionMessage().getTermId());
+			nodeState.setVotedFor(msg.getElectionMessage().getLeaderId());
+		} else {
+			logger.info("Ignoring Heartbeat from:"
+				+ msg.getElectionMessage().getLeaderId());
 		}
 	}
 
@@ -64,10 +64,17 @@ public class Follower extends ElectionNodeState implements ITimeoutListener {
 		int incomingTermId = msg.getElectionMessage().getTermId();
 		int currentTermId = nodeState.getTermId();
 		if (incomingTermId > currentTermId) {
+			logger.info(
+				"Acknowledging vote request" + msg.getHeader().getNodeId());
 			nodeState.setTermId(incomingTermId);
 			nodeState.setVotedFor(msg.getHeader().getNodeId());
 			channel.writeAndFlush(util.createVoteResponse(nodeState,
 				incomingTermId, msg.getHeader().getNodeId()));
+			
+			timer.reset(getElectionTimeout());
+		} else {
+			logger.info(
+				"Ignoring vote request from" + msg.getHeader().getNodeId());
 		}
 
 	}
@@ -77,10 +84,6 @@ public class Follower extends ElectionNodeState implements ITimeoutListener {
 		// TODO Auto-generated method stub
 
 	}
-
-	// handleLeaderHeartbeat(){
-	// timer.reset(heartbeat);
-	// }
 
 	@Override
 	public void beforeStateChange() {
@@ -102,8 +105,7 @@ public class Follower extends ElectionNodeState implements ITimeoutListener {
 
 	@Override
 	public void notifyTimeout() {
-		// TODO Auto-generated method stub
-		logger.info("Election Timeout");
+		logger.debug("Election Timeout");
 		onElectionTimeout();
 	}
 

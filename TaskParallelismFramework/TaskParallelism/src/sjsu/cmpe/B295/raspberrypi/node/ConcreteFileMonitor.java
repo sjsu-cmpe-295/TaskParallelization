@@ -7,7 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ConcreteFileMonitor implements IFileSubject {
-	protected static Logger logger = LoggerFactory.getLogger("ConcreteFileMonitor");
+	protected static Logger logger = LoggerFactory
+		.getLogger("ConcreteFileMonitor");
 	private File configFile;
 	private ArrayList<IFileObserver> observers = new ArrayList<>();
 
@@ -22,25 +23,25 @@ public class ConcreteFileMonitor implements IFileSubject {
 
 	@Override
 	public void addObserver(IFileObserver observer) {
-		logger.info("Adding Observer");
+		logger.debug("Adding Observer");
 		observers.add(observer);
 	}
 
 	@Override
 	public void removeObserver(IFileObserver observer) {
-		logger.info("Removing Observer");
+		logger.debug("Removing Observer");
 		observers.remove(observer);
 	}
 
 	@Override
 	public void notifyObservers() {
-		logger.info("Notifying Observers");
+		logger.debug("Notifying Observers");
 		for (IFileObserver observer : observers) {
 			observer.update();
 		}
 	}
-	
-	public void monitorFile(){
-		
+
+	public void monitorFile() {
+
 	}
 }

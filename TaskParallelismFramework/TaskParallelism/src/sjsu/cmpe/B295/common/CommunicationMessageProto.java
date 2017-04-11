@@ -8,8 +8,8 @@ public final class CommunicationMessageProto {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface HeartbeatOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:sjsu.cmpe.B295.Heartbeat)
+  public interface EdgeBeatOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sjsu.cmpe.B295.EdgeBeat)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -27,25 +27,25 @@ public final class CommunicationMessageProto {
         getMsgBytes();
   }
   /**
-   * Protobuf type {@code sjsu.cmpe.B295.Heartbeat}
+   * Protobuf type {@code sjsu.cmpe.B295.EdgeBeat}
    */
-  public static final class Heartbeat extends
+  public static final class EdgeBeat extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:sjsu.cmpe.B295.Heartbeat)
-      HeartbeatOrBuilder {
-    // Use Heartbeat.newBuilder() to construct.
-    private Heartbeat(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:sjsu.cmpe.B295.EdgeBeat)
+      EdgeBeatOrBuilder {
+    // Use EdgeBeat.newBuilder() to construct.
+    private EdgeBeat(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private Heartbeat(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private EdgeBeat(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final Heartbeat defaultInstance;
-    public static Heartbeat getDefaultInstance() {
+    private static final EdgeBeat defaultInstance;
+    public static EdgeBeat getDefaultInstance() {
       return defaultInstance;
     }
 
-    public Heartbeat getDefaultInstanceForType() {
+    public EdgeBeat getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -55,7 +55,7 @@ public final class CommunicationMessageProto {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private Heartbeat(
+    private EdgeBeat(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -98,28 +98,28 @@ public final class CommunicationMessageProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_Heartbeat_descriptor;
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_EdgeBeat_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_Heartbeat_fieldAccessorTable
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_EdgeBeat_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.class, sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.Builder.class);
+              sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.class, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Heartbeat> PARSER =
-        new com.google.protobuf.AbstractParser<Heartbeat>() {
-      public Heartbeat parsePartialFrom(
+    public static com.google.protobuf.Parser<EdgeBeat> PARSER =
+        new com.google.protobuf.AbstractParser<EdgeBeat>() {
+      public EdgeBeat parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Heartbeat(input, extensionRegistry);
+        return new EdgeBeat(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Heartbeat> getParserForType() {
+    public com.google.protobuf.Parser<EdgeBeat> getParserForType() {
       return PARSER;
     }
 
@@ -210,53 +210,53 @@ public final class CommunicationMessageProto {
       return super.writeReplace();
     }
 
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat parseFrom(byte[] data)
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat parseFrom(java.io.InputStream input)
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat parseDelimitedFrom(java.io.InputStream input)
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat parseDelimitedFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -265,7 +265,7 @@ public final class CommunicationMessageProto {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat prototype) {
+    public static Builder newBuilder(sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -277,25 +277,25 @@ public final class CommunicationMessageProto {
       return builder;
     }
     /**
-     * Protobuf type {@code sjsu.cmpe.B295.Heartbeat}
+     * Protobuf type {@code sjsu.cmpe.B295.EdgeBeat}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:sjsu.cmpe.B295.Heartbeat)
-        sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatOrBuilder {
+        // @@protoc_insertion_point(builder_implements:sjsu.cmpe.B295.EdgeBeat)
+        sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_Heartbeat_descriptor;
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_EdgeBeat_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_Heartbeat_fieldAccessorTable
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_EdgeBeat_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.class, sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.Builder.class);
+                sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.class, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.Builder.class);
       }
 
-      // Construct using sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.newBuilder()
+      // Construct using sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -326,23 +326,23 @@ public final class CommunicationMessageProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_Heartbeat_descriptor;
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_EdgeBeat_descriptor;
       }
 
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat getDefaultInstanceForType() {
-        return sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.getDefaultInstance();
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat getDefaultInstanceForType() {
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.getDefaultInstance();
       }
 
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat build() {
-        sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat result = buildPartial();
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat build() {
+        sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat buildPartial() {
-        sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat result = new sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat(this);
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat buildPartial() {
+        sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat result = new sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -355,16 +355,16 @@ public final class CommunicationMessageProto {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) {
-          return mergeFrom((sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat)other);
+        if (other instanceof sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) {
+          return mergeFrom((sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat other) {
-        if (other == sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.getDefaultInstance()) return this;
+      public Builder mergeFrom(sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat other) {
+        if (other == sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.getDefaultInstance()) return this;
         if (other.hasMsg()) {
           bitField0_ |= 0x00000001;
           msg_ = other.msg_;
@@ -382,11 +382,11 @@ public final class CommunicationMessageProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat parsedMessage = null;
+        sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) e.getUnfinishedMessage();
+          parsedMessage = (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -473,19 +473,19 @@ public final class CommunicationMessageProto {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:sjsu.cmpe.B295.Heartbeat)
+      // @@protoc_insertion_point(builder_scope:sjsu.cmpe.B295.EdgeBeat)
     }
 
     static {
-      defaultInstance = new Heartbeat(true);
+      defaultInstance = new EdgeBeat(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:sjsu.cmpe.B295.Heartbeat)
+    // @@protoc_insertion_point(class_scope:sjsu.cmpe.B295.EdgeBeat)
   }
 
-  public interface HeartbeatAcknowledgementOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:sjsu.cmpe.B295.HeartbeatAcknowledgement)
+  public interface EdgeBeatAcknowledgementOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sjsu.cmpe.B295.EdgeBeatAcknowledgement)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -503,25 +503,25 @@ public final class CommunicationMessageProto {
         getHeartBeatRespBytes();
   }
   /**
-   * Protobuf type {@code sjsu.cmpe.B295.HeartbeatAcknowledgement}
+   * Protobuf type {@code sjsu.cmpe.B295.EdgeBeatAcknowledgement}
    */
-  public static final class HeartbeatAcknowledgement extends
+  public static final class EdgeBeatAcknowledgement extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:sjsu.cmpe.B295.HeartbeatAcknowledgement)
-      HeartbeatAcknowledgementOrBuilder {
-    // Use HeartbeatAcknowledgement.newBuilder() to construct.
-    private HeartbeatAcknowledgement(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:sjsu.cmpe.B295.EdgeBeatAcknowledgement)
+      EdgeBeatAcknowledgementOrBuilder {
+    // Use EdgeBeatAcknowledgement.newBuilder() to construct.
+    private EdgeBeatAcknowledgement(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private HeartbeatAcknowledgement(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private EdgeBeatAcknowledgement(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final HeartbeatAcknowledgement defaultInstance;
-    public static HeartbeatAcknowledgement getDefaultInstance() {
+    private static final EdgeBeatAcknowledgement defaultInstance;
+    public static EdgeBeatAcknowledgement getDefaultInstance() {
       return defaultInstance;
     }
 
-    public HeartbeatAcknowledgement getDefaultInstanceForType() {
+    public EdgeBeatAcknowledgement getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -531,7 +531,7 @@ public final class CommunicationMessageProto {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private HeartbeatAcknowledgement(
+    private EdgeBeatAcknowledgement(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -574,28 +574,28 @@ public final class CommunicationMessageProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_descriptor;
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_EdgeBeatAcknowledgement_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_fieldAccessorTable
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_EdgeBeatAcknowledgement_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.class, sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.Builder.class);
+              sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.class, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<HeartbeatAcknowledgement> PARSER =
-        new com.google.protobuf.AbstractParser<HeartbeatAcknowledgement>() {
-      public HeartbeatAcknowledgement parsePartialFrom(
+    public static com.google.protobuf.Parser<EdgeBeatAcknowledgement> PARSER =
+        new com.google.protobuf.AbstractParser<EdgeBeatAcknowledgement>() {
+      public EdgeBeatAcknowledgement parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new HeartbeatAcknowledgement(input, extensionRegistry);
+        return new EdgeBeatAcknowledgement(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<HeartbeatAcknowledgement> getParserForType() {
+    public com.google.protobuf.Parser<EdgeBeatAcknowledgement> getParserForType() {
       return PARSER;
     }
 
@@ -686,53 +686,53 @@ public final class CommunicationMessageProto {
       return super.writeReplace();
     }
 
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement parseFrom(byte[] data)
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement parseFrom(java.io.InputStream input)
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement parseDelimitedFrom(java.io.InputStream input)
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement parseDelimitedFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement parseFrom(
+    public static sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -741,7 +741,7 @@ public final class CommunicationMessageProto {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement prototype) {
+    public static Builder newBuilder(sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -753,25 +753,25 @@ public final class CommunicationMessageProto {
       return builder;
     }
     /**
-     * Protobuf type {@code sjsu.cmpe.B295.HeartbeatAcknowledgement}
+     * Protobuf type {@code sjsu.cmpe.B295.EdgeBeatAcknowledgement}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:sjsu.cmpe.B295.HeartbeatAcknowledgement)
-        sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgementOrBuilder {
+        // @@protoc_insertion_point(builder_implements:sjsu.cmpe.B295.EdgeBeatAcknowledgement)
+        sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgementOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_descriptor;
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_EdgeBeatAcknowledgement_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_fieldAccessorTable
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_EdgeBeatAcknowledgement_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.class, sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.Builder.class);
+                sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.class, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.Builder.class);
       }
 
-      // Construct using sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.newBuilder()
+      // Construct using sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -802,23 +802,23 @@ public final class CommunicationMessageProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_descriptor;
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.internal_static_sjsu_cmpe_B295_EdgeBeatAcknowledgement_descriptor;
       }
 
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement getDefaultInstanceForType() {
-        return sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.getDefaultInstance();
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement getDefaultInstanceForType() {
+        return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.getDefaultInstance();
       }
 
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement build() {
-        sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement result = buildPartial();
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement build() {
+        sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement buildPartial() {
-        sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement result = new sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement(this);
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement buildPartial() {
+        sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement result = new sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -831,16 +831,16 @@ public final class CommunicationMessageProto {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) {
-          return mergeFrom((sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement)other);
+        if (other instanceof sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) {
+          return mergeFrom((sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement other) {
-        if (other == sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.getDefaultInstance()) return this;
+      public Builder mergeFrom(sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement other) {
+        if (other == sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.getDefaultInstance()) return this;
         if (other.hasHeartBeatResp()) {
           bitField0_ |= 0x00000001;
           heartBeatResp_ = other.heartBeatResp_;
@@ -858,11 +858,11 @@ public final class CommunicationMessageProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement parsedMessage = null;
+        sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) e.getUnfinishedMessage();
+          parsedMessage = (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -949,15 +949,15 @@ public final class CommunicationMessageProto {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:sjsu.cmpe.B295.HeartbeatAcknowledgement)
+      // @@protoc_insertion_point(builder_scope:sjsu.cmpe.B295.EdgeBeatAcknowledgement)
     }
 
     static {
-      defaultInstance = new HeartbeatAcknowledgement(true);
+      defaultInstance = new EdgeBeatAcknowledgement(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:sjsu.cmpe.B295.HeartbeatAcknowledgement)
+    // @@protoc_insertion_point(class_scope:sjsu.cmpe.B295.EdgeBeatAcknowledgement)
   }
 
   public interface CommunicationMessageOrBuilder extends
@@ -978,7 +978,7 @@ public final class CommunicationMessageProto {
     sjsu.cmpe.B295.common.CommonProto.HeaderOrBuilder getHeaderOrBuilder();
 
     /**
-     * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
      *
      * <pre>
      * status updates between adjacent workers
@@ -986,34 +986,34 @@ public final class CommunicationMessageProto {
      */
     boolean hasBeat();
     /**
-     * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
      *
      * <pre>
      * status updates between adjacent workers
      * </pre>
      */
-    sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat getBeat();
+    sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat getBeat();
     /**
-     * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
      *
      * <pre>
      * status updates between adjacent workers
      * </pre>
      */
-    sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatOrBuilder getBeatOrBuilder();
+    sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatOrBuilder getBeatOrBuilder();
 
     /**
-     * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
      */
     boolean hasBeatAck();
     /**
-     * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
      */
-    sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement getBeatAck();
+    sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement getBeatAck();
     /**
-     * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
      */
-    sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgementOrBuilder getBeatAckOrBuilder();
+    sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgementOrBuilder getBeatAckOrBuilder();
 
     /**
      * <code>optional .sjsu.cmpe.B295.Election electionMessage = 4;</code>
@@ -1098,26 +1098,26 @@ public final class CommunicationMessageProto {
               break;
             }
             case 18: {
-              sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.Builder subBuilder = null;
+              sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.Builder subBuilder = null;
               if (payloadCase_ == 2) {
-                subBuilder = ((sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) payload_).toBuilder();
+                subBuilder = ((sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) payload_).toBuilder();
               }
-              payload_ = input.readMessage(sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.PARSER, extensionRegistry);
+              payload_ = input.readMessage(sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) payload_);
+                subBuilder.mergeFrom((sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) payload_);
                 payload_ = subBuilder.buildPartial();
               }
               payloadCase_ = 2;
               break;
             }
             case 26: {
-              sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.Builder subBuilder = null;
+              sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.Builder subBuilder = null;
               if (payloadCase_ == 3) {
-                subBuilder = ((sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_).toBuilder();
+                subBuilder = ((sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) payload_).toBuilder();
               }
-              payload_ = input.readMessage(sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.PARSER, extensionRegistry);
+              payload_ = input.readMessage(sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_);
+                subBuilder.mergeFrom((sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) payload_);
                 payload_ = subBuilder.buildPartial();
               }
               payloadCase_ = 3;
@@ -1232,7 +1232,7 @@ public final class CommunicationMessageProto {
 
     public static final int BEAT_FIELD_NUMBER = 2;
     /**
-     * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
      *
      * <pre>
      * status updates between adjacent workers
@@ -1242,56 +1242,56 @@ public final class CommunicationMessageProto {
       return payloadCase_ == 2;
     }
     /**
-     * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
      *
      * <pre>
      * status updates between adjacent workers
      * </pre>
      */
-    public sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat getBeat() {
+    public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat getBeat() {
       if (payloadCase_ == 2) {
-         return (sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) payload_;
+         return (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) payload_;
       }
-      return sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.getDefaultInstance();
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.getDefaultInstance();
     }
     /**
-     * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
      *
      * <pre>
      * status updates between adjacent workers
      * </pre>
      */
-    public sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatOrBuilder getBeatOrBuilder() {
+    public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatOrBuilder getBeatOrBuilder() {
       if (payloadCase_ == 2) {
-         return (sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) payload_;
+         return (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) payload_;
       }
-      return sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.getDefaultInstance();
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.getDefaultInstance();
     }
 
     public static final int BEATACK_FIELD_NUMBER = 3;
     /**
-     * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
      */
     public boolean hasBeatAck() {
       return payloadCase_ == 3;
     }
     /**
-     * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
      */
-    public sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement getBeatAck() {
+    public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement getBeatAck() {
       if (payloadCase_ == 3) {
-         return (sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_;
+         return (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) payload_;
       }
-      return sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.getDefaultInstance();
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.getDefaultInstance();
     }
     /**
-     * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+     * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
      */
-    public sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgementOrBuilder getBeatAckOrBuilder() {
+    public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgementOrBuilder getBeatAckOrBuilder() {
       if (payloadCase_ == 3) {
-         return (sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_;
+         return (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) payload_;
       }
-      return sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.getDefaultInstance();
+      return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.getDefaultInstance();
     }
 
     public static final int ELECTIONMESSAGE_FIELD_NUMBER = 4;
@@ -1354,10 +1354,10 @@ public final class CommunicationMessageProto {
         output.writeMessage(1, header_);
       }
       if (payloadCase_ == 2) {
-        output.writeMessage(2, (sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) payload_);
+        output.writeMessage(2, (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) payload_);
       }
       if (payloadCase_ == 3) {
-        output.writeMessage(3, (sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_);
+        output.writeMessage(3, (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) payload_);
       }
       if (payloadCase_ == 4) {
         output.writeMessage(4, (sjsu.cmpe.B295.common.ElectionProto.Election) payload_);
@@ -1377,11 +1377,11 @@ public final class CommunicationMessageProto {
       }
       if (payloadCase_ == 2) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, (sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) payload_);
+          .computeMessageSize(2, (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) payload_);
       }
       if (payloadCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, (sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_);
+          .computeMessageSize(3, (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) payload_);
       }
       if (payloadCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
@@ -1784,9 +1784,9 @@ public final class CommunicationMessageProto {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat, sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatOrBuilder> beatBuilder_;
+          sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatOrBuilder> beatBuilder_;
       /**
-       * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
        *
        * <pre>
        * status updates between adjacent workers
@@ -1796,33 +1796,33 @@ public final class CommunicationMessageProto {
         return payloadCase_ == 2;
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
        *
        * <pre>
        * status updates between adjacent workers
        * </pre>
        */
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat getBeat() {
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat getBeat() {
         if (beatBuilder_ == null) {
           if (payloadCase_ == 2) {
-            return (sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) payload_;
+            return (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) payload_;
           }
-          return sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.getDefaultInstance();
+          return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.getDefaultInstance();
         } else {
           if (payloadCase_ == 2) {
             return beatBuilder_.getMessage();
           }
-          return sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.getDefaultInstance();
+          return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
        *
        * <pre>
        * status updates between adjacent workers
        * </pre>
        */
-      public Builder setBeat(sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat value) {
+      public Builder setBeat(sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat value) {
         if (beatBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1836,14 +1836,14 @@ public final class CommunicationMessageProto {
         return this;
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
        *
        * <pre>
        * status updates between adjacent workers
        * </pre>
        */
       public Builder setBeat(
-          sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.Builder builderForValue) {
+          sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.Builder builderForValue) {
         if (beatBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -1854,17 +1854,17 @@ public final class CommunicationMessageProto {
         return this;
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
        *
        * <pre>
        * status updates between adjacent workers
        * </pre>
        */
-      public Builder mergeBeat(sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat value) {
+      public Builder mergeBeat(sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat value) {
         if (beatBuilder_ == null) {
           if (payloadCase_ == 2 &&
-              payload_ != sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.getDefaultInstance()) {
-            payload_ = sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.newBuilder((sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) payload_)
+              payload_ != sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.getDefaultInstance()) {
+            payload_ = sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.newBuilder((sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -1880,7 +1880,7 @@ public final class CommunicationMessageProto {
         return this;
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
        *
        * <pre>
        * status updates between adjacent workers
@@ -1903,49 +1903,49 @@ public final class CommunicationMessageProto {
         return this;
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
        *
        * <pre>
        * status updates between adjacent workers
        * </pre>
        */
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.Builder getBeatBuilder() {
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.Builder getBeatBuilder() {
         return getBeatFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
        *
        * <pre>
        * status updates between adjacent workers
        * </pre>
        */
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatOrBuilder getBeatOrBuilder() {
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatOrBuilder getBeatOrBuilder() {
         if ((payloadCase_ == 2) && (beatBuilder_ != null)) {
           return beatBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 2) {
-            return (sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) payload_;
+            return (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) payload_;
           }
-          return sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.getDefaultInstance();
+          return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.Heartbeat beat = 2;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeat beat = 2;</code>
        *
        * <pre>
        * status updates between adjacent workers
        * </pre>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat, sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatOrBuilder> 
+          sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatOrBuilder> 
           getBeatFieldBuilder() {
         if (beatBuilder_ == null) {
           if (!(payloadCase_ == 2)) {
-            payload_ = sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.getDefaultInstance();
+            payload_ = sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.getDefaultInstance();
           }
           beatBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat, sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatOrBuilder>(
-                  (sjsu.cmpe.B295.common.CommunicationMessageProto.Heartbeat) payload_,
+              sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatOrBuilder>(
+                  (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeat) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -1955,33 +1955,33 @@ public final class CommunicationMessageProto {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement, sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgementOrBuilder> beatAckBuilder_;
+          sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgementOrBuilder> beatAckBuilder_;
       /**
-       * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
        */
       public boolean hasBeatAck() {
         return payloadCase_ == 3;
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
        */
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement getBeatAck() {
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement getBeatAck() {
         if (beatAckBuilder_ == null) {
           if (payloadCase_ == 3) {
-            return (sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_;
+            return (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) payload_;
           }
-          return sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.getDefaultInstance();
+          return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.getDefaultInstance();
         } else {
           if (payloadCase_ == 3) {
             return beatAckBuilder_.getMessage();
           }
-          return sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.getDefaultInstance();
+          return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
        */
-      public Builder setBeatAck(sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement value) {
+      public Builder setBeatAck(sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement value) {
         if (beatAckBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1995,10 +1995,10 @@ public final class CommunicationMessageProto {
         return this;
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
        */
       public Builder setBeatAck(
-          sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.Builder builderForValue) {
+          sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.Builder builderForValue) {
         if (beatAckBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -2009,13 +2009,13 @@ public final class CommunicationMessageProto {
         return this;
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
        */
-      public Builder mergeBeatAck(sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement value) {
+      public Builder mergeBeatAck(sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement value) {
         if (beatAckBuilder_ == null) {
           if (payloadCase_ == 3 &&
-              payload_ != sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.getDefaultInstance()) {
-            payload_ = sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.newBuilder((sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_)
+              payload_ != sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.getDefaultInstance()) {
+            payload_ = sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.newBuilder((sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -2031,7 +2031,7 @@ public final class CommunicationMessageProto {
         return this;
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
        */
       public Builder clearBeatAck() {
         if (beatAckBuilder_ == null) {
@@ -2050,37 +2050,37 @@ public final class CommunicationMessageProto {
         return this;
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
        */
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.Builder getBeatAckBuilder() {
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.Builder getBeatAckBuilder() {
         return getBeatAckFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
        */
-      public sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgementOrBuilder getBeatAckOrBuilder() {
+      public sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgementOrBuilder getBeatAckOrBuilder() {
         if ((payloadCase_ == 3) && (beatAckBuilder_ != null)) {
           return beatAckBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 3) {
-            return (sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_;
+            return (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) payload_;
           }
-          return sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.getDefaultInstance();
+          return sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .sjsu.cmpe.B295.HeartbeatAcknowledgement beatAck = 3;</code>
+       * <code>optional .sjsu.cmpe.B295.EdgeBeatAcknowledgement beatAck = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement, sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgementOrBuilder> 
+          sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgementOrBuilder> 
           getBeatAckFieldBuilder() {
         if (beatAckBuilder_ == null) {
           if (!(payloadCase_ == 3)) {
-            payload_ = sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.getDefaultInstance();
+            payload_ = sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.getDefaultInstance();
           }
           beatAckBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement, sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgementOrBuilder>(
-                  (sjsu.cmpe.B295.common.CommunicationMessageProto.HeartbeatAcknowledgement) payload_,
+              sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement.Builder, sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgementOrBuilder>(
+                  (sjsu.cmpe.B295.common.CommunicationMessageProto.EdgeBeatAcknowledgement) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -2236,15 +2236,15 @@ public final class CommunicationMessageProto {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_sjsu_cmpe_B295_Heartbeat_descriptor;
+    internal_static_sjsu_cmpe_B295_EdgeBeat_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_sjsu_cmpe_B295_Heartbeat_fieldAccessorTable;
+      internal_static_sjsu_cmpe_B295_EdgeBeat_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_descriptor;
+    internal_static_sjsu_cmpe_B295_EdgeBeatAcknowledgement_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_fieldAccessorTable;
+      internal_static_sjsu_cmpe_B295_EdgeBeatAcknowledgement_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sjsu_cmpe_B295_CommunicationMessage_descriptor;
   private static
@@ -2260,16 +2260,16 @@ public final class CommunicationMessageProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\033communication_message.proto\022\016sjsu.cmpe" +
-      ".B295\032\014common.proto\032\016election.proto\"\030\n\tH" +
-      "eartbeat\022\013\n\003msg\030\001 \001(\t\"1\n\030HeartbeatAcknow" +
-      "ledgement\022\025\n\rheartBeatResp\030\001 \001(\t\"\346\001\n\024Com" +
-      "municationMessage\022&\n\006header\030\001 \002(\0132\026.sjsu" +
-      ".cmpe.B295.Header\022)\n\004beat\030\002 \001(\0132\031.sjsu.c" +
-      "mpe.B295.HeartbeatH\000\022;\n\007beatAck\030\003 \001(\0132(." +
-      "sjsu.cmpe.B295.HeartbeatAcknowledgementH" +
-      "\000\0223\n\017electionMessage\030\004 \001(\0132\030.sjsu.cmpe.B" +
-      "295.ElectionH\000B\t\n\007payloadB4\n\025sjsu.cmpe.B",
-      "295.commonB\031CommunicationMessageProtoH\001"
+      ".B295\032\014common.proto\032\016election.proto\"\027\n\010E" +
+      "dgeBeat\022\013\n\003msg\030\001 \001(\t\"0\n\027EdgeBeatAcknowle" +
+      "dgement\022\025\n\rheartBeatResp\030\001 \001(\t\"\344\001\n\024Commu" +
+      "nicationMessage\022&\n\006header\030\001 \002(\0132\026.sjsu.c" +
+      "mpe.B295.Header\022(\n\004beat\030\002 \001(\0132\030.sjsu.cmp" +
+      "e.B295.EdgeBeatH\000\022:\n\007beatAck\030\003 \001(\0132\'.sjs" +
+      "u.cmpe.B295.EdgeBeatAcknowledgementH\000\0223\n" +
+      "\017electionMessage\030\004 \001(\0132\030.sjsu.cmpe.B295." +
+      "ElectionH\000B\t\n\007payloadB4\n\025sjsu.cmpe.B295.",
+      "commonB\031CommunicationMessageProtoH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2285,17 +2285,17 @@ public final class CommunicationMessageProto {
           sjsu.cmpe.B295.common.CommonProto.getDescriptor(),
           sjsu.cmpe.B295.common.ElectionProto.getDescriptor(),
         }, assigner);
-    internal_static_sjsu_cmpe_B295_Heartbeat_descriptor =
+    internal_static_sjsu_cmpe_B295_EdgeBeat_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_sjsu_cmpe_B295_Heartbeat_fieldAccessorTable = new
+    internal_static_sjsu_cmpe_B295_EdgeBeat_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_sjsu_cmpe_B295_Heartbeat_descriptor,
+        internal_static_sjsu_cmpe_B295_EdgeBeat_descriptor,
         new java.lang.String[] { "Msg", });
-    internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_descriptor =
+    internal_static_sjsu_cmpe_B295_EdgeBeatAcknowledgement_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_fieldAccessorTable = new
+    internal_static_sjsu_cmpe_B295_EdgeBeatAcknowledgement_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_sjsu_cmpe_B295_HeartbeatAcknowledgement_descriptor,
+        internal_static_sjsu_cmpe_B295_EdgeBeatAcknowledgement_descriptor,
         new java.lang.String[] { "HeartBeatResp", });
     internal_static_sjsu_cmpe_B295_CommunicationMessage_descriptor =
       getDescriptor().getMessageTypes().get(2);

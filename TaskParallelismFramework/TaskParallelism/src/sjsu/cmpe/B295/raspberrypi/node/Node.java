@@ -58,14 +58,6 @@ public class Node {
 			this.nodeState.setElectionNodeState(ElectionNodeStates.FOLLOWER);
 			// completed leader election
 			// start Task parallelism-input analyzing, bla, bla
-
-			// randomMessageSenderTask = new
-			// RandomMessageSenderTask(this.nodeState);
-			//
-			// // Schedule this task only after Delay Time is set..
-			// Timer timer = new Timer();
-			// timer.scheduleAtFixedRate(randomMessageSenderTask, 0, 6000);
-
 		}
 
 		@Override
@@ -88,17 +80,9 @@ public class Node {
 				b.childHandler(new CommunicationChannelInitializer(nodeState));
 
 				// Start the server.
-				// logger.info("Starting work server ("
-				// + state.getConf().getNodeId() + "), listening on port = "
-				// + state.getConf().getWorkPort());
 				ChannelFuture f = b
 					.bind(nodeState.getRoutingConfig().getWorkPort())
 					.syncUninterruptibly();
-
-				// logger.info(f.channel().localAddress() + " -> open: "
-				// + f.channel().isOpen() + ", write: "
-				// + f.channel().isWritable() + ", act: "
-				// + f.channel().isActive());
 
 				// block until the server socket is closed.
 				f.channel().closeFuture().sync();

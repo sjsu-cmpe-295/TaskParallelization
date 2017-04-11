@@ -59,7 +59,6 @@ public class NodeState implements IFileObserver {
 		this.termId.getAndSet(termId);
 	}
 
-
 	public NodeState(ConcreteFileMonitor subject) {
 		this.subject = subject;
 		this.subject.addObserver(this);
@@ -83,7 +82,8 @@ public class NodeState implements IFileObserver {
 		synchronized (this) {
 
 			getCurrentElectionNodeState().beforeStateChange();
-			logger.info("Changing node State to:" + nextNodeState.toString());
+			logger.info("############# Node "+getRoutingConfig().getNodeId() + " is  "
+				+ nextNodeState.toString()+" now. #############");
 
 			switch (nextNodeState) {
 			case FOLLOWER:
@@ -144,8 +144,8 @@ public class NodeState implements IFileObserver {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		logger.info("Updating RoutingConfig");
+
+		logger.debug("Updating RoutingConfig");
 		RoutingConfig conf = null;
 		File configFile = this.subject.getConfigFile();
 		if (!configFile.exists())
@@ -173,14 +173,6 @@ public class NodeState implements IFileObserver {
 				}
 			}
 		}
-		// this.routingConfig = conf;
 		setRoutingConfig(conf);
-		// for (RoutingEntry routingEntry : routingConfig.routingEntries) {
-		// System.out.println(routingEntry.getId());
-		// System.out.println(routingEntry.getHost());
-		// System.out.println(routingEntry.getPort());
-		// System.out.println();
-		// }
-		// logger.info("*************************************************");
 	}
 }
