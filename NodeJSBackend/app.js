@@ -10,6 +10,10 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 // var trying = require('./views/try.html');
 
+//Node details
+var nodes;
+var isStartingUp=true;
+var nodeUpdated=false;
 var app = express();
 
 // view engine setup
@@ -56,7 +60,7 @@ app.get('/getNodeDetails', function (req, response) {
     console.log("getNodeDetails accessed");
 
     var options = {
-        host: '127.0.0.1',
+        host: '10.0.0.3',
         port: 8080,
         path: '/getNodeDetails',
         method: 'GET'
@@ -72,6 +76,46 @@ app.get('/getNodeDetails', function (req, response) {
 
         });
     }).end();
+
+});
+
+///////////////
+
+
+app.post('/updateCluster', function (req, res) {
+    console.log("updateCluster accessed");
+    console.log("request is "+JSON.stringify(req.body));
+
+    nodeUpdated=true;
+    nodes=req.body;
+    res.sendStatus(200);
+});
+
+app.get('/getNodeDetails2', function (req, res) {
+    console.log("getNodeDetails2 accessed");
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', null);
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    //
+    // // Set to true if you need the website to include cookies in the requests sent
+    // // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    if(isStartingUp || nodeUpdated)
+    {
+        console.log("response is "+JSON.stringify(nodes));
+        res.send(nodes);
+        isStartingUp=false;
+        nodeUpdated=false;
+    }
+    else
+        res.sendStatus(200);
 
 });
 
