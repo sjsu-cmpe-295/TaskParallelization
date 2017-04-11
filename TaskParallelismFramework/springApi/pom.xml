@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>sjsu.cmpe.B295</groupId>
-	<artifactId>TaskParallelismFramework</artifactId>
+	<artifactId>springApi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<packaging>war</packaging>
 
-	<name>TaskParallelismFramework</name>
+	<name>springApi</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -18,10 +18,6 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<modules>
-		<module>TaskParallelism</module>
-		<module>springApi</module>
-	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -43,6 +39,11 @@
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>sjsu.cmpe.B295</groupId>
+			<artifactId>TaskParallelism</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
