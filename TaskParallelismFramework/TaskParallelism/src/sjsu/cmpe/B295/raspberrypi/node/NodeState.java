@@ -30,12 +30,6 @@ public class NodeState implements IFileObserver {
 	ElectionNodeState leader;
 	ElectionNodeState currentElectionNodeState;
 
-//	private RandomMessageSenderTask randomMessageSenderTask;
-
-	public ElectionNodeState getCurrentElectionNodeState() {
-		return currentElectionNodeState;
-	}
-
 	public NodeState(ConcreteFileMonitor subject) {
 		this.subject = subject;
 		this.subject.addObserver(this);
@@ -43,29 +37,35 @@ public class NodeState implements IFileObserver {
 		this.follower = new Follower(this);
 		this.candidate = new Candidate(this);
 		this.leader = new Leader(this);
-		setElectionNodeState(ElectionNodeStates.FOLLOWER);
-//		randomMessageSenderTask = new RandomMessageSenderTask(this);
-//
-//		// Schedule this task only after Delay Time is set..
-//		Timer timer = new Timer();
-//		timer.scheduleAtFixedRate(randomMessageSenderTask, 0, 4000);
+		this.currentElectionNodeState = follower;
+	}
+
+	public ElectionNodeState getCurrentElectionNodeState() {
+		return currentElectionNodeState;
 	}
 
 	public void setElectionNodeState(ElectionNodeStates nextNodeState) {
-		logger.info("Changing node State to:"+nextNodeState.toString());
-		switch (nextNodeState) {
-		case FOLLOWER:
-			currentElectionNodeState = follower;
-			break;
-		case CANDIDATE:
-			currentElectionNodeState = candidate;
-			break;
-		case LEADER:
-			currentElectionNodeState = leader;
-			break;
-		default:
-			break;
+		synchronized (this) {
+
+			getCurrentElectionNodeState().beforeStateChange();
+			logger.info("Changing node State to:" + nextNodeState.toString());
+
+			switch (nextNodeState) {
+			case FOLLOWER:
+				currentElectionNodeState = follower;
+				break;
+			case CANDIDATE:
+				currentElectionNodeState = candidate;
+				break;
+			case LEADER:
+				currentElectionNodeState = leader;
+				break;
+			default:
+				break;
+			}
+			getCurrentElectionNodeState().afterStateChange();
 		}
+
 	}
 
 	public void handleElectionMessage(CommunicationMessage msg,

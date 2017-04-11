@@ -12,7 +12,6 @@ public class Leader extends ElectionNodeState {
 
 	public Leader(NodeState nodeState) {
 		super(nodeState);
-		logger.info("*********Leader*********");
 	}
 
 	@Override
@@ -27,5 +26,17 @@ public class Leader extends ElectionNodeState {
 			logger.info("Got message for my previous state:"
 				+ msg.getElectionMessage().getMsg());
 		}
+	}
+	
+	@Override
+	public void beforeStateChange() {
+		// TODO Auto-generated method stub
+		super.beforeStateChange();
+	}
+	
+	@Override
+	public void afterStateChange() {
+		// TODO Auto-generated method stub
+		super.afterStateChange();
 	}
 }

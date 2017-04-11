@@ -24,9 +24,16 @@ public class ElectionNodeState implements IElectionNodeState {
 	}
 
 	@Override
-	public void bePartOfCluster() {
+	public void beforeStateChange() {
 		// TODO Auto-generated method stub
-
+		
 	}
+
+	@Override
+	public void afterStateChange() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

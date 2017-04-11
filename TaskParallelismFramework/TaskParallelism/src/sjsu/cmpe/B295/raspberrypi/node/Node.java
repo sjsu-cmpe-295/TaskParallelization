@@ -12,6 +12,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import sjsu.cmpe.B295.election.ElectionNodeStates;
 import sjsu.cmpe.B295.election.RandomMessageSenderTask;
 import sjsu.cmpe.B295.raspberrypi.node.edges.EdgeMonitor;
 
@@ -40,7 +41,6 @@ public class Node {
 	private static class StartCommunication implements Runnable {
 		NodeState nodeState;
 		ConcreteFileMonitor monitor;
-		private RandomMessageSenderTask randomMessageSenderTask;
 
 		/**
 		 * @param state
@@ -57,7 +57,7 @@ public class Node {
 			Thread t = new Thread(edgeMonitor);
 			t.start();
 			
-			this.nodeState.currentElectionNodeState.bePartOfCluster();
+			this.nodeState.setElectionNodeState(ElectionNodeStates.FOLLOWER);
 			
 //			randomMessageSenderTask = new RandomMessageSenderTask(this.nodeState);
 //
