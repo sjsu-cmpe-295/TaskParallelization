@@ -7,11 +7,10 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-
-.classpath
-.project
-.settings/
-=======
+*.impl
+*.iml
+*.idea*
+*.DS_Store
 .classpath
 .project
 .settings/
@@ -20,3 +19,4 @@ bin/
 
 #Apple
 .DS_Store
+node_modules/

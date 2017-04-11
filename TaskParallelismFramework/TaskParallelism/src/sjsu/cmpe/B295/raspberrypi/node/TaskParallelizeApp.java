@@ -9,7 +9,8 @@ import org.slf4j.Logger;
 
 public class TaskParallelizeApp {
 	protected static Logger logger = LoggerFactory.getLogger("TaskParallelizeApp");
-	
+	    public static final String[] status = {"slave","master"};
+
 
 	public static void main(String[] args) {
 		logger.info("Task Parallelize App Started");
