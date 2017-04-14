@@ -11,11 +11,11 @@ import io.netty.channel.Channel;
 import sjsu.cmpe.B295.clusterMonitoring.Cluster;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
-import sjsu.cmpe.B295.sensorDataCollection.Parallelizable;
+import sjsu.cmpe.B295.sensorDataCollection.IParallelizable;
 
 public class Leader extends ElectionNodeState {
 	protected static Logger logger = LoggerFactory.getLogger("Leader");
-	private BlockingQueue<Parallelizable> taskQueue = new LinkedBlockingQueue<>();
+	private BlockingQueue<IParallelizable> taskQueue = new LinkedBlockingQueue<>();
 	private Cluster cluster;
 
 	public Cluster getCluster() {

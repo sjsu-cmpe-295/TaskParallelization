@@ -1,12 +1,12 @@
 package sjsu.cmpe.B295.sensorDataCollection;
 
-public class ParallelTask implements Parallelizable {
-	private Parallelizable p;
+public class ParallelTask implements IParallelizable {
+	private IParallelizable p;
 	
 	public ParallelTask(){
 		
 	}
-	public ParallelTask(Parallelizable parallelizable) {
+	public ParallelTask(IParallelizable parallelizable) {
 		// TODO Auto-generated constructor stub
 		this.p = parallelizable;
 	}

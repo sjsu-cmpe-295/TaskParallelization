@@ -9,7 +9,7 @@ public class TemperatureCollectorTask extends ParallelTask {
 	private long duration;
 	private ArrayList<Integer> data;
 	private Random random;
-	private static Parallelizable p;
+	private static IParallelizable p;
 
 	public void generateData(long duration) {
 		data = new ArrayList<>();
