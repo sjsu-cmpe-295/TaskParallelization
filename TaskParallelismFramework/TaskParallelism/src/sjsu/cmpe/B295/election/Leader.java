@@ -1,6 +1,8 @@
 package sjsu.cmpe.B295.election;
 
 import java.util.Timer;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +11,11 @@ import io.netty.channel.Channel;
 import sjsu.cmpe.B295.clusterMonitoring.Cluster;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
+import sjsu.cmpe.B295.sensorDataCollection.IParallelizable;
 
 public class Leader extends ElectionNodeState {
 	protected static Logger logger = LoggerFactory.getLogger("Leader");
+	private BlockingQueue<IParallelizable> taskQueue = new LinkedBlockingQueue<>();
 	private Cluster cluster;
 
 	public Cluster getCluster() {
