@@ -13,7 +13,7 @@ var users = require('./routes/users');
 //Node details
 var nodes;
 var isStartingUp=true;
-var nodeUpdated=false;
+var nodeUpdated=true;
 var app = express();
 
 // view engine setup
@@ -56,28 +56,28 @@ app.get('/getMasterSlaveStatus', function (req, response) {
 });
 
 
-app.get('/getNodeDetails', function (req, response) {
-    console.log("getNodeDetails accessed");
-
-    var options = {
-        host: '10.0.0.3',
-        port: 8080,
-        path: '/getNodeDetails',
-        method: 'GET'
-    };
-    // var response;
-    http.request(options, function (res) {
-        console.log('STATUS: ' + res.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        res.on('data', function (chunk) {
-            console.log('BODY: ' + chunk);
-            response.send(chunk);
-
-        });
-    }).end();
-
-});
+// app.get('/getNodeDetails', function (req, response) {
+//     console.log("getNodeDetails accessed");
+//
+//     var options = {
+//         host: '10.0.0.3',
+//         port: 8080,
+//         path: '/getNodeDetails',
+//         method: 'GET'
+//     };
+//     // var response;
+//     http.request(options, function (res) {
+//         console.log('STATUS: ' + res.statusCode);
+//         console.log('HEADERS: ' + JSON.stringify(res.headers));
+//         res.setEncoding('utf8');
+//         res.on('data', function (chunk) {
+//             console.log('BODY: ' + chunk);
+//             response.send(chunk);
+//
+//         });
+//     }).end();
+//
+// });
 
 ///////////////
 
@@ -91,9 +91,9 @@ app.post('/updateCluster', function (req, res) {
     res.sendStatus(200);
 });
 
-app.get('/getNodeDetails2', function (req, res) {
-    console.log("getNodeDetails2 accessed");
-
+app.get('/getNodeDetails/:pageReload?', function (req, res) {
+    console.log("getNodeDetails accessed");
+    // console.log(req.query.pageReload);
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', null);
 
@@ -107,11 +107,11 @@ app.get('/getNodeDetails2', function (req, res) {
     // // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
 
-    if(isStartingUp || nodeUpdated)
+    if( nodeUpdated || req.query.pageReload)
     {
         console.log("response is "+JSON.stringify(nodes));
         res.send(nodes);
-        isStartingUp=false;
+        // isStartingUp=false;
         nodeUpdated=false;
     }
     else
