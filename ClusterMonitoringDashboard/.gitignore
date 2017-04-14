@@ -1,2 +1,12 @@
-*
-!.gitignore
+*.impl
+*.iml
+*.idea*
+*.DS_Store
+.classpath
+.project
+.settings/
+org.eclipse.*
+
+#Apple
+.DS_Store
+NodeJSBackend/node_modules
