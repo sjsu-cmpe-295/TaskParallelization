@@ -124,7 +124,7 @@ public class HeartbeatSenderTask extends TimerTask {
 	}
 	public void updateUI(){
 			try {
-				URL url = new URL("http://localhost:1300/updateCluster");
+				URL url = new URL("http://"+nodeState.getRoutingConfig().getClientIP()+":1300/updateCluster");
 				URLConnection connection = url.openConnection();
 				connection.setDoOutput(true);
 				connection.setRequestProperty("Content-Type", "application/json");
@@ -141,7 +141,7 @@ public class HeartbeatSenderTask extends TimerTask {
 
 				while (in.readLine() != null) {}
 				in.close();
-				logger.info("updateCluster Invoked Successfully..");
+				logger.info("updateCluster invoked successfully.");
 				updateUI=false;
 				response.setLength(0);
 				workerResponse.setLength(0);

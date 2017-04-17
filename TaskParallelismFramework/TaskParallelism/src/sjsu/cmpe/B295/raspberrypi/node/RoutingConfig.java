@@ -16,6 +16,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class RoutingConfig {
 	private AtomicInteger nodeId;
 	private String host;
+	private String clientIP;
+
+	public String getClientIP() {
+		return clientIP;
+	}
+
+	public void setClientIP(String clientIP) {
+		this.clientIP = clientIP;
+	}
+
 	private AtomicInteger commandPort;
 	private AtomicInteger workPort;
 	private AtomicLong heartbeatDt;
