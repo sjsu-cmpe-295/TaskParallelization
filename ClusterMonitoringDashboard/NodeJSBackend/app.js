@@ -6,15 +6,18 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const http = require('http');
 
+
 var index = require('./routes/index');
 var users = require('./routes/users');
-// var trying = require('./views/try.html');
 
 //Node details
 var nodes;
-var isStartingUp=true;
-var nodeUpdated=true;
+var isStartingUp = true;
+var nodeUpdated = true;
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+server.listen(1301);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,30 +35,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
-app.get('/getMasterSlaveStatus', function (req, response) {
-    console.log("getMasterSlaveStatus accessed");
+//creates a socket with the client and updates UI
+io.on('connection', function (socket) {
+    console.log("socket initiated sid: " + socket.id);
+    // console.log(socket);
+    // if (nodes)
+    socket.emit('clusterStats', nodes);
+    // socket.on('my other event', function (data) {
+    //     console.log(data);
+    // });
 
-    var options = {
-        host: '127.0.0.1',
-        port: 8080,
-        path: '/getMasterSlaveStatus',
-        method: 'GET'
-    };
-    // var response;
-    http.request(options, function (res) {
-        console.log('STATUS: ' + res.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        res.on('data', function (chunk) {
-            console.log('BODY: ' + chunk);
-            response.send(chunk);
-
-        });
-    }).end();
 
 });
 
+//Receives an update from the master node and updates all UI clients(sockets)
+app.post('/updateCluster', function (req, res) {
+    console.log("updateCluster accessed");
+    console.log("request is " + JSON.stringify(req.body));
 
+    nodes = req.body;
+    io.sockets.emit('clusterStats', nodes);
+
+    res.sendStatus(200);
+});
+
+//Test Node-Spring rest call
 // app.get('/getNodeDetails', function (req, response) {
 //     console.log("getNodeDetails accessed");
 //
@@ -79,45 +83,36 @@ app.get('/getMasterSlaveStatus', function (req, response) {
 //
 // });
 
-///////////////
 
+// Long polling(Set interval) usage for getNodeDetails
+// app.get('/getNodeDetails/:pageReload?', function (req, res) {
+//     console.log("getNodeDetails accessed");
+//     // console.log(req.query.pageReload);
+//     // Website you wish to allow to connect
+//     res.setHeader('Access-Control-Allow-Origin', "*");
+//
+//     // Request methods you wish to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//
+//     // Request headers you wish to allow
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//     //
+//     // // Set to true if you need the website to include cookies in the requests sent
+//     // // to the API (e.g. in case you use sessions)
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+//
+//     if( nodeUpdated || req.query.pageReload)
+//     {
+//         console.log("response is "+JSON.stringify(nodes));
+//         res.send(nodes);
+//         // isStartingUp=false;
+//         nodeUpdated=false;
+//     }
+//     else
+//         res.sendStatus(200);
+//
+// });
 
-app.post('/updateCluster', function (req, res) {
-    console.log("updateCluster accessed");
-    console.log("request is "+JSON.stringify(req.body));
-
-    nodeUpdated=true;
-    nodes=req.body;
-    res.sendStatus(200);
-});
-
-app.get('/getNodeDetails/:pageReload?', function (req, res) {
-    console.log("getNodeDetails accessed");
-    // console.log(req.query.pageReload);
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', "*");
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    //
-    // // Set to true if you need the website to include cookies in the requests sent
-    // // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    if( nodeUpdated || req.query.pageReload)
-    {
-        console.log("response is "+JSON.stringify(nodes));
-        res.send(nodes);
-        // isStartingUp=false;
-        nodeUpdated=false;
-    }
-    else
-        res.sendStatus(200);
-
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

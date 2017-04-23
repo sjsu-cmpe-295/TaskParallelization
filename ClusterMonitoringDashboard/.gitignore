@@ -10,3 +10,4 @@ org.eclipse.*
 #Apple
 .DS_Store
 NodeJSBackend/node_modules
+NodeJSBackend/*.log

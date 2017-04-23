@@ -17,9 +17,9 @@ public class Controller {
 
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping("/getNodeDetails")
-    public List<Node> getNodeDetails() {
-        System.out.println("getNodeDetails accessed");
+    @RequestMapping("/submitTask")
+    public List<Node> submitTask() {
+        System.out.println("submitTask accessed");
         List l=new ArrayList<Node>();
         l.add(new Node(counter.incrementAndGet(), TaskParallelizeApp.status[new Random().nextInt(TaskParallelizeApp.status.length)],"rasp1","127.168.0.34","Idle"));
         l.add(new Node(counter.incrementAndGet(), TaskParallelizeApp.status[new Random().nextInt(TaskParallelizeApp.status.length)],"rasp2","127.168.0.05","Running"));
