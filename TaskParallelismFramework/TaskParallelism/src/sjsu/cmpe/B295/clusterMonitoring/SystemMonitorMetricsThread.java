@@ -37,18 +37,18 @@ public class SystemMonitorMetricsThread extends TimerTask{
 		float memUsage=0;
 		
 		try {
-			 cpuUsage = reader.cpuUsage(1);
+			 //cpuUsage = reader.cpuUsage(1);
 		} catch (Exception e) {
 			cpuUsage = 0;
 		}
 		try {
-			 memUsage = reader.memUsage();
+			//memUsage = reader.memUsage();
 		} catch (Exception e) {
 			 memUsage = 0;
 			e.printStackTrace();
 		}
 		try {
-			netStats = reader.networkInOut();
+			//netStats = reader.networkInOut();
 		} catch (Exception e) {
 			netStats.put("Network-In", Float.valueOf(0));
     		netStats.put("Network-Out", Float.valueOf(0));
@@ -58,14 +58,15 @@ public class SystemMonitorMetricsThread extends TimerTask{
 	}
 
 	public void updateUI(double cpuUsage, float memUsage, HashMap<String, Float> netStats) {
+		logger.info("In Metrics Update UI");
 		String masterResponse = "";
 		StringBuffer response=new StringBuffer();
-		final String RESPONSE_START="{\"nodes\":[";
-		final String RESPONSE_END="]}";
+		final String RESPONSE_START="";
+		final String RESPONSE_END="";
 		
-		masterResponse="{\"ip\": \""+nodeState.getRoutingConfig().getHost()+"\", \"cpu\": \""+cpuUsage+"\",\"memoryUsage\": \""+memUsage+"\",\"netWorkIn\": \""+netStats.get("Network-In")+"\"},\"netWorkOut\": \""+netStats.get("Network-Out")+"\"}";
+		//masterResponse="{\"ip\": \""+nodeState.getRoutingConfig().getHost()+"\", \"cpu\": \""+cpuUsage+"\",\"memoryUsage\": \""+memUsage+"\",\"netWorkIn\": \""+netStats.get("Network-In")+"\"},\"netWorkOut\": \""+netStats.get("Network-Out")+"\"}";
 		
-		//masterResponse="{\"ip\": \""+"127.6.5.4"+"\", \"cpu\": \""+0.9+"\",\"memoryUsage\": \""+0.9+"\",\"netWorkIn\": \""+0.9+"\",\"netWorkOut\": \""+0.9+"\"}";
+		masterResponse="{\"ip\": \""+"127.6.5.4"+"\", \"cpu\": \""+0.9+"\",\"memoryUsage\": \""+0.9+"\",\"netWorkIn\": \""+0.9+"\",\"netWorkOut\": \""+0.9+"\"}";
 		logger.info(masterResponse);
 		URL url;
 		try {

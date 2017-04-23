@@ -13,7 +13,7 @@ var users = require('./routes/users');
 //Node details
 var nodes;
 
-var metricsHashMap = new Object();
+var metricsHashMap = {};
 var isStartingUp=true;
 var nodeUpdated=true;
 
@@ -86,6 +86,11 @@ app.post('/updateCluster', function (req, res) {
 //
 // });
 
+<<<<<<< HEAD
+=======
+///////////////
+//[{"ip":"127.6.5.4","cpu":"0.9","memoryUsage":"0.9","netWorkIn":"0.9","netWorkOut":"0.9"}]
+>>>>>>> 6a64db5... Added API changes for cluster metrics
 
 
 // Long polling(Set interval) usage for getNodeDetails
@@ -121,8 +126,14 @@ app.post('/updateMetrics',function (req,res){
     console.log("updateMetrics accessed");
     console.log("request is "+JSON.stringify(req.body));
     metrics = new Array();
-    // nodeUpdated=true;
-    // nodes=req.body;
+    var json_obj = req.body;
+    console.log("json_obj "+json_obj);
+    metrics.push(json_obj.cpu);
+    metrics.push(json_obj.memoryUsage);
+    metrics.push(json_obj.netWorkIn);
+    metrics.push(json_obj.netWorkOut);
+    metricsHashMap[json_obj.ip] = metrics;
+    console.log("metricsHashMap "+JSON.stringify(metricsHashMap));
     res.sendStatus(200);
 
 });
