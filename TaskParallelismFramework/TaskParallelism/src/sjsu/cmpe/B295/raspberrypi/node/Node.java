@@ -2,6 +2,8 @@ package sjsu.cmpe.B295.raspberrypi.node;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -11,6 +13,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import sjsu.cmpe.B295.clusterMonitoring.SystemMonitorMetricsThread;
 import sjsu.cmpe.B295.election.ElectionNodeStates;
 import sjsu.cmpe.B295.raspberrypi.node.edges.EdgeMonitor;
 
@@ -83,7 +86,13 @@ public class Node {
 				ChannelFuture f = b
 					.bind(nodeState.getRoutingConfig().getWorkPort())
 					.syncUninterruptibly();
-
+				
+				
+				TimerTask metricThread =new SystemMonitorMetricsThread(nodeState);
+				Timer timer = new Timer();
+				timer.scheduleAtFixedRate(metricThread, 0, 4000);
+				
+				
 				// block until the server socket is closed.
 				f.channel().closeFuture().sync();
 			} catch (Exception ex) {
