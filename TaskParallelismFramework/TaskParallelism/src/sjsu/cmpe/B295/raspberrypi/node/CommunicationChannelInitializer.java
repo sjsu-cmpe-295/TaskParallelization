@@ -5,6 +5,8 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
@@ -27,6 +29,17 @@ public class CommunicationChannelInitializer
 		 * framer with a max of 64 Mb message, 4 bytes are the length, and strip
 		 * 4 bytes
 		 */
+		
+		//HttpServerCodec is a helper ChildHandler that encompasses
+        //both HTTP request decoding and HTTP response encoding
+        ch.pipeline().addLast(new HttpServerCodec());
+        //HttpObjectAggregator helps collect chunked HttpRequest pieces into
+        //a single FullHttpRequest. If you don't make use of streaming, this is
+        //much simpler to work with.
+        ch.pipeline().addLast(new HttpObjectAggregator(1048576));
+        
+        ch.pipeline().addLast(new HttpRequestHandler());
+		
 		pipeline.addLast("frameDecoder",
 			new LengthFieldBasedFrameDecoder(67108864, 0, 4, 0, 4));
 
