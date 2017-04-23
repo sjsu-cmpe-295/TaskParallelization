@@ -45,7 +45,7 @@ public class HttpRequestHandler
 			DefaultFullHttpResponse response = new DefaultFullHttpResponse(
 				HTTP_1_1, OK);
 			ByteBuf buffer = Unpooled.copiedBuffer(
-				"Hello World, This is working!!", CharsetUtil.UTF_8);
+				"Hello World, This is working in GET method of Server!!", CharsetUtil.UTF_8);
 			response.headers().set(HttpHeaderNames.CONTENT_TYPE,
 				"text/html; charset=UTF-8");
 			response.content().writeBytes(buffer);
@@ -55,18 +55,18 @@ public class HttpRequestHandler
 		} else {
 			logger.info("%%%%%%%%%%%%%%%%%% Got " + request.method()
 				+ "Request %%%%%%%%%%%%%%%%%% ");
-			// DefaultFullHttpResponse response = new DefaultFullHttpResponse(
-			// HTTP_1_1, OK, request.content().copy());
-			// ctx.write(response);
-			DefaultFullHttpResponse response = new DefaultFullHttpResponse(
-				HTTP_1_1, OK);
-			ByteBuf buffer = Unpooled.copiedBuffer(
-				"Hello World, This is working!!", CharsetUtil.UTF_8);
-			response.headers().set(HttpHeaderNames.CONTENT_TYPE,
-				"text/html; charset=UTF-8");
-			response.content().writeBytes(buffer);
-
-			ctx.write(response);
+			 DefaultFullHttpResponse response = new DefaultFullHttpResponse(
+			 HTTP_1_1, OK, request.content().copy());
+			 ctx.write(response);
+//			DefaultFullHttpResponse response = new DefaultFullHttpResponse(
+//				HTTP_1_1, OK);
+//			ByteBuf buffer = Unpooled.copiedBuffer(
+//				"Hello World, This is working!!", CharsetUtil.UTF_8);
+//			response.headers().set(HttpHeaderNames.CONTENT_TYPE,
+//				"text/html; charset=UTF-8");
+//			response.content().writeBytes(buffer);
+//
+//			ctx.write(response);
 		}
 
 	}
