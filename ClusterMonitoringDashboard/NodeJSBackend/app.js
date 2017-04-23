@@ -12,8 +12,11 @@ var users = require('./routes/users');
 
 //Node details
 var nodes;
-var isStartingUp = true;
-var nodeUpdated = true;
+
+var metricsHashMap = new Object();
+var isStartingUp=true;
+var nodeUpdated=true;
+
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -84,6 +87,7 @@ app.post('/updateCluster', function (req, res) {
 // });
 
 
+
 // Long polling(Set interval) usage for getNodeDetails
 // app.get('/getNodeDetails/:pageReload?', function (req, res) {
 //     console.log("getNodeDetails accessed");
@@ -112,6 +116,23 @@ app.post('/updateCluster', function (req, res) {
 //         res.sendStatus(200);
 //
 // });
+
+app.post('/updateMetrics',function (req,res){
+    console.log("updateMetrics accessed");
+    console.log("request is "+JSON.stringify(req.body));
+    metrics = new Array();
+    // nodeUpdated=true;
+    // nodes=req.body;
+    res.sendStatus(200);
+
+});
+
+app.get('/getMetrics',function (req,res){
+    console.log("getMetrics accessed");
+
+});
+
+
 
 
 // catch 404 and forward to error handler

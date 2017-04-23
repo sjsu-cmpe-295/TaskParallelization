@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -42,7 +42,7 @@
 		</dependency>
 		<dependency>
 			<groupId>sjsu.cmpe.B295</groupId>
-			<artifactId>TaskParallelism</artifactId>
+			<artifactId>TaskParallelization</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
