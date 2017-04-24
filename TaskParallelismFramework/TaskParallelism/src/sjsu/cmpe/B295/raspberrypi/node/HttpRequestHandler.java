@@ -53,11 +53,20 @@ public class HttpRequestHandler
 			ctx.write(response);
 
 		} else {
-			logger.info("%%%%%%%%%%%%%%%%%% Got " + request.method()
+			logger.info("%%%%%%%%%%%%%%%%%% Got " + request.method() + request.uri()
 				+ "Request %%%%%%%%%%%%%%%%%% ");
-			 DefaultFullHttpResponse response = new DefaultFullHttpResponse(
+			
+			logger.info(request.uri());
+			logger.info("POST content"+request.content().copy(0, request.content().capacity()));
+			//handleHttpRequest(request.uri(),request.content());
+			 
+			DefaultFullHttpResponse response = new DefaultFullHttpResponse(
 			 HTTP_1_1, OK, request.content().copy());
 			 ctx.write(response);
+			 
+			 
+			 
+			
 //			DefaultFullHttpResponse response = new DefaultFullHttpResponse(
 //				HTTP_1_1, OK);
 //			ByteBuf buffer = Unpooled.copiedBuffer(

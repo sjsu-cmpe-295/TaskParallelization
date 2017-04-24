@@ -10,13 +10,17 @@ import org.slf4j.LoggerFactory;
 import io.netty.channel.Channel;
 import sjsu.cmpe.B295.clusterMonitoring.Cluster;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
+import sjsu.cmpe.B295.communicationMessageHandlers.IHttpRequestHandler;
+import sjsu.cmpe.B295.framwork.InputAnalyser;
+import sjsu.cmpe.B295.framwork.Mapper;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
 import sjsu.cmpe.B295.sensorDataCollection.IParallelizable;
 
-public class Leader extends ElectionNodeState {
+public class Leader extends ElectionNodeState implements IHttpRequestHandler{
 	protected static Logger logger = LoggerFactory.getLogger("Leader");
-	private BlockingQueue<IParallelizable> taskQueue = new LinkedBlockingQueue<>();
+	public BlockingQueue<IParallelizable> taskQueue = new LinkedBlockingQueue<>();
 	private Cluster cluster;
+	
 
 	public Cluster getCluster() {
 		return cluster;
@@ -25,11 +29,14 @@ public class Leader extends ElectionNodeState {
 	private Timer heartbeatTimeoutTimer;
 	private HeartbeatSenderTask heartbeatSenderTask;
 	private ElectionUtil util;
-
+	Mapper mapper;
 	public Leader(NodeState nodeState) {
 		super(nodeState);
 		util = new ElectionUtil();
 		cluster = new Cluster();
+		mapper = new Mapper(this,nodeState);
+		
+		
 	}
 
 	@Override
@@ -105,5 +112,19 @@ public class Leader extends ElectionNodeState {
 
 	public void cleanup() {
 
+	}
+
+	@Override
+	public void handleHttpRequest(String uri, Integer time) {
+		
+		InputAnalyser analyser = new InputAnalyser(this);
+		analyser.handleHttpRequest(uri, time);
+		
+	}
+
+	@Override
+	public void setNextHandler(IHttpRequestHandler nextHandler) {
+		// TODO Auto-generated method stub
+		
 	}
 }
