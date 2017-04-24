@@ -10,6 +10,7 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
+import sjsu.cmpe.B295.httpRequestMessageHandlers.HttpRequestHandler;
 
 public class CommunicationChannelInitializer
 	extends ChannelInitializer<SocketChannel> {
@@ -38,7 +39,7 @@ public class CommunicationChannelInitializer
         //much simpler to work with.
         ch.pipeline().addLast(new HttpObjectAggregator(1048576));
         
-        ch.pipeline().addLast(new HttpRequestHandler());
+        ch.pipeline().addLast(new HttpRequestHandler(nodeState));
 		
 		pipeline.addLast("frameDecoder",
 			new LengthFieldBasedFrameDecoder(67108864, 0, 4, 0, 4));

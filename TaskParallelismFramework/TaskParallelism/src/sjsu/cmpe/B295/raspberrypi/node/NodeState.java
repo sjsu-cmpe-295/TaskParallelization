@@ -4,12 +4,23 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.util.CharsetUtil;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
 import sjsu.cmpe.B295.election.Candidate;
 import sjsu.cmpe.B295.election.ElectionNodeState;
@@ -18,6 +29,9 @@ import sjsu.cmpe.B295.election.Follower;
 import sjsu.cmpe.B295.election.Leader;
 import sjsu.cmpe.B295.raspberrypi.node.Node.JsonUtil;
 import sjsu.cmpe.B295.raspberrypi.node.edges.EdgeMonitor;
+import static io.netty.handler.codec.http.HttpMethod.GET;
+import static io.netty.handler.codec.http.HttpResponseStatus.OK;
+import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class NodeState implements IFileObserver {
 	protected static Logger logger = LoggerFactory.getLogger("NodeState");
@@ -82,8 +96,8 @@ public class NodeState implements IFileObserver {
 		synchronized (this) {
 
 			getCurrentElectionNodeState().beforeStateChange();
-			logger.info("############# Node "+getRoutingConfig().getNodeId() + " is  "
-				+ nextNodeState.toString()+" now. #############");
+			logger.info("############# Node " + getRoutingConfig().getNodeId()
+				+ " is  " + nextNodeState.toString() + " now. #############");
 
 			switch (nextNodeState) {
 			case FOLLOWER:
@@ -101,6 +115,12 @@ public class NodeState implements IFileObserver {
 			getCurrentElectionNodeState().afterStateChange();
 		}
 
+	}
+
+	public void handleHttpRequest(ChannelHandlerContext ctx,
+		FullHttpRequest request) {
+		
+		this.getCurrentElectionNodeState().handleHttpRequest(ctx, request);
 	}
 
 	public void handleElectionMessage(CommunicationMessage msg,

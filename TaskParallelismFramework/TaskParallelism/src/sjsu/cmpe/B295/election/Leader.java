@@ -1,5 +1,8 @@
 package sjsu.cmpe.B295.election;
 
+import static io.netty.handler.codec.http.HttpResponseStatus.OK;
+import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
+
 import java.util.Timer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -7,20 +10,28 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.handler.codec.http.HttpResponseStatus;
+import io.netty.util.CharsetUtil;
 import sjsu.cmpe.B295.clusterMonitoring.Cluster;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
-import sjsu.cmpe.B295.communicationMessageHandlers.IHttpRequestHandler;
-import sjsu.cmpe.B295.framwork.InputAnalyser;
-import sjsu.cmpe.B295.framwork.Mapper;
+import sjsu.cmpe.B295.framework.Mapper;
+import sjsu.cmpe.B295.httpRequestMessageHandlers.HttpRequestHandler;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
 import sjsu.cmpe.B295.sensorDataCollection.IParallelizable;
 
-public class Leader extends ElectionNodeState implements IHttpRequestHandler{
+
+
+public class Leader extends ElectionNodeState {
 	protected static Logger logger = LoggerFactory.getLogger("Leader");
 	public BlockingQueue<IParallelizable> taskQueue = new LinkedBlockingQueue<>();
 	private Cluster cluster;
-	
 
 	public Cluster getCluster() {
 		return cluster;
@@ -30,13 +41,13 @@ public class Leader extends ElectionNodeState implements IHttpRequestHandler{
 	private HeartbeatSenderTask heartbeatSenderTask;
 	private ElectionUtil util;
 	Mapper mapper;
+
 	public Leader(NodeState nodeState) {
 		super(nodeState);
 		util = new ElectionUtil();
 		cluster = new Cluster();
-		mapper = new Mapper(this,nodeState);
-		
-		
+		mapper = new Mapper(this, nodeState);
+
 	}
 
 	@Override
@@ -87,6 +98,49 @@ public class Leader extends ElectionNodeState implements IHttpRequestHandler{
 
 	}
 
+	// Http Request Handling
+
+	@Override
+	public void handleHttpRequestEvent(ChannelHandlerContext ctx,
+		FullHttpRequest request) {
+
+		DefaultFullHttpResponse response = new DefaultFullHttpResponse(
+			HTTP_1_1, OK);
+
+		response.headers().set(HttpHeaderNames.CONTENT_TYPE,
+			"text/html; charset=UTF-8");
+		response.content().writeBytes(request.content().copy());
+		ctx.write(response);
+		
+		// TODO Auto-generated method stub
+		// Input Analyzer --> Input Splitter
+		// Input Splitter --> currentNodeState(Leader)
+		// TaskMonitor
+		// Mapper
+		// Reducer
+	}
+
+	@Override
+	public void handleGetHumidityRequest(ChannelHandlerContext ctx,
+		FullHttpRequest request) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleGetTemperatureRequest(ChannelHandlerContext ctx,
+		FullHttpRequest request) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleGetBothRequest(ChannelHandlerContext ctx,
+		FullHttpRequest request) {
+		// TODO Auto-generated method stub
+
+	}
+
 	@Override
 	public void beforeStateChange() {
 		// stop sending heartbeats
@@ -112,19 +166,5 @@ public class Leader extends ElectionNodeState implements IHttpRequestHandler{
 
 	public void cleanup() {
 
-	}
-
-	@Override
-	public void handleHttpRequest(String uri, Integer time) {
-		
-		InputAnalyser analyser = new InputAnalyser(this);
-		analyser.handleHttpRequest(uri, time);
-		
-	}
-
-	@Override
-	public void setNextHandler(IHttpRequestHandler nextHandler) {
-		// TODO Auto-generated method stub
-		
 	}
 }

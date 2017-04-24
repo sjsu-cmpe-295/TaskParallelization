@@ -1,4 +1,4 @@
-package sjsu.cmpe.B295.framwork;
+package sjsu.cmpe.B295.framework;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import sjsu.cmpe.B295.clusterMonitoring.Cluster;
 import sjsu.cmpe.B295.clusterMonitoring.PiNode;
 import sjsu.cmpe.B295.clusterMonitoring.PiNodeType;
-import sjsu.cmpe.B295.communicationMessageHandlers.IHttpRequestHandler;
 import sjsu.cmpe.B295.election.Leader;
+import sjsu.cmpe.B295.httpRequestMessageHandlers.IHttpRequestHandler;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
 import sjsu.cmpe.B295.sensorDataCollection.IParallelizable;
 
