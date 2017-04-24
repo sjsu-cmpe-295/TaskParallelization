@@ -42,10 +42,10 @@ public class HeartbeatSenderTask extends TimerTask {
 	@Override
 	public void run() {
 
-		if(!cluster.getPiNodes().containsKey(nodeState.getRoutingConfig().getHost()) )
+		if(!cluster.getPiNodes().containsKey(nodeState.getRoutingConfig().getNodeId()) )
 			updateUI=true;
 		else
-		if(!cluster.getPiNodes().get(nodeState.getRoutingConfig().getHost()).getPiNodeType().equals(PiNodeType.MASTER))
+		if(!cluster.getPiNodes().get(nodeState.getRoutingConfig().getNodeId()).getPiNodeType().equals(PiNodeType.MASTER))
 			updateUI=true;
 
 		masterResponse="{\"id\": \""+nodeState.getRoutingConfig().getNodeId()+"\", \"ip\": \""+nodeState.getRoutingConfig().getHost()+"\",\"isMaster\": \""+PiNodeType.MASTER+"\"},";
@@ -85,10 +85,11 @@ public class HeartbeatSenderTask extends TimerTask {
 
 				if(!updateUI)
 				{
-					if(!cluster.getPiNodes().containsKey(ri.getHost()) )
+					if(!cluster.getPiNodes().containsKey(ri.getId()) )
 					updateUI=true;
 				else
-				if(!cluster.getPiNodes().get(ri.getHost()).getPiNodeType().equals(PiNodeType.WORKER))
+				if(!cluster.getPiNodes().get(ri.getId()).getPiNodeType().equals(PiNodeType.WORKER))
+//						|| !cluster.getPiNodes().get(ri.getId()).getPiNodeState().equals(ri.get)
 					updateUI=true;
 				}
 
@@ -113,7 +114,7 @@ public class HeartbeatSenderTask extends TimerTask {
 
 			});
 		logger.info("@@@@@@@@@@@@@@ Cluster Details @@@@@@@@@@@@@@ ");
-		for (String piNodeId : cluster.getPiNodes().keySet()) {
+		for (Integer piNodeId : cluster.getPiNodes().keySet()) {
 			PiNode piNode = cluster.getPiNodes().get(piNodeId);
 			logger.info(piNode.getId() + "-" + piNode.getIpAddress() + "-"
 				+ piNode.getPiNodeState() + "-" + piNode.getPiNodeType());
