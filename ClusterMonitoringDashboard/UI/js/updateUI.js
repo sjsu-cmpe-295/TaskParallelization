@@ -29,12 +29,14 @@ socket.on('clusterStats', function (data) {
 
             //Update graph
             d3.select("svg").remove();
-            nodes.push({id: data.nodes[i].id, reflexive: false});
-            if (i > 0)
-                links.push({source: nodes[0], target: nodes[i], left: false, right: true});
-
-            console.log(nodes);
-            console.log(links);
+            console.log(data.nodes[i].state);
+            if(data.nodes[i].state=="ACTIVE") {
+                nodes.push({id: data.nodes[i].id, reflexive: false});
+                if (i > 0)
+                    links.push({source: nodes[0], target: nodes[nodes.length-1], left: false, right: true});
+            }
+            // console.log(nodes);
+            // console.log(links);
 
             //Update table
             var row = new_tbody.insertRow(i);
@@ -44,6 +46,8 @@ socket.on('clusterStats', function (data) {
             cell1.innerHTML = data.nodes[i].ip;
             cell1 = row.insertCell(2);
             cell1.innerHTML = data.nodes[i].isMaster;
+            cell1 = row.insertCell(3);
+            cell1.innerHTML = data.nodes[i].state;
         }
         drawGraph(nodes, links);
         old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
