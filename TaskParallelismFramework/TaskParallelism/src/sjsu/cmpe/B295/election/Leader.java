@@ -1,5 +1,7 @@
 package sjsu.cmpe.B295.election;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -9,7 +11,13 @@ import org.slf4j.LoggerFactory;
 
 import io.netty.channel.Channel;
 import sjsu.cmpe.B295.clusterMonitoring.Cluster;
+import sjsu.cmpe.B295.clusterMonitoring.PiNode;
+import sjsu.cmpe.B295.clusterMonitoring.PiNodeState;
+import sjsu.cmpe.B295.clusterMonitoring.PiNodeType;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
+import sjsu.cmpe.B295.loadBalancing.DefaultLoadBalancer;
+import sjsu.cmpe.B295.loadBalancing.HostAndPort;
+import sjsu.cmpe.B295.loadBalancing.RoundRobinBalancingStrategy;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
 import sjsu.cmpe.B295.sensorDataCollection.IParallelizable;
 
@@ -18,8 +26,21 @@ public class Leader extends ElectionNodeState {
 	private BlockingQueue<IParallelizable> taskQueue = new LinkedBlockingQueue<>();
 	private Cluster cluster;
 
+	private DefaultLoadBalancer loadBalancer;
+
+	private static int previousDestinationsCount;
+
 	public Cluster getCluster() {
 		return cluster;
+	}
+
+	public void addToCluster(PiNode node) {
+		getCluster().addPiNode(node);
+		if ((node.getPiNodeState().equals(PiNodeState.ACTIVE)
+			&& node.getPiNodeType().equals(PiNodeType.WORKER))
+			|| previousDestinationsCount > 0) {
+			restartLoadBalancer();
+		}
 	}
 
 	private Timer heartbeatTimeoutTimer;
@@ -97,6 +118,48 @@ public class Leader extends ElectionNodeState {
 		heartbeatTimeoutTimer.scheduleAtFixedRate(heartbeatSenderTask, 0,
 			getHeartBeatTimeout());
 
+		restartLoadBalancer();
+	}
+
+	private void restartLoadBalancer() {
+		logger.info("Re-Starting Loading Balancer");
+		List<HostAndPort> destinations = new ArrayList<HostAndPort>();
+
+		for (Integer nodeId : getCluster().getPiNodes().keySet()) {
+			PiNode piNode = getCluster().getPiNodes().get(nodeId);
+			if (piNode.getPiNodeType().equals(PiNodeType.WORKER)
+				&& piNode.getPiNodeState().equals(PiNodeState.ACTIVE)) {
+				destinations.add(new HostAndPort(piNode.getIpAddress(),
+					piNode.getCommandPort()));
+			}
+		}
+
+		previousDestinationsCount = destinations.size();
+		logger.info("targets count = " + destinations.size());
+
+		RoundRobinBalancingStrategy strategy = new RoundRobinBalancingStrategy(
+			nodeState, destinations);
+		if (loadBalancer != null) {
+			loadBalancer.terminate();
+		}
+		loadBalancer = new DefaultLoadBalancer("defaultLoadBalancer",
+			new HostAndPort(this.nodeState.getRoutingConfig().getHost(),
+				this.nodeState.getRoutingConfig().getCommandPort()),
+			strategy);
+
+		if (!loadBalancer.init()) {
+			System.err.println("Failed to launch LoadBalancer with options: ");
+			return;
+		}
+
+		Thread shutdownHook = new Thread() {
+
+			@Override
+			public void run() {
+				loadBalancer.terminate();
+			}
+		};
+		Runtime.getRuntime().addShutdownHook(shutdownHook);
 	}
 
 	public long getHeartBeatTimeout() {
@@ -104,6 +167,6 @@ public class Leader extends ElectionNodeState {
 	}
 
 	public void cleanup() {
-
+		loadBalancer.terminate();
 	}
 }

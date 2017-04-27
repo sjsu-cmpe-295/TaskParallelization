@@ -114,15 +114,17 @@ public class RoutingConfig {
 	public static final class RoutingEntry {
 		private String host;
 		private int port;
+		private int commandPort;
 		private int id;
 
 		public RoutingEntry() {
 		}
 
-		public RoutingEntry(int id, String host, int port) {
+		public RoutingEntry(int id, String host, int port, int commandPort) {
 			this.id = id;
 			this.host = host;
 			this.port = port;
+			this.commandPort = commandPort;
 		}
 
 		public String getHost() {
@@ -139,6 +141,14 @@ public class RoutingConfig {
 
 		public void setPort(int port) {
 			this.port = port;
+		}
+
+		public int getCommandPort() {
+			return commandPort;
+		}
+
+		public void setCommandPort(int commandPort) {
+			this.commandPort = commandPort;
 		}
 
 		public int getId() {
