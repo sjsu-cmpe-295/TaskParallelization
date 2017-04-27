@@ -76,7 +76,7 @@ public class CommunicationChannelHandler
 				.remoteAddress();
 			nodeState.getEdgeMonitor().createInboundIfNew(
 				msg.getHeader().getNodeId(), socketAddress.getHostName(),
-				socketAddress.getPort(), channel);
+				socketAddress.getPort(), socketAddress.getPort() + 1, channel);
 		} catch (Exception e) {
 			logger.error("Got an exception in work");
 			e.printStackTrace();

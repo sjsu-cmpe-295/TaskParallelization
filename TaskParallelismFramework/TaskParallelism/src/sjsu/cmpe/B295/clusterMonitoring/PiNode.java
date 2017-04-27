@@ -8,6 +8,7 @@ public class PiNode {
 
 	private Integer id;
 	private String ipAddress;
+	private Integer commandPort;
 	private PiNodeType piNodeType;
 	private PiNodeState piNodeState;
 
@@ -29,6 +30,14 @@ public class PiNode {
 
 	public PiNodeState getPiNodeState() {
 		return piNodeState;
+	}
+
+	public Integer getCommandPort() {
+		return commandPort;
+	}
+
+	public void setCommandPort(Integer commandPort) {
+		this.commandPort = commandPort;
 	}
 
 	public void setIpAddress(String ipAddress) {

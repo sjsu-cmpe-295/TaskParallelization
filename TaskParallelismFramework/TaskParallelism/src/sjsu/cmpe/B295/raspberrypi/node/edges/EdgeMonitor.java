@@ -49,7 +49,8 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 		if (state.getRoutingConfig().getRoutingEntries() != null) {
 			for (RoutingEntry e : state.getRoutingConfig()
 				.getRoutingEntries()) {
-				outboundEdges.addNode(e.getId(), e.getHost(), e.getPort());
+				outboundEdges.addNode(e.getId(), e.getHost(), e.getPort(),
+					e.getCommandPort());
 			}
 		}
 
@@ -70,8 +71,8 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 	}
 
 	public void createInboundIfNew(int ref, String host, int port,
-		Channel channel) {
-		EdgeInfo ei = inboundEdges.createIfNew(ref, host, port);
+		int commandPort, Channel channel) {
+		EdgeInfo ei = inboundEdges.createIfNew(ref, host, port, commandPort);
 		ei.setChannel(channel);
 		ei.setActive(true);
 	}
@@ -215,7 +216,8 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 		RoutingConfig configuration = this.nodeState.getRoutingConfig();
 		outboundEdges = new EdgeList();
 		for (RoutingEntry e : configuration.getRoutingEntries()) {
-			outboundEdges.addNode(e.getId(), e.getHost(), e.getPort());
+			outboundEdges.addNode(e.getId(), e.getHost(), e.getPort(),
+				e.getCommandPort());
 		}
 
 	}

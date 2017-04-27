@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import io.netty.channel.Channel;
 import sjsu.cmpe.B295.common.CommunicationMessageProto.CommunicationMessage;
 import sjsu.cmpe.B295.raspberrypi.node.NodeState;
+import sjsu.cmpe.B295.raspberrypi.node.StartHttpCommunication;
 import sjsu.cmpe.B295.util.ITimeoutListener;
 import sjsu.cmpe.B295.util.Timer;
 
@@ -17,6 +18,8 @@ public class Follower extends ElectionNodeState implements ITimeoutListener {
 	private Timer timer;
 	private int retries;
 	private ElectionUtil util;
+	private Thread httpServerThread;
+	private StartHttpCommunication httpServer;
 
 	public Follower(NodeState nodeState) {
 		super(nodeState);
@@ -70,7 +73,7 @@ public class Follower extends ElectionNodeState implements ITimeoutListener {
 			nodeState.setVotedFor(msg.getHeader().getNodeId());
 			channel.writeAndFlush(util.createVoteResponse(nodeState,
 				incomingTermId, msg.getHeader().getNodeId()));
-			
+
 			timer.reset(getElectionTimeout());
 		} else {
 			logger.info(
@@ -90,11 +93,23 @@ public class Follower extends ElectionNodeState implements ITimeoutListener {
 		if (timer != null) {
 			timer.cancel();
 		}
+		if (httpServerThread != null) {
+			logger.info("Interrupting because changing state");
+			httpServer.requestThreadStop();
+			httpServerThread.interrupt();
+
+		}
 	}
 
 	@Override
 	public void afterStateChange() {
 		startTimer();
+
+		logger.info("Starting Http Server state");
+		httpServer = new StartHttpCommunication(this.nodeState);
+
+		httpServerThread = new Thread(httpServer);
+		httpServerThread.start();
 	}
 
 	public void startTimer() {

@@ -6,14 +6,16 @@ public class EdgeInfo {
 	private int ref;
 	private String host;
 	private int port;
+	private int commandPort;
 	private long lastHeartbeat = 0;
 	private boolean active = false;
 	private Channel channel;
 
-	EdgeInfo(int ref, String host, int port) {
+	EdgeInfo(int ref, String host, int port, int commandPort) {
 		this.ref = ref;
 		this.host = host;
 		this.port = port;
+		this.commandPort = commandPort;
 	}
 
 	public int getRef() {
@@ -38,6 +40,14 @@ public class EdgeInfo {
 
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	public int getCommandPort() {
+		return commandPort;
+	}
+
+	public void setCommandPort(int commandPort) {
+		this.commandPort = commandPort;
 	}
 
 	public long getLastHeartbeat() {
