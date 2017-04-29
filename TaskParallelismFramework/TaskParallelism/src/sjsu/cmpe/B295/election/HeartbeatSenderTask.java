@@ -33,6 +33,7 @@ public class HeartbeatSenderTask extends TimerTask {
     private String masterResponse = "";
     private StringBuffer workerResponse = new StringBuffer("");
     public static ConcurrentHashMap<String,Integer> workerStatusMap=new ConcurrentHashMap<>();
+    public static String clientIP="";
 
     public HeartbeatSenderTask(Leader leader, NodeState nodeState) {
         this.nodeState = nodeState;
@@ -138,6 +139,7 @@ public class HeartbeatSenderTask extends TimerTask {
     public void updateUI() {
         response.setLength(0);
         try {
+            clientIP= nodeState.getRoutingConfig().getClientIP();
             URL url = new URL("http://" + nodeState.getRoutingConfig().getClientIP() + ":1300/updateCluster");
             URLConnection connection = url.openConnection();
             connection.setDoOutput(true);

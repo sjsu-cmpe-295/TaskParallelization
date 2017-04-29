@@ -76,45 +76,39 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        API Client
+                        Task History
                     </h1>
                     <ol class="breadcrumb">
                         <li>
                             <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
                         </li>
                         <li class="active">
-                            <i class="fa fa-file"></i> API Client
+                            <i class="fa fa-file"></i> Task History
                         </li>
                     </ol>
-                    <form class="form-horizontal" id="taskDetails">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="sensor">Sensor:</label>
-                            <div class="dropdown col-sm-10" >
-                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
-                                        id="sensor" name="sensor">Choose a sensor <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Temperature</a></li>
-                                    <li><a href="#">Humidity</a></li>
-                                    <li><a href="#">Temperature & Humidity</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="time">Time:</label>
-                            <div class="col-xs-3">
-                                <input type="text" class="form-control" id="time" name="time" placeholder="Enter time in minutes">
-                            </div>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="button" class="btn btn-default" id="btnSubmit">Submit</button>
-                            </div>
-                        </div>
-                        <label for="response">Response:</label>
-                        <textarea class="form-control" rows="5" id="response"></textarea>
 
-                    </form>
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Task History</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped" id="taskTable">
+                                        <thead>
+                                        <tr>
+                                            <th>Task ID</th>
+                                            <th>Output</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /.row -->
@@ -133,10 +127,26 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
-<script src="js/sweetalert.min.js"></script>
-<link rel="stylesheet" href="css/sweetalert.css">
-<script src="js/socket.io.js"></script>
-<script src="js/submitTask.js"></script>
+<script>
+    var clientIP="localhost";
+    $.ajax({
+        type: "GET",
+        url: "http://"+clientIP+":1300/getTasks",
+        success: function (result) {
+            console.log("result is " + result);
+            var old_tbody = document.getElementById("taskTable").tBodies[0];
+
+            for (var i in result) {
+                console.log("inside for");
+
+                var row = old_tbody.insertRow(old_tbody.rows.length);
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = result[i].id;
+                cell1 = row.insertCell(1);
+                cell1.innerHTML = result[i].output;
+            }
+        }});
+</script>
 
 </body>
 

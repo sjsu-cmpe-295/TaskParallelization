@@ -19,7 +19,7 @@ import java.util.Random;
 @EnableAsync
 public class TaskSubmission {
     protected static Logger logger = LoggerFactory.getLogger("TaskSubmission");
-    private String clientIP="localhost";
+    private String clientIP=HeartbeatSenderTask.clientIP;
 
     @Async
     public void callWorker(Task task) {
@@ -73,7 +73,7 @@ public class TaskSubmission {
 //        logger.info("inside sendTask");
         String result=null;
         try {
-            String uri = "http://"+ip+":8082/doTask?"+data;
+            String uri = "http://"+ip+":8080/doTask?"+data;
 
             RestTemplate restTemplate = new RestTemplate();
             result = restTemplate.getForObject(uri, String.class);
