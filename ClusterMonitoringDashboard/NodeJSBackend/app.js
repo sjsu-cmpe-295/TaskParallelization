@@ -91,16 +91,17 @@ app.post('/updateCluster', function (req, res) {
     res.sendStatus(200);
 });
 
-//Gets the output from the master node and updates all UI clients(sockets)
+//Gets the output from the master node and updates the client that requested it
 app.post('/getOutput', function (req, res) {
     console.log("getOutput accessed");
     console.log("output is " + JSON.stringify(req.body));
 
     //Emit to all sockets
     // io.sockets.emit('getOutput', req.body);
+
     console.log("task id is "+req.body.id);
-    // console.log("socketid is "+socket.id);
     console.log("from map socket id is "+taskIdtoSocketIdMap[req.body.id]);
+
     io.to(taskIdtoSocketIdMap[req.body.id]).emit('getOutput',req.body.output);
 
     res.sendStatus(200);

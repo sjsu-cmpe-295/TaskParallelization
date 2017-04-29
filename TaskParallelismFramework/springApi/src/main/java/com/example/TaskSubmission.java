@@ -6,12 +6,13 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import sjsu.cmpe.B295.election.HeartbeatSenderTask;
 
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Random;
 
 
 @Service
@@ -19,16 +20,39 @@ import java.net.URLConnection;
 public class TaskSubmission {
     protected static Logger logger = LoggerFactory.getLogger("TaskSubmission");
     private String clientIP="localhost";
+
     @Async
     public void callWorker(Task task) {
         logger.info("calling worker");
         String taskId = task.getId();
-        String ip = clientIP;
+        String ip ="";
+        String[] workerIPs=new String[HeartbeatSenderTask.workerStatusMap.keySet().size()];
+        int index=0;
 
         ///get free worker
+        for(String key:HeartbeatSenderTask.workerStatusMap.keySet())
+        {
+            workerIPs[index++]=key;
+            if(HeartbeatSenderTask.workerStatusMap.get(key)==0) {
+                HeartbeatSenderTask.workerStatusMap.put(key,1);
+                ip = key;
+                logger.info("Idle node found, ip: "+ip);
+                break;
+            }
+        }
+
+        //if all workers are busy, get random ip
+        if(ip.isEmpty()) {
+
+            ip=workerIPs[new Random().nextInt(workerIPs.length)];
+            HeartbeatSenderTask.workerStatusMap.put(ip,1);
+            logger.info("No idle node, random ip chosen "+ip);
+        }
 
 
         String output=sendTask(ip, task.toString());
+        HeartbeatSenderTask.workerStatusMap.put(ip,0);
+
         if(output!=null) {
             //Reduce task sub count
             Controller.taskSubTasksMap.put(taskId,Controller.taskSubTasksMap.get(taskId)-1);
@@ -36,8 +60,10 @@ public class TaskSubmission {
             Controller.taskDetailsMap.put(taskId,Controller.taskDetailsMap.containsKey(taskId) ? Controller.taskDetailsMap.get(taskId)+","+output:output);
 
             //If all tasks have completed, send output
-            if(Controller.taskSubTasksMap.get(taskId)==0)
-                sendOutput(clientIP, "{\"id\":\"" + taskId + "\",\"output\":[" + Controller.taskDetailsMap.get(taskId)+ "]}");
+            if(Controller.taskSubTasksMap.containsKey(taskId) && Controller.taskSubTasksMap.get(taskId)==0) {
+                Controller.taskSubTasksMap.remove(taskId);
+                sendOutput(clientIP, "{\"id\":\"" + taskId + "\",\"output\":[" + Controller.taskDetailsMap.get(taskId) + "]}");
+            }
         }else
             sendOutput(clientIP,"{\"Error\":\"No output received from worker, check logs ip: "+ip+"\"}");
     }

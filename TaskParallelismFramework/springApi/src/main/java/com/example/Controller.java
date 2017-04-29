@@ -1,31 +1,13 @@
 package com.example;
 
-import org.codehaus.jackson.map.util.JSONPObject;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.MediaType;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-import sjsu.cmpe.B295.raspberrypi.node.TaskParallelizeApp;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -33,8 +15,8 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Controller {
     protected static Logger logger = LoggerFactory.getLogger("Controller");
     //Stores taskId and SubTask count
-    static ConcurrentHashMap<String, Integer> taskSubTasksMap = new ConcurrentHashMap<String, Integer>();
-    static ConcurrentHashMap<String, String> taskDetailsMap = new ConcurrentHashMap<String, String>();
+    static ConcurrentHashMap<String, Integer> taskSubTasksMap = new ConcurrentHashMap<>();
+    static ConcurrentHashMap<String, String> taskDetailsMap = new ConcurrentHashMap<>();
 
 
     @Autowired
