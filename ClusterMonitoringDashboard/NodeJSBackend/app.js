@@ -4,16 +4,19 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var querystring = require('querystring');
+var request = require('request');
 const http = require('http');
-
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 //Node details
 var nodes;
-var isStartingUp = true;
-var nodeUpdated = true;
+var taskId = 0;
+var masterIp;
+var sockets;
+var taskIdtoSocketIdMap=[];
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -38,12 +41,40 @@ app.use('/users', users);
 //creates a socket with the client and updates UI
 io.on('connection', function (socket) {
     console.log("socket initiated sid: " + socket.id);
+    sockets=io.sockets;
     // console.log(socket);
     // if (nodes)
     socket.emit('clusterStats', nodes);
-    // socket.on('my other event', function (data) {
-    //     console.log(data);
-    // });
+    socket.on('submitTask', function (data) {
+        console.log("submitted task " + JSON.stringify(data));
+        console.log("masterip " + masterIp);
+        taskId++;
+        taskIdtoSocketIdMap[taskId]=socket.id;//temporary
+        console.log("socket id "+socket.id+" taskid "+taskId);//temporary
+        data["id"]=taskId;
+        console.log("data is "+JSON.stringify(data));
+
+        var options = {
+            method: 'post',
+            body: data, // Javascript object
+            json: true, // Use,If you are sending JSON data
+            url: 'http://'+masterIp+':8081/submitTask',
+            headers: {
+                // Specify headers, If any
+            }
+        }
+
+        request(options, function (err, res, body) {
+            if (err) {
+                console.log('Error :', err)
+                return
+            }
+            console.log(' Body :', body)
+
+        });
+
+
+    });
 
 
 });
@@ -54,10 +85,27 @@ app.post('/updateCluster', function (req, res) {
     console.log("request is " + JSON.stringify(req.body));
 
     nodes = req.body;
+    masterIp = nodes.nodes[0].ip;
     io.sockets.emit('clusterStats', nodes);
 
     res.sendStatus(200);
 });
+
+//Gets the output from the master node and updates all UI clients(sockets)
+app.post('/getOutput', function (req, res) {
+    console.log("getOutput accessed");
+    console.log("output is " + JSON.stringify(req.body));
+
+    //Emit to all sockets
+    // io.sockets.emit('getOutput', req.body);
+    console.log("task id is "+req.body.id);
+    // console.log("socketid is "+socket.id);
+    console.log("from map socket id is "+taskIdtoSocketIdMap[req.body.id]);
+    io.to(taskIdtoSocketIdMap[req.body.id]).emit('getOutput',req.body.output);
+
+    res.sendStatus(200);
+});
+
 
 //Test Node-Spring rest call
 // app.get('/getNodeDetails', function (req, response) {
