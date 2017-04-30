@@ -19,11 +19,12 @@ import java.util.Random;
 @EnableAsync
 public class TaskSubmission {
     protected static Logger logger = LoggerFactory.getLogger("TaskSubmission");
-    private String clientIP=HeartbeatSenderTask.clientIP;
+    private String clientIP="";
 
     @Async
     public void callWorker(Task task) {
         logger.info("calling worker");
+        clientIP=HeartbeatSenderTask.clientIP;
         String taskId = task.getId();
         String ip = "";
         String[] workerIPs = new String[HeartbeatSenderTask.workerStatusMap.keySet().size()];
@@ -88,7 +89,10 @@ public class TaskSubmission {
     }
 
     public void sendOutput(String clientIp, String output) {
-//        logger.info("sending output");
+        logger.info("sending output");
+        logger.info("client ip is "+clientIP);
+        logger.info("output is "+output);
+
         try {
             URL url = new URL("http://" + clientIp + ":1300/getOutput");
             URLConnection connection = url.openConnection();

@@ -1,4 +1,4 @@
-var clientIP = "localhost";
+var clientIP = "10.0.0.234";
 var task={tasks:[{sensor:"temperature", time:"5"},{sensor:"humidity", time:"7"}]};
 // ,{sensor:"humidity", time:"10"}];
 // var task={sensor:"humidity", time:"5"};

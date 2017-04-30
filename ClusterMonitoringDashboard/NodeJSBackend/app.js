@@ -88,6 +88,7 @@ app.post('/updateCluster', function (req, res) {
 
     nodes = req.body;
     masterIp = nodes.nodes[0].ip;
+    console.log("master node set as "+masterIp);
     io.sockets.emit('clusterStats', nodes);
 
     res.sendStatus(200);
