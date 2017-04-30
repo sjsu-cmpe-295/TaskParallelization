@@ -77,9 +77,6 @@ public class Node {
 				b.option(ChannelOption.SO_BACKLOG, 100);
 				b.option(ChannelOption.TCP_NODELAY, true);
 				b.option(ChannelOption.SO_KEEPALIVE, true);
-
-				// b.option(ChannelOption.MESSAGE_SIZE_ESTIMATOR);
-
 				b.childHandler(new CommunicationChannelInitializer(nodeState));
 
 				// Start the server.

@@ -65,7 +65,6 @@ socket.on('clusterStats', function (data) {
     }
 });
 
-
 socket.on('clusterMetrics', function (data) {
     if (data) {
         console.log(data);
@@ -75,31 +74,31 @@ socket.on('clusterMetrics', function (data) {
         for(var i=0,row;row = old_tbody.rows[i];i++){
             console.log(row.cells[1]);
             console.log(row.cells[1].innerHTML);
-            if(row.cells[1].innerHTML in data){
+            if(row.cells[0].innerHTML in data){
                 console.log("in IF");
                 console.log(row.cells[1]);
-                metricsArray = data[row.cells[1].innerHTML];
+                metricsArray = data[row.cells[0].innerHTML];
                 console.log(metricsArray);
-                if(row.cells[3]){
-                   row.cells[3].innerHTML = metricsArray[0]; 
-                }else{
-                    cell1 = row.insertCell(3);
-                    cell1.innerHTML = metricsArray[0]; 
-                }
                 if(row.cells[4]){
-                   row.cells[4].innerHTML = metricsArray[1]; 
+                   row.cells[4].innerHTML = metricsArray[0]; 
                 }else{
                     cell1 = row.insertCell(4);
-                    cell1.innerHTML = metricsArray[1]; 
+                    cell1.innerHTML = metricsArray[0]; 
                 }
                 if(row.cells[5]){
-                   row.cells[5].innerHTML = metricsArray[2]; 
+                   row.cells[5].innerHTML = metricsArray[1]; 
+                }else{
+                    cell1 = row.insertCell(5);
+                    cell1.innerHTML = metricsArray[1]; 
+                }
+                if(row.cells[6]){
+                   row.cells[6].innerHTML = metricsArray[2]; 
                 }else{
                     cell1 = row.insertCell(5);
                     cell1.innerHTML = metricsArray[2]; 
                 }
-                if(row.cells[6]){
-                   row.cells[6].innerHTML = metricsArray[3]; 
+                if(row.cells[7]){
+                   row.cells[7].innerHTML = metricsArray[3]; 
                 }else{
                     cell1 = row.insertCell(6);
                     cell1.innerHTML = metricsArray[3]; 
@@ -218,10 +217,5 @@ function getClientIP() {
                 }
             });
         }
-    })(); else {
-//        clientIP="<code>ifconfig | grep inet | grep -v inet6 | cut -d\" \" -f2 | tail -n1</code>";
-
-//        document.getElementById('list').nextSibling.textContent = "In Chrome and Firefox your IP should display automatically, by the power of WebRTCskull.";
-    }
-
+    })(); 
 }

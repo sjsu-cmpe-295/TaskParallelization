@@ -63,10 +63,10 @@ public class SystemMonitorMetricsThread extends TimerTask{
 		StringBuffer response=new StringBuffer();
 		final String RESPONSE_START="";
 		final String RESPONSE_END="";
-		
+		String id;
 		//masterResponse="{\"ip\": \""+nodeState.getRoutingConfig().getHost()+"\", \"cpu\": \""+cpuUsage+"\",\"memoryUsage\": \""+memUsage+"\",\"netWorkIn\": \""+netStats.get("Network-In")+"\"},\"netWorkOut\": \""+netStats.get("Network-Out")+"\"}";
-		
-		masterResponse="{\"ip\": \""+"127.6.5.4"+"\", \"cpu\": \""+0.9+"\",\"memoryUsage\": \""+0.9+"\",\"netWorkIn\": \""+0.9+"\",\"netWorkOut\": \""+0.9+"\"}";
+		id=nodeState.getRoutingConfig().getNodeId()+"";
+		masterResponse="{\"id\": \""+id+"\", \"cpu\": \""+0.9+"\",\"memoryUsage\": \""+0.9+"\",\"netWorkIn\": \""+0.9+"\",\"netWorkOut\": \""+0.9+"\"}";
 		logger.info(masterResponse);
 		URL url;
 		try {
