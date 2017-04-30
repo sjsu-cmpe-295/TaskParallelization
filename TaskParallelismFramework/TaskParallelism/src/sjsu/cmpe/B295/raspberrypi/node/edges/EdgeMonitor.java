@@ -55,8 +55,8 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 
 		// cannot go below 2 sec
 		// if 3000>2000; this.dt=3000
-		if (state.getRoutingConfig().getHeartbeatDt() > this.dt)
-			this.dt = state.getRoutingConfig().getHeartbeatDt();
+		// if (state.getRoutingConfig().getHeartbeatDt() > this.dt)
+		this.dt = state.getRoutingConfig().getHeartbeatDt();
 
 		edgeHealthMonitorTask = new EdgeHealthMonitorTask(this);
 
@@ -89,7 +89,7 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 						logger.debug(ei.isActive() + "-" + ei.getChannel() + "-"
 							+ ei.getRef());
 
-						logger.info(nodeState.getRoutingConfig().getNodeId()
+						logger.debug(nodeState.getRoutingConfig().getNodeId()
 							+ " sending edgeBeat to " + ei.getRef());
 						EdgeBeatMsg beatMessage = new EdgeBeatMsg(
 							"Message from "
@@ -133,11 +133,12 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 								+ ", reg: " + channel.channel().isRegistered());
 
 						} catch (Throwable ex) {
-							logger.error(
+							logger.debug(
 								"failed to initialize the client connection");
 							// ex.printStackTrace();
 						}
-						logger.info("trying to connect to node " + ei.getRef());
+						logger
+							.debug("trying to connect to node " + ei.getRef());
 					}
 				}
 
@@ -164,9 +165,9 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 	// int termIdBroadCasting = msg.getLeader ().getElectionId ();
 	// int leaderIdBroadCasting = msg.getLeader ().getLeaderId ();
 	//
-	// logger.info("Edge Monitor - Term: " + termIdBroadCasting + ", " +
+	// logger.debug("Edge Monitor - Term: " + termIdBroadCasting + ", " +
 	// Thread.currentThread ().getName ());
-	// logger.info("Edge Monitor - Leader Id: " + leaderIdBroadCasting + ", " +
+	// logger.debug("Edge Monitor - Leader Id: " + leaderIdBroadCasting + ", " +
 	// Thread.currentThread ().getName ());
 	// }
 	//
@@ -230,7 +231,7 @@ public class EdgeMonitor implements Runnable, IFileObserver {
 
 	// @Override
 	// public void onFileChanged(RoutingConf configuration) {
-	// logger.info("in edge monitor ");
+	// logger.debug("in edge monitor ");
 	// outboundEdges = new EdgeList();
 	// for (RoutingEntry e : configuration.getRouting()) {
 	// outboundEdges.addNode(e.getId(), e.getHost(), e.getPort());

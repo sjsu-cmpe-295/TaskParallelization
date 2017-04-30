@@ -28,7 +28,7 @@ public class VoteRequestorTask extends TimerTask {
 			.stream().forEach(ei -> {
 				if (ei.getChannel() != null) {
 					if (ei.getChannel().isOpen()) {
-						logger.info(
+						logger.debug(
 							"Node " + nodeState.getRoutingConfig().getNodeId()
 								+ " requests vote to node " + ei.getRef());
 						CommunicationMessage commMsg = util.createVoteRequest(

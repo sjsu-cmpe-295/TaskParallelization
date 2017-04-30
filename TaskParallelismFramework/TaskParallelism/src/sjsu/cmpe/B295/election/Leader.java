@@ -34,7 +34,7 @@ public class Leader extends ElectionNodeState {
 
 	@Override
 	public void handleHeartBeat(CommunicationMessage msg, Channel channel) {
-		logger.info("Got heartbeat in Leader state from leader:"
+		logger.debug("Got heartbeat in Leader state from leader:"
 			+ msg.getElectionMessage().getLeaderId());
 		logger.debug("My term id:" + nodeState.getTermId());
 		logger
@@ -48,19 +48,19 @@ public class Leader extends ElectionNodeState {
 			.getTermId()) {
 			nodeState.setElectionNodeState(ElectionNodeStates.CANDIDATE);
 		} else {
-			logger.info("Ignoring Heartbeat from:"
+			logger.debug("Ignoring Heartbeat from:"
 				+ msg.getElectionMessage().getLeaderId());
 		}
 	}
 
 	@Override
 	public void handleVoteRequest(CommunicationMessage msg, Channel channel) {
-		logger.info("Got Vote Request from:" + msg.getHeader().getNodeId());
+		logger.debug("Got Vote Request from:" + msg.getHeader().getNodeId());
 		logger.debug("My term id:" + nodeState.getTermId());
 		logger
 			.debug("Incoming Term Id:" + msg.getElectionMessage().getTermId());
 		if (msg.getElectionMessage().getTermId() > nodeState.getTermId()) {
-			logger.info(
+			logger.debug(
 				"Acknowledging vote request" + msg.getHeader().getNodeId());
 			nodeState.setTermId(msg.getElectionMessage().getTermId());
 			nodeState.setVotedFor(msg.getHeader().getNodeId());
@@ -69,7 +69,7 @@ public class Leader extends ElectionNodeState {
 				msg.getHeader().getNodeId()));
 			nodeState.setElectionNodeState(ElectionNodeStates.FOLLOWER);
 		} else {
-			logger.info(
+			logger.debug(
 				"Ignoring vote request from" + msg.getHeader().getNodeId());
 		}
 	}

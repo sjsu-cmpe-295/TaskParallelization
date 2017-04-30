@@ -18,7 +18,7 @@ public class Timer {
 	}
 
 	public void start() {
-		logger.info("******** " + identifier + ", Request to start timer: "
+		logger.debug("******** " + identifier + ", Request to start timer: "
 			+ Thread.currentThread().getName());
 
 		timerThread = new TimerThread();
@@ -40,14 +40,14 @@ public class Timer {
 		if (timerThread == null) {
 			return;
 		}
-		logger.info("********" + identifier + ", Request to cancel timer: "
+		logger.debug("********" + identifier + ", Request to cancel timer: "
 			+ Thread.currentThread().getName());
 
 		timerThread.interrupt();
 	}
 
 	public void reset(long heartbeatTimeout) {
-		logger.info("********" + identifier + ", Request to reset timer: "
+		logger.debug("********" + identifier + ", Request to reset timer: "
 			+ Thread.currentThread().getName());
 
 		timerThread.interrupt();

@@ -67,7 +67,7 @@ public class HeartbeatSenderTask extends TimerTask {
                 PiNode piNode = new PiNode();
                 if (ei.getChannel().isOpen()) {
 
-                    logger.info(
+                    logger.debug(
                             "Node " + nodeState.getRoutingConfig().getNodeId()
                                     + " sending heartbeat to node " + ei.getRef());
                     CommunicationMessage commMsg = this.util
@@ -115,13 +115,13 @@ public class HeartbeatSenderTask extends TimerTask {
                     workerResponse.append("{\"id\": \"" + id + "\", \"ip\": \"" + ri.getHost() + "\",\"isMaster\": \"" + PiNodeType.WORKER +"\",\"state\": \"" + piNode.getPiNodeState()+ "\"},");
 
                 });
-        logger.info("@@@@@@@@@@@@@@ Cluster Details @@@@@@@@@@@@@@ ");
+        logger.debug("@@@@@@@@@@@@@@ Cluster Details @@@@@@@@@@@@@@ ");
         for (Integer piNodeId : cluster.getPiNodes().keySet()) {
             PiNode piNode = cluster.getPiNodes().get(piNodeId);
-            logger.info(piNode.getId() + "-" + piNode.getIpAddress() + "-"
+            logger.debug(piNode.getId() + "-" + piNode.getIpAddress() + "-"
                     + piNode.getPiNodeState() + "-" + piNode.getPiNodeType());
         }
-        logger.info("@@@@@@@@@@@@@@ Cluster Details @@@@@@@@@@@@@@ ");
+        logger.debug("@@@@@@@@@@@@@@ Cluster Details @@@@@@@@@@@@@@ ");
 
         if (updateUI) {
             if(workerStatusMap.size()>0)
@@ -164,8 +164,8 @@ public class HeartbeatSenderTask extends TimerTask {
             response.setLength(0);
             workerResponse.setLength(0);
         } catch (Exception e) {
-            logger.info("Error while calling updateCluster");
-            logger.info(e.getMessage());
+            logger.error("Error while calling updateCluster");
+            logger.error(e.getMessage());
             workerResponse.setLength(0);
         }
     }

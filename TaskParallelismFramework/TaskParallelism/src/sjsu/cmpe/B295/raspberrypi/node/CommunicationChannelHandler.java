@@ -53,7 +53,7 @@ public class CommunicationChannelHandler
 
 	public void handleMessage(CommunicationMessage msg, Channel channel) {
 		if (msg == null) {
-			logger.info("ERROR: Null message is received");
+			logger.debug("ERROR: Null message is received");
 			return;
 		}
 
