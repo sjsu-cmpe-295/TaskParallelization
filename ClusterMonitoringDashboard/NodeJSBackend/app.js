@@ -11,9 +11,17 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 //Node details
+ var avg,min,max,count;
+ var avgT,minT,maxT,countT;
 var nodes;
-var isStartingUp = true;
-var nodeUpdated = true;
+var humidityMinDate;
+var tempMinDate;
+var TemperatureValues;
+var humidityValues;
+var metricsHashMap = {};
+var isStartingUp=true;
+var nodeUpdated=true;
+var HumidityData;
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -41,6 +49,12 @@ io.on('connection', function (socket) {
     // console.log(socket);
     // if (nodes)
     socket.emit('clusterStats', nodes);
+    socket.emit('clusterMetrics', metricsHashMap);
+    socket.emit('temperatureStats',TemperatureValues,tempMinDate);
+    socket.emit('humidityStats',humidityValues,humidityMinDate);
+    socket.emit('humidityMetrics', avg,min,max,count);
+    socket.emit('tempMetrics', avgT,minT,maxT,countT);
+
     // socket.on('my other event', function (data) {
     //     console.log(data);
     // });
@@ -84,6 +98,8 @@ app.post('/updateCluster', function (req, res) {
 // });
 
 
+
+
 // Long polling(Set interval) usage for getNodeDetails
 // app.get('/getNodeDetails/:pageReload?', function (req, res) {
 //     console.log("getNodeDetails accessed");
@@ -112,6 +128,102 @@ app.post('/updateCluster', function (req, res) {
 //         res.sendStatus(200);
 //
 // });
+
+app.post('/updateMetrics',function (req,res){
+    console.log("updateMetrics accessed");
+    console.log("request is "+JSON.stringify(req.body));
+    metrics = new Array();
+    var json_obj = req.body;
+    console.log("json_obj "+json_obj);
+    metrics.push(json_obj.cpu);
+    metrics.push(json_obj.memoryUsage);
+    metrics.push(json_obj.netWorkIn);
+    metrics.push(json_obj.netWorkOut);
+    metricsHashMap[json_obj.id] = metrics;
+    console.log("metricsHashMap "+JSON.stringify(metricsHashMap));
+    io.sockets.emit('clusterMetrics', metricsHashMap);
+
+    res.sendStatus(200);
+
+});
+
+app.post('/updateGraph',function (req,res){
+    var humidityDates = [];
+    var tempDates = [];
+    var humidityValues = [];
+    var TemperatureValues = [];
+    var humidityMetrics;
+    var tempMetrics;
+   
+    // console.log("updateTemperatureGraph accessed");
+    // console.log("request is " + JSON.stringify(req.body));
+    var json_obj = req.body;
+    if(json_obj.hasOwnProperty('humidityDataPoints')){
+        HumidityData = json_obj.humidityDataPoints;
+        for(var key in HumidityData){
+            humidityDates.push(new Date(key.split(' ')[0]));
+            humidityValues.push(HumidityData[key]);
+            humidityMinDate=new Date(Math.min.apply(null,humidityDates));
+
+        }
+        console.log(humidityMinDate);
+        console.log(humidityValues);
+        io.sockets.emit('humidityStats', humidityValues,humidityMinDate);
+    }
+    if(json_obj.hasOwnProperty('humidityMetrics')){
+        humidityMetrics = json_obj.humidityMetrics;
+        avg = humidityMetrics['avg'];
+        min = humidityMetrics['min'];
+        max = humidityMetrics['max'];
+        count = humidityMetrics['count'];
+        console.log(avg,min,max,count);
+        io.sockets.emit('humidityMetrics', avg,min,max,count);
+    }
+    if(json_obj.hasOwnProperty('temperatureDataPoints')){
+        TempData = json_obj.temperatureDataPoints;
+        for(var key in TempData){
+            tempDates.push(new Date(key));
+            TemperatureValues.push(TempData[key]);
+            tempMinDate=new Date(Math.min.apply(null,tempDates));
+        }
+        console.log(TemperatureValues);
+        console.log(tempMinDate);
+        io.sockets.emit('temperatureStats', TemperatureValues,tempMinDate);
+    }
+    if(json_obj.hasOwnProperty('temperatureMetrics')){
+        tempMetrics = json_obj.temperatureMetrics;
+        avgT = tempMetrics['avg'];
+        minT = tempMetrics['min'];
+        maxT = tempMetrics['max'];
+        countT = tempMetrics['count'];
+        console.log(avgT,minT,maxT,countT);
+        io.sockets.emit('tempMetrics', avgT,minT,maxT,countT);
+    }
+    
+    
+
+    res.sendStatus(200);
+
+});
+
+// app.post('/updateHumidityGraph',function (req,res){
+//     console.log("updateHumidityGraph accessed");
+//     console.log("request is " + JSON.stringify(req.body));
+//     var json_obj = req.body;
+//     humidityValues = json_obj.humValues;
+//     io.sockets.emit('humidityStats', humidityValues);
+
+//     res.sendStatus(200);
+
+// });
+
+
+app.get('/getMetrics',function (req,res){
+    console.log("getMetrics accessed");
+
+});
+
+
 
 
 // catch 404 and forward to error handler

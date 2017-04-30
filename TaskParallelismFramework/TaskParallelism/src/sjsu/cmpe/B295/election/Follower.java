@@ -57,7 +57,7 @@ public class Follower extends ElectionNodeState implements ITimeoutListener {
 				+ msg.getElectionMessage().getLeaderId());
 		}
 	}
-
+	
 	@Override
 	public void handleVoteRequest(CommunicationMessage msg, Channel channel) {
 		logger.info("Got VoteRequest from:" + msg.getHeader().getNodeId());
