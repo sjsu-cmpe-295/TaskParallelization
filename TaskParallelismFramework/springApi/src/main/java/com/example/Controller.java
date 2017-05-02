@@ -41,14 +41,8 @@ public class Controller {
     TaskSubmission taskSubmission;
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping(value = "/sayHello")
-    public String submitTask() {
-        logger.info("sayHello accessed");
-        return "Hello there";
-    }
-
     /**
-     * This method is for the master node and will begin distributing tasks
+     * This method is for the master node and will begin distributing taskBody
      */
     @RequestMapping(value = "/submitTask")
     public String submitTask(@RequestBody TaskBody taskBody) {

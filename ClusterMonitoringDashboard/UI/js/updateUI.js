@@ -6,7 +6,7 @@ var nodes = null, links = [];
 
 var socket = io('http://' + clientIP + ':1301');
 socket.on('connect_error', function () {
-    console.log('Connection Failed');
+    console.log('Socket connection failed');
     document.getElementById("alertBoxDiv").classList.add('alert-danger');
     document.getElementById("alertBoxDiv").classList.remove('alert-info');
 
@@ -24,11 +24,11 @@ socket.on('clusterStats', function (data) {
         links = [];
 
         for (var i in data.nodes) {
-            console.log("inside for");
+            // console.log("inside for");
 
             //Update graph
             d3.select("svg").remove();
-            console.log(data.nodes[i].state);
+            // console.log(data.nodes[i].state);
             if(data.nodes[i].state=="ACTIVE") {
                 nodes.push({id: data.nodes[i].id, reflexive: false});
                 if (i > 0)
