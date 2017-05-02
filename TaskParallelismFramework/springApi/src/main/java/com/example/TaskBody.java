@@ -3,8 +3,18 @@ package com.example;
 import java.util.List;
 
 
-public class Tasks {
+public class TaskBody {
     String id;
+
+    public String getIsTp() {
+        return isTp;
+    }
+
+    public void setIsTp(String isTp) {
+        this.isTp = isTp;
+    }
+
+    String isTp;
     List<Task> tasks;
 
     public String getId() {

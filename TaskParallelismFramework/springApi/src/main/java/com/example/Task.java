@@ -4,22 +4,40 @@ package com.example;
 public class Task {
     private String id="";
     private String sensor="";
-    private String time="";
+    private String startTime="";
+    private String endTime="";
+    private String type="";
 
     public String getSensor() {
         return sensor;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public void setSensor(String sensor) {
         this.sensor = sensor;
     }
 
-    public String getTime() {
-        return time;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getId() {
@@ -31,7 +49,7 @@ public class Task {
     }
     @Override
     public String toString() {
-        return "id=" + id + "&sensor=" + sensor + "&time=" + time;
+        return "id=" + id + "&sensor=" + sensor + "&startTime=" + startTime + "&endTime=" + endTime + "&type=" + type;
     }
 
 }

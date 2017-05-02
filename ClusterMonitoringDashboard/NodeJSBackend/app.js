@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var querystring = require('querystring');
 var request = require('request');
-var mysql=require('./routes/mysql');
 
 const http = require('http');
 
@@ -125,37 +124,37 @@ app.post('/getOutput', function (req, res) {
 /*
  * Get Tasks
  */
-app.get('/getTasks',function (req,res) {
-    console.log("reached getTasks");
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', "*");
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    //
-    // // Set to true if you need the website to include cookies in the requests sent
-    // // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    var query = "select * from tasks";
-    console.log(query);
-    mysql.query(query, function (err, result) {
-        if (err) {
-
-            console.log("error");
-            throw err;
-        }
-        else
-        {
-            console.log(result);
-            res.send(result);
-        }
-
-
-    })
-});
+// app.get('/getTasks',function (req,res) {
+//     console.log("reached getTasks");
+//     // Website you wish to allow to connect
+//     res.setHeader('Access-Control-Allow-Origin', "*");
+//
+//     // Request methods you wish to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//
+//     // Request headers you wish to allow
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//     //
+//     // // Set to true if you need the website to include cookies in the requests sent
+//     // // to the API (e.g. in case you use sessions)
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+//     var query = "select * from tasks";
+//     console.log(query);
+//     mysql.query(query, function (err, result) {
+//         if (err) {
+//
+//             console.log("error");
+//             throw err;
+//         }
+//         else
+//         {
+//             console.log(result);
+//             res.send(result);
+//         }
+//
+//
+//     })
+// });
 
 
 //Test Node-Spring rest call

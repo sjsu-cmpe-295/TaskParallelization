@@ -1,5 +1,34 @@
-var clientIP = "10.0.0.234";
-var task={tasks:[{sensor:"temperature", time:"5"},{sensor:"humidity", time:"7"}]};
+var clientIP = "localhost";
+var task={
+    "id":"1",
+    "isTp": "false",
+    "tasks":[
+        {
+            "sensor":"temperature",
+            "startTime":"2017-04-27 10:00:00",
+            "endTime": "2017-05-01 11:59:59",
+            "type":"dataPoints"
+        },
+        {
+            "sensor":"temperature",
+            "startTime":"2017-04-27 10:00:00",
+            "endTime": "2017-05-01 11:59:59",
+            "type":"metrics"
+        },
+        {
+            "sensor":"humidity",
+            "startTime":"2017-04-27 10:00:00",
+            "endTime": "2017-05-01 11:59:59",
+            "type":"dataPoints"
+        },
+        {
+            "sensor":"humidity",
+            "startTime":"2017-04-27 10:00:00",
+            "endTime": "2017-05-01 11:59:59",
+            "type":"metrics"
+        }
+    ]
+};
 // ,{sensor:"humidity", time:"10"}];
 // var task={sensor:"humidity", time:"5"};
 // var task={sensor:"both", time:"5"};
