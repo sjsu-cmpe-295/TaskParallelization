@@ -19,28 +19,28 @@ socket.on('humidityMetrics',function(avg,min,max,count){
     console.log(avg,min,max,count);
     if(avg){
         var avgdiv = document.getElementById('Havg');
-        avgdiv.innerHTML = "AVERAGE HUMIDITY: "+avg;
+        avgdiv.innerHTML = "Average humidity: "+avg;
     }else{
         var avgdiv = document.getElementById('Havg');
         avgdiv.innerHTML = "Not calculated yet";
     }
     if(min){
         var mindiv = document.getElementById('Hmin');
-        mindiv.innerHTML = "MINIMUM HUMIDITY: " +min;
+        mindiv.innerHTML = "Minimum Humidity: " +min;
     }else{
         var mindiv = document.getElementById('Hmin');
         mindiv.innerHTML = "Not calculated yet";
     }
     if(max){
         var maxdiv = document.getElementById('Hmax');
-        maxdiv.innerHTML = "MAXIMUM HUMIDITY: "+max;
+        maxdiv.innerHTML = "Maximum Humidity: "+max;
     }else{
         var maxdiv = document.getElementById('Hmax');
         maxdiv.innerHTML = "Not calculated yet";
     }
     if(count){
         var countdiv = document.getElementById('Hcount');
-        countdiv.innerHTML = "TOTAL DATAPOINTS COUNT: "+count;
+        countdiv.innerHTML = "Total datapoints: "+count;
     }else{
         var countdiv = document.getElementById('Hcount');
         countdiv.innerHTML = "Not calculated yet";
@@ -51,36 +51,39 @@ socket.on('humidityMetrics',function(avg,min,max,count){
 
 socket.on('tempMetrics',function(avg,min,max,count){
     //graph(data,'temperature',minDate);
+    console.log("tempMetrics accessed ");
     console.log("Temp: "+avg,min,max,count);
     if(avg){
         var avgdiv = document.getElementById('avg');
-        avgdiv.innerHTML = "AVERAGE TEMPERATURE: "+avg;
+        avgdiv.innerHTML = "Average Temperature: "+avg;
     }else{
-        alert('in else')
+        // alert('in else')
         document.getElementById('avg').style.display = 'none';
         
     }
     if(min){
         var mindiv = document.getElementById('min');
-        mindiv.innerHTML = "MINIMUM TEMPERATURE: " +min;
+        mindiv.innerHTML = "Minimum Temperature: " +min;
     }else{
        document.getElementById('min').style.display = 'none';
     }
     if(max){
         var maxdiv = document.getElementById('max');
-        maxdiv.innerHTML = "MAXIMUM TEMPERATURE: "+max;
+        maxdiv.innerHTML = "Maximum Temperature: "+max;
     }else{
         document.getElementById('max').style.display = 'none';
         
     }
     if(count){
         var countdiv = document.getElementById('count');
-        countdiv.innerHTML = "TOTAL DATAPOINTS COUNT: "+count;
+        countdiv.innerHTML = "Total datapoints: "+count;
     }else{
         document.getElementById('count').style.display = 'none';
 
     }
-    
+    // document.getElementById("temperatureMetricsRow").style.display='block';
+    // document.getElementById("humidityMetricsRow").style.display='block';
+
 });
 
 socket.on('temperatureStats',function(data,minDate){
@@ -88,15 +91,7 @@ socket.on('temperatureStats',function(data,minDate){
     console.log(minDate);
     //graph(data,'temperature',minDate);
     if(data){
-        graph(data,'temperature',minDate);
-    }
-    else{
-        document.getElementById("alertBoxDiv").classList.add('alert-info');
-        document.getElementById("alertBoxDiv").classList.remove('alert-danger');
-        document.getElementById("alertMessage").innerHTML = "No Data Received Yet!";
-        document.getElementById("alertDiv").style.display = 'block';
-        d3.select("svg").remove();
-
+        graph(data,'Temperature',minDate);
     }
 });
 
@@ -105,15 +100,7 @@ socket.on('humidityStats',function(data,minDate){
     console.log(minDate);
    // graph(data,'humidity',minDate);
     if(data){
-        graph(data,'humidity',minDate);
-    }
-    else{
-        document.getElementById("alertBoxDiv").classList.add('alert-info');
-        document.getElementById("alertBoxDiv").classList.remove('alert-danger');
-        document.getElementById("alertMessage").innerHTML = "No Data Received Yet!";
-        document.getElementById("alertDiv").style.display = 'block';
-        d3.select("svg").remove();
-
+        graph(data,'Humidity',minDate);
     }
 });
 

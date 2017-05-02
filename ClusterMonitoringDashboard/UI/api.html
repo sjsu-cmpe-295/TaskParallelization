@@ -214,7 +214,94 @@
                         </div>
                         <label for="response">Response:</label>
                         <textarea class="form-control" rows="5" id="response"></textarea>
+                        <br>
 
+
+                        <!-- Graph code here -->
+                        <div class="row">
+                            <div id="Temperature"></div>
+                        </div>
+
+                        <div class="row" id="humidityMetricsRow" style="display: none">
+                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                <div class="card card-inverse card-primary o-hidden h-100">
+                                    <div class="card-block">
+                                        <div class="mr-5" id="min" style="color: #ffffff">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #ddc221;padding: 20px; width: 23%; height: 80px; margin: 10px
+">
+                                <div class="card card-inverse card-success o-hidden h-100">
+                                    <div class="card-block">
+                                        <div class="mr-5" id="max" style="color: #ffffff">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #FF7F50;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                <div class="card card-inverse card-warning o-hidden h-100">
+                                    <div class="card-block" style="height:80px">
+                                        <div class="mr-5" id="avg" style="color: #ffffff">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #e55b5b;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                <div class="card card-inverse card-danger o-hidden h-100">
+                                    <div class="card-block" style="height:80px">
+                                        <div class="mr-5" id="count" style="color: #ffffff">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- /.row -->
+                        <!-- Second Graph -->
+                        <div class="row">
+                            <div id="Humidity"></div>
+                        </div>
+
+                        <div class="row" id="temperatureMetricsRow" style="display: none">
+                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                <div class="card card-inverse card-primary o-hidden h-100">
+                                    <div class="card-block" style="height:80px">
+                                        <div class="mr-5" id="Hmin" style="color: #ffffff">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #ddc221;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                <div class="card card-inverse card-primary o-hidden h-100">
+                                    <div class="card-block" style="height:80px">
+                                        <div class="mr-5" id="Hmax" style="color: #ffffff">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #FF7F50;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                <div class="card card-inverse card-warning o-hidden h-100">
+                                    <div class="card-block">
+                                        <div class="mr-5" id="Havg" style="color: #ffffff">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #e55b5b;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                <div class="card card-inverse card-danger o-hidden h-100">
+                                    <div class="card-block">
+                                        <div class="mr-5" id="Hcount" style="color: #ffffff">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -233,8 +320,12 @@
 <script src="js/sweetalert.min.js"></script>
 <link rel="stylesheet" href="css/sweetalert.css">
 <script src="js/socket.io.js"></script>
-
+<script src="js/highcharts.js"></script>
+<script src="js/exporting.js"></script>
+<script src="js/highcharts-more.js"></script>
+<script src="js/graph.js"></script>
 <script src="js/submitTask.js"></script>
+<!--<script src="js/graphUI.js"></script>-->
 
 </body>
 

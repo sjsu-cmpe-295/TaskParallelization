@@ -69,6 +69,11 @@ socket.on('getOutput', function (data) {
     if (data) {
         console.log("Output received " + JSON.stringify(data));
         document.getElementById("response").innerHTML = document.getElementById("response").textContent + JSON.stringify(data);
+
+        //Update graphs and metrics
+        drawSensorGraphs(data);
+
+
     }
 });
 socket.on('submitSuccessful', function (data) {
@@ -144,3 +149,159 @@ $('#startTime').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss'});
 $('#endTime').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss'});
 $('#startTime2').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss'});
 $('#endTime2').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss'});
+
+function drawSensorGraphs(data) {
+    var humidityDates = [];
+    var tempDates = [];
+    var humidityValues = [];
+    var TemperatureValues = [];
+    var humidityMetrics;
+    var tempMetrics;
+
+    // console.log("updateTemperatureGraph accessed");
+    // console.log("request is " + JSON.stringify(req.body));
+    var json_obj = data;
+    var output = json_obj.output;
+    console.log(output);
+    if(output['humidityDataPoints'].length!=0){
+        HumidityData = output.humidityDataPoints;
+        for(var key in HumidityData){
+            humidityDates.push(new Date(key.split(' ')[0]));
+            humidityValues.push(HumidityData[key]);
+            humidityMinDate=new Date(Math.min.apply(null,humidityDates));
+
+        }
+        console.log(humidityMinDate);
+        console.log(humidityValues);
+        showhumidityStats(humidityValues,humidityMinDate);
+        // io.sockets.emit('humidityStats', humidityValues,humidityMinDate);
+    }
+    if(output['humidityMetrics']!=null){
+        humidityMetrics = output.humidityMetrics;
+        avg = humidityMetrics['average'];
+        min = humidityMetrics['minimum'];
+        max = humidityMetrics['maximum'];
+        count = humidityMetrics['count'];
+        console.log(avg,min,max,count);
+        showhumidityMetrics(avg,min,max,count);
+        // io.sockets.emit('humidityMetrics', avg,min,max,count);
+    }
+    if(output['temperatureDataPoints'].length!=0){
+        TempData = output.temperatureDataPoints;
+        for(var key in TempData){
+            tempDates.push(new Date(key));
+            TemperatureValues.push(TempData[key]);
+            tempMinDate=new Date(Math.min.apply(null,tempDates));
+        }
+        console.log(TemperatureValues);
+        console.log(tempMinDate);
+        showtemperatureStats(TemperatureValues,tempMinDate);
+        // io.sockets.emit('temperatureStats', TemperatureValues,tempMinDate);
+    }
+    if(output['temperatureMetrics']!=null){
+        tempMetrics = output.temperatureMetrics;
+        avgT = tempMetrics['average'];
+        minT = tempMetrics['minimum'];
+        maxT = tempMetrics['maximum'];
+        countT = tempMetrics['count'];
+        console.log(avgT,minT,maxT,countT);
+        showtempMetrics(avgT,minT,maxT,countT);
+        // io.sockets.emit('tempMetrics', avgT,minT,maxT,countT);
+    }
+
+}
+
+function showhumidityMetrics(avg,min,max,count)
+{
+    //graph(data,'temperature',minDate);
+    console.log("inside showhumidityMetrics");
+    console.log(avg,min,max,count);
+    if(avg){
+        var avgdiv = document.getElementById('Havg');
+        avgdiv.innerHTML = "Average humidity: "+avg;
+    }else{
+        var avgdiv = document.getElementById('Havg');
+        avgdiv.innerHTML = "Not calculated yet";
+    }
+    if(min){
+        var mindiv = document.getElementById('Hmin');
+        mindiv.innerHTML = "Minimum Humidity: " +min;
+    }else{
+        var mindiv = document.getElementById('Hmin');
+        mindiv.innerHTML = "Not calculated yet";
+    }
+    if(max){
+        var maxdiv = document.getElementById('Hmax');
+        maxdiv.innerHTML = "Maximum Humidity: "+max;
+    }else{
+        var maxdiv = document.getElementById('Hmax');
+        maxdiv.innerHTML = "Not calculated yet";
+    }
+    if(count){
+        var countdiv = document.getElementById('Hcount');
+        countdiv.innerHTML = "Total datapoints: "+count;
+    }else{
+        var countdiv = document.getElementById('Hcount');
+        countdiv.innerHTML = "Not calculated yet";
+    }
+
+}
+
+
+function showtempMetrics(avg,min,max,count){
+    //graph(data,'temperature',minDate);
+    console.log("inside tempMetrics  ");
+    console.log("Temp: "+avg,min,max,count);
+    if(avg){
+        var avgdiv = document.getElementById('avg');
+        avgdiv.innerHTML = "Average Temperature: "+avg;
+    }else{
+        // alert('in else')
+        document.getElementById('avg').style.display = 'none';
+
+    }
+    if(min){
+        var mindiv = document.getElementById('min');
+        mindiv.innerHTML = "Minimum Temperature: " +min;
+    }else{
+        document.getElementById('min').style.display = 'none';
+    }
+    if(max){
+        var maxdiv = document.getElementById('max');
+        maxdiv.innerHTML = "Maximum Temperature: "+max;
+    }else{
+        document.getElementById('max').style.display = 'none';
+
+    }
+    if(count){
+        var countdiv = document.getElementById('count');
+        countdiv.innerHTML = "Total datapoints: "+count;
+    }else{
+        document.getElementById('count').style.display = 'none';
+
+    }
+    // document.getElementById("temperatureMetricsRow").style.display='block';
+    // document.getElementById("humidityMetricsRow").style.display='block';
+
+}
+
+function showtemperatureStats(data,minDate){
+
+    console.log("inside showtemperatureStats");
+    console.log(data);
+    console.log(minDate);
+    //graph(data,'temperature',minDate);
+    if(data){
+        graph(data,'Temperature',minDate);
+    }
+}
+
+function showhumidityStats(data,minDate){
+    console.log("inside showhumidityStats");
+    console.log(data);
+    console.log(minDate);
+    // graph(data,'humidity',minDate);
+    if(data){
+        graph(data,'Humidity',minDate);
+    }
+}
