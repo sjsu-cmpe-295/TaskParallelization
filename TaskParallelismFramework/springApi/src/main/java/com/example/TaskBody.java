@@ -6,15 +6,15 @@ import java.util.List;
 public class TaskBody {
     String id;
 
-    public String getIsTp() {
-        return isTp;
+    public String getIsTP() {
+        return isTP;
     }
 
-    public void setIsTp(String isTp) {
-        this.isTp = isTp;
+    public void setIsTP(String isTP) {
+        this.isTP = isTP;
     }
 
-    String isTp;
+    String isTP;
     List<Task> tasks;
 
     public String getId() {

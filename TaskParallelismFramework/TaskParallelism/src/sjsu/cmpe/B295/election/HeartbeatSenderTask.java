@@ -34,6 +34,7 @@ public class HeartbeatSenderTask extends TimerTask {
     private StringBuffer workerResponse = new StringBuffer("");
     public static ConcurrentHashMap<String,Integer> workerStatusMap=new ConcurrentHashMap<>();
     public static String clientIP="";
+    public static String masterIP="";
 
     public HeartbeatSenderTask(Leader leader, NodeState nodeState) {
         this.nodeState = nodeState;
@@ -59,6 +60,8 @@ public class HeartbeatSenderTask extends TimerTask {
         piNodeLeader.setPiNodeState(PiNodeState.ACTIVE);
         piNodeLeader.setPiNodeType(PiNodeType.MASTER);
         cluster.addPiNode(piNodeLeader);
+        if(updateUI)
+        masterIP=piNodeLeader.getIpAddress();
 
 
         nodeState.getEdgeMonitor().getOutboundEdges().getEdgesMap().values()

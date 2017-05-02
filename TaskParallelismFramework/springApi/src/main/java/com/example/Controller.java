@@ -46,6 +46,7 @@ public class Controller {
      */
     @RequestMapping(value = "/submitTask")
     public String submitTask(@RequestBody TaskBody taskBody) {
+        logger.info("taskBody is "+taskBody.toString());
         long startTime = System.currentTimeMillis();
         logger.info("submitTask accessed");
         for (Task task : taskBody.getTasks()) {
@@ -59,7 +60,7 @@ public class Controller {
 
         for (Task task : taskBody.getTasks()) {
             logger.info("Task is " + task.toString());
-            if (taskBody.getIsTp().equals("false")) {
+                if (taskBody.getIsTP().equals("false")) {
                 // TODO Check for blocking calls?
                 taskSubmission.callMaster(task, new Notifiable() {
                     @Override
@@ -71,7 +72,7 @@ public class Controller {
                     }
                 });
             } else {
-                taskSubmission.callWorker(task, taskBody.getIsTp(), new Notifiable() {
+                taskSubmission.callWorker(task, taskBody.getIsTP(), new Notifiable() {
                     @Override
                     public void onTaskCompletion(String taskId, String jsonOutput) {
                         synchronized (this) {
@@ -114,8 +115,8 @@ public class Controller {
                                 ds.setTemperatureDataPoints(obj.getTemperatureDataPoints());
                             } else if (obj.getHumidityMetrics() != null) {
                                 ds.setHumidityMetrics(obj.getHumidityMetrics());
-                            } else if (obj.getTemperatueMetrics() != null) {
-                                ds.setTemperatueMetrics(obj.getTemperatueMetrics());
+                            } else if (obj.getTemperatureMetrics() != null) {
+                                ds.setTemperatureMetrics(obj.getTemperatureMetrics());
                             } else {
                                 logger.info("Yaha to ana nahi chahiye????");
                             }
@@ -149,7 +150,6 @@ public class Controller {
     public void sendOutput(String clientIp, String output) {
         logger.info("sending output");
         logger.info("client ip is " + clientIp);
-        logger.info("output is " + output);
 
         try {
             URL url = new URL("http://" + clientIp + ":1300/getOutput");
@@ -159,7 +159,7 @@ public class Controller {
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
             OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-            logger.info("postdata is " + output);
+            logger.info("final output is " + output);
             out.write(output);
             out.close();
             if (new InputStreamReader(connection.getInputStream()) != null) ;
@@ -221,7 +221,7 @@ public class Controller {
                 temperatureMetrics.setAverage(Double.parseDouble(new DecimalFormat("##.##").format(tempSum / allData.size())));
                 temperatureMetrics.setMaximum(maxTemp);
                 temperatureMetrics.setMinimum(minTemp);
-                dataStructure.setTemperatueMetrics(temperatureMetrics);
+                dataStructure.setTemperatureMetrics(temperatureMetrics);
             } else if (sensor.equals("humidity")) {
                 DataStructure.Metrics humidityMetrics = dataStructure.new Metrics();
                 double humiditySum = 0;

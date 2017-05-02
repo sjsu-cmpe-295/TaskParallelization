@@ -12,6 +12,18 @@ const http = require('http');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var avg,min,max,count;
+var avgT,minT,maxT,countT;
+var humidityMinDate;
+var tempMinDate;
+var TemperatureValues;
+var humidityValues;
+var metricsHashMap = {};
+var isStartingUp=true;
+var nodeUpdated=true;
+var HumidityData;
+
+
 //Node details
 var nodes;
 var taskId = 0;
@@ -46,6 +58,13 @@ io.on('connection', function (socket) {
     // console.log(socket);
     // if (nodes)
     socket.emit('clusterStats', nodes);
+
+    socket.emit('temperatureStats',TemperatureValues,tempMinDate);
+    socket.emit('humidityStats',humidityValues,humidityMinDate);
+    socket.emit('humidityMetrics', avg,min,max,count);
+    socket.emit('tempMetrics', avgT,minT,maxT,countT);
+    socket.emit('clusterMetrics', metricsHashMap);
+
     socket.on('submitTask', function (data) {
         console.log("submitted task " + JSON.stringify(data));
         console.log("masterip " + masterIp);
@@ -91,6 +110,85 @@ app.post('/updateCluster', function (req, res) {
     io.sockets.emit('clusterStats', nodes);
 
     res.sendStatus(200);
+});
+
+app.post('/updateMetrics',function (req,res){
+    console.log("updateMetrics accessed");
+    console.log("request is "+JSON.stringify(req.body));
+    metrics = new Array();
+    var json_obj = req.body;
+    console.log("json_obj "+json_obj);
+    metrics.push(json_obj.cpu);
+    metrics.push(json_obj.memoryUsage);
+    metrics.push(json_obj.netWorkIn);
+    metrics.push(json_obj.netWorkOut);
+    metricsHashMap[json_obj.id] = metrics;
+    console.log("metricsHashMap "+JSON.stringify(metricsHashMap));
+    io.sockets.emit('clusterMetrics', metricsHashMap);
+
+   res.sendStatus(200);
+
+});
+
+app.post('/updateGraph',function (req,res){
+    var humidityDates = [];
+    var tempDates = [];
+    var humidityValues = [];
+    var TemperatureValues = [];
+    var humidityMetrics;
+    var tempMetrics;
+   
+    // console.log("updateTemperatureGraph accessed");
+    // console.log("request is " + JSON.stringify(req.body));
+    var json_obj = req.body;
+    var output = json_obj.output;
+    console.log(output);
+    if(output['humidityDataPoints'].length!=0){
+        HumidityData = output.humidityDataPoints;
+        for(var key in HumidityData){
+            humidityDates.push(new Date(key.split(' ')[0]));
+            humidityValues.push(HumidityData[key]);
+            humidityMinDate=new Date(Math.min.apply(null,humidityDates));
+
+        }
+        console.log(humidityMinDate);
+        console.log(humidityValues);
+        io.sockets.emit('humidityStats', humidityValues,humidityMinDate);
+    }
+    if(output['humidityMetrics']!=null){
+        humidityMetrics = output.humidityMetrics;
+        avg = humidityMetrics['average'];
+        min = humidityMetrics['minimum'];
+        max = humidityMetrics['maximum'];
+        count = humidityMetrics['count'];
+        console.log(avg,min,max,count);
+        io.sockets.emit('humidityMetrics', avg,min,max,count);
+    }
+    if(output['temperatureDataPoints'].length!=0){
+        TempData = output.temperatureDataPoints;
+        for(var key in TempData){
+            tempDates.push(new Date(key));
+            TemperatureValues.push(TempData[key]);
+            tempMinDate=new Date(Math.min.apply(null,tempDates));
+        }
+        console.log(TemperatureValues);
+        console.log(tempMinDate);
+        io.sockets.emit('temperatureStats', TemperatureValues,tempMinDate);
+    }
+    if(output['temperatureMetrics']!=null){
+        tempMetrics = output.temperatureMetrics;
+        avgT = tempMetrics['average'];
+        minT = tempMetrics['minimum'];
+        maxT = tempMetrics['maximum'];
+        countT = tempMetrics['count'];
+        console.log(avgT,minT,maxT,countT);
+        io.sockets.emit('tempMetrics', avgT,minT,maxT,countT);
+    }
+    
+    
+
+    res.sendStatus(200);
+
 });
 
 //Gets the output from the master node and updates the client that requested it

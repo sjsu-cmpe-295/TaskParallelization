@@ -28,7 +28,7 @@ public class TaskSubmission {
     public void callMaster(Task task, Notifiable notifiable){
         // TODO Need leader ip, not the clientIP
         // Need leader ip, not the clientIP
-        String output = sendTask(HeartbeatSenderTask.clientIP, task.toString());
+        String output = sendTask(HeartbeatSenderTask.masterIP, task.toString());
         notifiable.onTaskCompletion(task.getId(), output);
     }
 
@@ -105,7 +105,7 @@ public class TaskSubmission {
 //        logger.info("inside sendTask");
         String result = null;
         try {
-            String uri = "http://" + ip + ":8081/doTask?" + data;
+            String uri = "http://" + ip + ":8080/doTask?" + data;
 
             RestTemplate restTemplate = new RestTemplate();
             result = restTemplate.getForObject(uri, String.class);

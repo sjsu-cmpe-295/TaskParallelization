@@ -6,7 +6,7 @@ public class DataStructure {
 
 	public Metrics humidityMetrics;
 
-	public Metrics temperatueMetrics;
+	public Metrics temperatureMetrics;
 
 	public HashMap<String, Double> humidityDataPoints;
 
@@ -58,12 +58,12 @@ public class DataStructure {
 
 	
 
-	public Metrics getTemperatueMetrics() {
-		return temperatueMetrics;
+	public Metrics getTemperatureMetrics() {
+		return temperatureMetrics;
 	}
 
-	public void setTemperatueMetrics(Metrics temperatueMetrics) {
-		this.temperatueMetrics = temperatueMetrics;
+	public void setTemperatureMetrics(Metrics temperatureMetrics) {
+		this.temperatureMetrics = temperatureMetrics;
 	}
 
 	public Metrics getHumidityMetrics() {
