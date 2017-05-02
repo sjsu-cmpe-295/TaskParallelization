@@ -28,6 +28,7 @@ function graph(taskData, value,minDate) {
 	        }
 	    },
 	    yAxis: {
+		min: Math.min.apply(null, taskData)-2,
 	        title: {
 	            text: value
 	        }
