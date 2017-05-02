@@ -51,7 +51,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
 
             <ul class="nav navbar-nav side-nav">
-                <li class="active">
+                <li >
                     <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
                 <li>
@@ -60,7 +60,7 @@
                 <li>
                     <a href="api.html"><i class="fa fa-fw fa-send"></i> API Client </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="taskHistory.html"><i class="fa fa-fw fa-history"></i> Task History </a>
                 </li>
             </ul>
@@ -128,7 +128,7 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <script>
-    var clientIP="10.0.0.234";
+    var clientIP="localhost";
     $.ajax({
         type: "GET",
         url: "http://"+clientIP+":1300/getTasks",

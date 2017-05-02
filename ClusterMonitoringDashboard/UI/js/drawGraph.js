@@ -5,9 +5,19 @@ function drawGraph(nodes, links) {
 
     var svg = d3.select('#canvas')
         .append('svg')
+        // .classed("svg-container", true)
         .attr('oncontextmenu', 'return false;')
-        .attr('width', width)
-        .attr('height', height);
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", "0 0 900 400");
+    // .classed("svg-content", true);
+    // var aspect = width / height,
+    //     chart = d3.select('#canvas');
+    // d3.select(window)
+    //     .on("resize", function() {
+    //         var targetWidth = chart.node().getBoundingClientRect().width;
+    //         chart.attr("width", targetWidth);
+    //         chart.attr("height", targetWidth / aspect);
+    //     });
 
 // set up initial nodes and links
 //  - nodes are known by 'id', not by index in array.

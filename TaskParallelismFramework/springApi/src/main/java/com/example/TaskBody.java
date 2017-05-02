@@ -3,9 +3,20 @@ package com.example;
 import java.util.List;
 
 
-public class Tasks {
+public class TaskBody {
     String id;
+    String isTP;
     List<Task> tasks;
+
+    public String getIsTP() {
+        return isTP;
+    }
+
+    public void setIsTP(String isTP) {
+        this.isTP = isTP;
+    }
+
+
 
     public String getId() {
         return id;

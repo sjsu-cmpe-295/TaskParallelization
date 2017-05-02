@@ -74,7 +74,7 @@ public class TaskSubmission {
 //        logger.info("inside sendTask");
         String result=null;
         try {
-            String uri = "http://"+ip+":8080/doTask?"+data;
+            String uri = "http://"+ip+":8082/doTask?"+data;
 
             RestTemplate restTemplate = new RestTemplate();
             result = restTemplate.getForObject(uri, String.class);

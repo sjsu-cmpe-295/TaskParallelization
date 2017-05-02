@@ -24,20 +24,20 @@ public class Controller {
     private final AtomicLong counter = new AtomicLong();
 
     /**
-     * This method is for the master node and will begin distributing tasks
+     * This method is for the master node and will begin distributing taskBody
      */
     @RequestMapping(value = "/submitTask")
-    public String submitTask(@RequestBody Tasks tasks) {
+    public String submitTask(@RequestBody TaskBody taskBody) {
         logger.info("submitTask accessed");
-        for (Task task : tasks.getTasks()) {
-            task.setId(tasks.getId());
+        for (Task task : taskBody.getTasks()) {
+            task.setId(taskBody.getId());
             if (taskSubTasksMap.containsKey(task.getId()))
                 taskSubTasksMap.put(task.getId(), taskSubTasksMap.get(task.getId()) + 1);
             else
                 taskSubTasksMap.put(task.getId(), 1);
         }
 
-        for (Task task : tasks.getTasks()) {
+        for (Task task : taskBody.getTasks()) {
             logger.info("Task is " + task.toString());
             taskSubmission.callWorker(task);
         }
@@ -50,9 +50,9 @@ public class Controller {
      * This method is for the worker nodes and will begin task execution
      */
     @RequestMapping("/doTask")
-    public String doTask(@RequestParam(value = "id") String id, @RequestParam(value = "sensor") String sensor, @RequestParam(value = "time") String time) {
+    public String doTask(@RequestParam(value = "id") String id, @RequestParam(value = "sensor") String sensor, @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endTime") String endTime, @RequestParam(value = "type") String type) {
         logger.info("doTask accessed");
-        logger.info("request is id:" + id + " sensor:" + sensor + " time:" + time + " ");
+        logger.info("request is id:" + id + " type:" + type +  " sensor:" + sensor + " startTime:" + startTime + " endTime:" + endTime + " ");
 
 //        List l = new ArrayList<Node>();
 //        l.add(new Node(Long.valueOf(id), TaskParallelizeApp.status[new Random().nextInt(TaskParallelizeApp.status.length)], "rasp1", "127.168.0.34", "Idle"));

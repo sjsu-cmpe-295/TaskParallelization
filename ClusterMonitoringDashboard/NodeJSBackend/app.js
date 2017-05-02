@@ -102,23 +102,26 @@ app.post('/getOutput', function (req, res) {
     //Emit to all sockets
     // io.sockets.emit('getOutput', req.body);
 
-    console.log("task id is "+req.body.id);
-    console.log("from map socket id is "+taskIdtoSocketIdMap[req.body.id]);
+    if(req.body["Error"]!=null)
+        io.sockets.emit('getOutput', req.body);
+    else {
+        console.log("task id is " + req.body.id);
+        console.log("from map socket id is " + taskIdtoSocketIdMap[req.body.id]);
 
-    io.to(taskIdtoSocketIdMap[req.body.id]).emit('getOutput',req.body);
+        io.to(taskIdtoSocketIdMap[req.body.id]).emit('getOutput', req.body);
 
-    var data = {};
-    data['id'] = req.body.id;
-    data['output'] = JSON.stringify(req.body.output);
-    mysql.query('INSERT INTO tasks SET ?', data, function(err, res) {
-        if(err) {
-            // throw err;
-            console.log("error "+err);
-        }
-        console.log(res);
+        var data = {};
+        data['id'] = req.body.id;
+        data['output'] = JSON.stringify(req.body.output);
+        mysql.query('INSERT INTO tasks SET ?', data, function (err, res) {
+            if (err) {
+                // throw err;
+                console.log("error " + err);
+            }
+            console.log(res);
 
-    });
-
+        });
+    }
     res.sendStatus(200);
 });
 
