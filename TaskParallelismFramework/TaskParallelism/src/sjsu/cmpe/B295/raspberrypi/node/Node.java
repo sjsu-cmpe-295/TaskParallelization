@@ -87,9 +87,9 @@ public class Node {
 					.bind(nodeState.getRoutingConfig().getWorkPort())
 					.syncUninterruptibly();
 
-//				TimerTask metricThread =new SystemMonitorMetricsThread(nodeState);
-//				Timer timer = new Timer();
-//				timer.scheduleAtFixedRate(metricThread, 0, 4000);
+				TimerTask metricThread =new SystemMonitorMetricsThread(nodeState);
+				Timer timer = new Timer();
+				timer.scheduleAtFixedRate(metricThread, 0, 4000);
 
 				// block until the server socket is closed.
 				f.channel().closeFuture().sync();

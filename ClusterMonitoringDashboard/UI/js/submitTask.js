@@ -325,3 +325,5 @@ function showhumidityStats(data,minDate){
 
     }
 }
+
+

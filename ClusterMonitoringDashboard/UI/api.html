@@ -44,6 +44,15 @@
         #field {
             margin-bottom: 20px;
         }
+
+        .hoverBlk{
+            cursor: pointer;
+        }
+
+        .hoverBlk:hover{
+            background-color: black;
+            color: white;
+        }
     </style>
 </head>
 
@@ -71,9 +80,6 @@
             <ul class="nav navbar-nav side-nav">
                 <li>
                     <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                </li>
-                <li>
-                    <a href="Nodes.html"><i class="fa fa-fw fa-bar-chart-o"></i> Nodes </a>
                 </li>
                 <li class="active">
                     <a href="api.html"><i class="fa fa-fw fa-send"></i> API Client </a>
@@ -226,44 +232,13 @@
                             </div>
 
                             <div class="row" id="temperatureMetricsRow" style="display: none">
-                                <div class="col-xl-3 col-sm-6 mb-3"
-                                     style="border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                    <div class="card card-inverse card-primary o-hidden h-100">
-                                        <div class="card-block">
-                                            <div class="mr-5" id="min" style="color: #ffffff">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div id="min" class="alert alert-info col-lg-3 col-md-6" >
                                 </div>
-
-                                <div class="col-xl-3 col-sm-6 mb-3" style="border-radius: 25px; height: 150px; background: #ddc221;padding: 20px; width: 23%; height: 80px; margin: 10px
-">
-                                    <div class="card card-inverse card-success o-hidden h-100">
-                                        <div class="card-block">
-                                            <div class="mr-5" id="max" style="color: #ffffff">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div id="max" class="alert alert-info col-lg-3 col-md-6" >
                                 </div>
-
-                                <div class="col-xl-3 col-sm-6 mb-3"
-                                     style="border-radius: 25px; height: 150px; background: #FF7F50;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                    <div class="card card-inverse card-warning o-hidden h-100">
-                                        <div class="card-block" style="height:80px">
-                                            <div class="mr-5" id="avg" style="color: #ffffff">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div id="avg" class="alert alert-info col-lg-3 col-md-6" >
                                 </div>
-
-                                <div class="col-xl-3 col-sm-6 mb-3"
-                                     style="border-radius: 25px; height: 150px; background: #e55b5b;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                    <div class="card card-inverse card-danger o-hidden h-100">
-                                        <div class="card-block" style="height:80px">
-                                            <div class="mr-5" id="count" style="color: #ffffff">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div id="count" class="alert alert-info col-lg-3 col-md-6" >
                                 </div>
 
                             </div>
@@ -275,41 +250,13 @@
                                 <div id="Humidity"></div>
                             </div>
                             <div class="row" id="humidityMetricsRow" style="display: none">
-                                <div class="col-xl-3 col-sm-6 mb-3"
-                                     style="border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                    <div class="card card-inverse card-primary o-hidden h-100">
-                                        <div class="card-block" style="height:80px">
-                                            <div class="mr-5" id="Hmin" style="color: #ffffff">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div id="Hmin" class="alert alert-info col-lg-3 col-md-6" >
                                 </div>
-                                <div class="col-xl-3 col-sm-6 mb-3"
-                                     style="border-radius: 25px; height: 150px; background: #ddc221;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                    <div class="card card-inverse card-primary o-hidden h-100">
-                                        <div class="card-block" style="height:80px">
-                                            <div class="mr-5" id="Hmax" style="color: #ffffff">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div id="Hmax" class="alert alert-info col-lg-3 col-md-6" >
                                 </div>
-                                <div class="col-xl-3 col-sm-6 mb-3"
-                                     style="border-radius: 25px; height: 150px; background: #FF7F50;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                    <div class="card card-inverse card-warning o-hidden h-100">
-                                        <div class="card-block">
-                                            <div class="mr-5" id="Havg" style="color: #ffffff">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div id="Havg" class="alert alert-info col-lg-3 col-md-6" >
                                 </div>
-                                <div class="col-xl-3 col-sm-6 mb-3"
-                                     style="border-radius: 25px; height: 150px; background: #e55b5b;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                    <div class="card card-inverse card-danger o-hidden h-100">
-                                        <div class="card-block">
-                                            <div class="mr-5" id="Hcount" style="color: #ffffff">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div id="Hcount" class="alert alert-info col-lg-3 col-md-6">
                                 </div>
                             </div>
 
@@ -345,3 +292,5 @@
 </body>
 
 </html>
+
+
