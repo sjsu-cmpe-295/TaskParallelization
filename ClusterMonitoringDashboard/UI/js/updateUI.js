@@ -71,6 +71,8 @@ socket.on('clusterMetrics', function (data) {
         document.getElementById("alertDiv").style.display = 'none';
         var new_tbody = document.createElement('tbody');
         var old_tbody = document.getElementById("nodeTable").tBodies[0];
+
+
         for(var i=0,row;row = old_tbody.rows[i];i++){
             // console.log(row.cells[1]);
             console.log(row.cells[1].innerHTML);
@@ -78,41 +80,38 @@ socket.on('clusterMetrics', function (data) {
                 console.log("in IF");
                 // console.log(row.cells[1]);
                 metricsArray = data[row.cells[1].innerHTML];
-                cell1 = row.insertCell(4);
-                cell2 = row.insertCell(5);
-                cell3 = row.insertCell(5);
-                cell4 = row.insertCell(6);
+
                 // console.log(metricsArray);
                 if(row.cells[4]){
-                   row.cells[4].innerHTML = metricsArray[0]; 
+                    row.cells[4].innerHTML = metricsArray[0];
                 }else{
-                    
-                    cell1.innerHTML = "NA"; 
+                    cell1 = row.insertCell(4);
+                    cell1.innerHTML = metricsArray[0];
                 }
                 if(row.cells[5]){
-                   row.cells[5].innerHTML = metricsArray[1]; 
+                    row.cells[5].innerHTML = metricsArray[1];
                 }else{
-                    
-                    cell2.innerHTML = "NA" 
+                    cell1 = row.insertCell(5);
+                    cell1.innerHTML = metricsArray[1];
                 }
                 if(row.cells[6]){
-                   row.cells[6].innerHTML = metricsArray[2]; 
+                    row.cells[6].innerHTML = metricsArray[2];
                 }else{
-                    
-                    cell3.innerHTML = "NA";
+                    cell1 = row.insertCell(5);
+                    cell1.innerHTML = metricsArray[2];
                 }
                 if(row.cells[7]){
-                   row.cells[7].innerHTML = metricsArray[3]; 
+                    row.cells[7].innerHTML = metricsArray[3];
                 }else{
-                    
-                    cell4.innerHTML = "NA" ;
+                    cell1 = row.insertCell(6);
+                    cell1.innerHTML = metricsArray[3];
+
                 }
-            }
 
         }
         
    
-}});
+}}});
 
 
 
