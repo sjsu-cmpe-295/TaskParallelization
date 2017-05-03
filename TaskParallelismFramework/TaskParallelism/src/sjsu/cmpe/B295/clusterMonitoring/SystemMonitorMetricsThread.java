@@ -58,7 +58,7 @@ public class SystemMonitorMetricsThread extends TimerTask{
 	}
 
 	public void updateUI(double cpuUsage, float memUsage, HashMap<String, Float> netStats) {
-		logger.info("In Metrics Update UI");
+		logger.debug("In Metrics Update UI");
 		String masterResponse = "";
 		StringBuffer response=new StringBuffer();
 		final String RESPONSE_START="";
@@ -67,11 +67,10 @@ public class SystemMonitorMetricsThread extends TimerTask{
 		masterResponse="{\"ip\": \""+nodeState.getRoutingConfig().getHost()+"\", \"cpu\": \""+cpuUsage+"\",\"memoryUsage\": \""+memUsage+"\",\"netWorkIn\": \""+netStats.get("Network-In")+"\",\"netWorkOut\": \""+netStats.get("Network-Out")+"\"}";
 		id=nodeState.getRoutingConfig().getNodeId()+"";
 		//masterResponse="{\"id\": \""+id+"\", \"cpu\": \""+0.9+"\",\"memoryUsage\": \""+0.9+"\",\"netWorkIn\": \""+0.9+"\",\"netWorkOut\": \""+0.9+"\"}";
-		logger.info(masterResponse);
+		logger.debug(masterResponse);
 		URL url;
 		try {
-
-			url = new URL("http://"+nodeState.getRoutingConfig().getClientIP()+":1300/updateMetrics");
+			url = new URL("http://"+ nodeState.getRoutingConfig().getClientIP() + ":1300/updateMetrics");
 			URLConnection connection = url.openConnection();
 			connection.setDoOutput(true);
 			connection.setRequestProperty("Content-Type", "application/json");
@@ -87,7 +86,7 @@ public class SystemMonitorMetricsThread extends TimerTask{
 
 			while (in.readLine() != null) {}
 			in.close();
-			logger.info("updateMetrics Invoked Successfully..");
+			logger.debug("updateMetrics Invoked Successfully..");
 			response.setLength(0);
 		
 		} catch (Exception e) {

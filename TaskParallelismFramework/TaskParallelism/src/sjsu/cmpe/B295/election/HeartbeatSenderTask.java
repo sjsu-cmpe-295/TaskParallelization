@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ public class HeartbeatSenderTask extends TimerTask {
     private static final String RESPONSE_END = "]}";
     private String masterResponse = "";
     private StringBuffer workerResponse = new StringBuffer("");
-    public static ConcurrentHashMap<String,Integer> workerStatusMap=new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<String,AtomicInteger> workerStatusMap=new ConcurrentHashMap<>();
     public static String clientIP="";
     public static String masterIP="";
 
@@ -133,7 +134,7 @@ public class HeartbeatSenderTask extends TimerTask {
             for (Integer piNodeId : cluster.getPiNodes().keySet()) {
                 PiNode piNode = cluster.getPiNodes().get(piNodeId);
                 if(piNode.getPiNodeState().equals(PiNodeState.ACTIVE) && piNode.getPiNodeType().equals(PiNodeType.WORKER))
-                workerStatusMap.put(piNode.getIpAddress(),0);
+                workerStatusMap.put(piNode.getIpAddress(), new AtomicInteger(0));
             }
             updateUI();
         }

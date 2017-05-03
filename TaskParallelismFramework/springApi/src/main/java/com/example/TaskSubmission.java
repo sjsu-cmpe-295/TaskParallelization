@@ -17,6 +17,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Service
@@ -47,8 +48,8 @@ public class TaskSubmission {
         ///get free worker
         for (String key : HeartbeatSenderTask.workerStatusMap.keySet()) {
             workerIPs[index++] = key;
-            if (HeartbeatSenderTask.workerStatusMap.get(key) == 0) {
-                HeartbeatSenderTask.workerStatusMap.put(key, 1);
+            if (HeartbeatSenderTask.workerStatusMap.get(key).getAndIncrement() == 0) {
+                HeartbeatSenderTask.workerStatusMap.put(key, new AtomicInteger(HeartbeatSenderTask.workerStatusMap.get(key).get()));
                 ip = key;
                 logger.info("Idle node found, ip: " + ip);
                 break;
@@ -62,9 +63,9 @@ public class TaskSubmission {
             ip = HeartbeatSenderTask.masterIP;
             String output = sendTask(ip, task.toString());
             notifiable.onTaskCompletion(taskId, output);
-        } else if (ip.isEmpty() && HeartbeatSenderTask.workerStatusMap.size() != 0) {
+        } else if (ip.isEmpty() && HeartbeatSenderTask.workerStatusMap.size() > 0) {
             // All workers were busy
-            logger.info("No idle node, random ip chosen " + ip);
+
             ArrayList<String> ipList = new ArrayList<>();
             for (String key : HeartbeatSenderTask.workerStatusMap.keySet()) {
                 ipList.add(key);
@@ -73,18 +74,20 @@ public class TaskSubmission {
             int indexForIP = random.nextInt(HeartbeatSenderTask.workerStatusMap.size());
             ip = ipList.get(indexForIP);
 
-            HeartbeatSenderTask.workerStatusMap.put(ip, HeartbeatSenderTask.workerStatusMap.get(ip) + 1);
+            logger.info("All workers busy. Random node: " + ip);
+            HeartbeatSenderTask.workerStatusMap.put(ip, new AtomicInteger(HeartbeatSenderTask.workerStatusMap.get(ip).incrementAndGet()));
 
             String output = sendTask(ip, task.toString());
 
-            HeartbeatSenderTask.workerStatusMap.put(ip, HeartbeatSenderTask.workerStatusMap.get(ip) - 1);
+            HeartbeatSenderTask.workerStatusMap.put(ip, new AtomicInteger(HeartbeatSenderTask.workerStatusMap.get(ip).decrementAndGet()));
+
             notifiable.onTaskCompletion(taskId, output);
 
         } else if (!ip.isEmpty()) {
             // Found worker
-            HeartbeatSenderTask.workerStatusMap.put(ip, HeartbeatSenderTask.workerStatusMap.get(ip) + 1);
+            logger.info("Free worker found. IP: "+ ip);
             String output = sendTask(ip, task.toString());
-            HeartbeatSenderTask.workerStatusMap.put(ip, HeartbeatSenderTask.workerStatusMap.get(ip) - 1);
+            HeartbeatSenderTask.workerStatusMap.put(ip, new AtomicInteger(HeartbeatSenderTask.workerStatusMap.get(ip).decrementAndGet()));
             notifiable.onTaskCompletion(taskId, output);
         }
 
@@ -99,7 +102,6 @@ public class TaskSubmission {
             RestTemplate restTemplate = new RestTemplate();
             result = restTemplate.getForObject(uri, String.class);
 
-            logger.info("output received from worker " + result);
             return result;
         } catch (Exception e) {
             logger.info("Error while calling sendTask");

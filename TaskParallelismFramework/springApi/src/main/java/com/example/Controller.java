@@ -65,8 +65,15 @@ public class Controller {
                     @Override
                     public void onTaskCompletion(String taskId, String jsonOutput) {
                         if (jsonOutput != null) {
-                            Controller.taskSubTasksMap.put(taskId, Controller.taskSubTasksMap.get(taskId) - 1);
+
+                            //Store task output
                             Controller.taskDetailsMap.put(taskId, Controller.taskDetailsMap.containsKey(taskId) ? Controller.taskDetailsMap.get(taskId) + "#" + jsonOutput : jsonOutput);
+
+                            //Reduce task sub count
+                            Controller.taskSubTasksMap.put(taskId, Controller.taskSubTasksMap.get(taskId) - 1);
+
+                        } else {
+                            logger.info("output is null onTaskCompletion-master");
                         }
                     }
                 });
@@ -76,11 +83,15 @@ public class Controller {
                     public void onTaskCompletion(String taskId, String jsonOutput) {
                         synchronized (this) {
                             if (jsonOutput != null) {
-                                //Reduce task sub count
-                                Controller.taskSubTasksMap.put(taskId, Controller.taskSubTasksMap.get(taskId) - 1);
+
                                 //Store task output
                                 Controller.taskDetailsMap.put(taskId, Controller.taskDetailsMap.containsKey(taskId) ? Controller.taskDetailsMap.get(taskId) + "#" + jsonOutput : jsonOutput);
-                                //If all tasks have completed, send output
+
+                                //Reduce task sub count
+                                Controller.taskSubTasksMap.put(taskId, Controller.taskSubTasksMap.get(taskId) - 1);
+
+                            } else {
+                                logger.info("output is null onTaskCompletion-worker");
                             }
 //                        } else
 //                            sendOutput(clientIP, "{\"Error\":\"No output received from worker, check logs ip: " + ip + "\"}");
@@ -158,7 +169,7 @@ public class Controller {
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
             OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-            logger.info("final output is " + output);
+
             out.write(output);
             out.close();
             if (new InputStreamReader(connection.getInputStream()) != null) ;
