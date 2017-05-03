@@ -1,7 +1,9 @@
 function graph(taskData, value,minDate) {
-	console.log(value + taskData);
-	console.log(value);
-	console.log(minDate);
+	console.log("inside graph");
+	// console.log(value + taskData);
+	// console.log(value);
+	// console.log(minDate);
+	// console.log(typeof minDate);
 	var date = minDate.split('-');
 	var year = date[0];
 	var month = date[1];
@@ -10,7 +12,7 @@ function graph(taskData, value,minDate) {
 	var hr = time[0];
 	var min = time[1];
 	var sec = time[2].split('.')[0];
-	console.log(year,month,day);
+	// console.log(year,month,day);
 	// var month = minDate.getUTCMonth() + 1; 
 	// var day = minDate.getUTCDate();
 	// var year = minDate.getUTCFullYear();
@@ -28,7 +30,8 @@ function graph(taskData, value,minDate) {
 	        }
 	    },
 	    yAxis: {
-		min: Math.min.apply(null, taskData)-2,
+		min: 0,
+			max: 70,
 	        title: {
 	            text: value
 	        }
