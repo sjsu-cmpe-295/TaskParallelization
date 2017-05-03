@@ -46,8 +46,7 @@ public class Controller {
      */
     @RequestMapping(value = "/submitTask")
     public String submitTask(@RequestBody TaskBody taskBody) {
-        logger.info("taskBody is "+taskBody.toString());
-        long startTime = System.currentTimeMillis();
+        logger.info("taskBody is " + taskBody.toString());
         logger.info("submitTask accessed");
         for (Task task : taskBody.getTasks()) {
             task.setId(taskBody.getId());
@@ -60,7 +59,7 @@ public class Controller {
 
         for (Task task : taskBody.getTasks()) {
             logger.info("Task is " + task.toString());
-                if (taskBody.getIsTP().equals("false")) {
+            if (taskBody.getIsTP().equals("false")) {
                 // TODO Check for blocking calls?
                 taskSubmission.callMaster(task, new Notifiable() {
                     @Override
@@ -132,7 +131,7 @@ public class Controller {
                     }
 
                     logger.info("sending response");
-                    sendOutput(clientIP, "{\"id\":\"" + taskId + "\",\"timeTaken\":\"" + (System.currentTimeMillis() - startTime) + "\",\"output\":" + jsonInString + "}");
+                    sendOutput(clientIP, "{\"id\":\"" + taskId + "\",\"output\":" + jsonInString + "}");
                 }
             }
             if (Controller.taskSubTasksMap.size() == 0)
@@ -195,6 +194,11 @@ public class Controller {
         List<RpiData> allData = repository.findByTimestampBetween(epochStartTime,
                 epochEndTime,
                 new Sort(Sort.Direction.ASC, "timestamp"));
+
+        if (allData.size() == 0) {
+            jsonInString = "No data found";
+            return jsonInString;
+        }
 
         DataStructure dataStructure = new DataStructure();
 
