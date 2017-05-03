@@ -71,13 +71,13 @@ io.on('connection', function (socket) {
     socket.emit('clusterMetrics', metricsHashMap);
 
     socket.on('submitTask', function (data) {
-        console.log("submitted task " + JSON.stringify(data));
+        // console.log("submitted task " + JSON.stringify(data));
         console.log("masterip " + masterIp);
         taskId++;
         taskIdtoSocketIdMap[taskId]=socket.id;//temporary
         console.log("socket id "+socket.id+" taskid "+taskId);//temporary
         data["id"]=taskId;
-        console.log("data is "+JSON.stringify(data));
+        // console.log("data is "+JSON.stringify(data));
 
         var options = {
             method: 'post',
@@ -107,7 +107,7 @@ io.on('connection', function (socket) {
 //Receives an update from the master node and updates all UI clients(sockets)
 app.post('/updateCluster', function (req, res) {
     console.log("updateCluster accessed");
-    console.log("request is " + JSON.stringify(req.body));
+    // console.log("request is " + JSON.stringify(req.body));
 
     nodes = req.body;
     masterIp = nodes.nodes[0].ip;
@@ -127,7 +127,7 @@ app.post('/updateMetrics',function (req,res){
     metrics.push(json_obj.memoryUsage);
     metrics.push(json_obj.netWorkIn);
     metrics.push(json_obj.netWorkOut);
-    metricsHashMap[json_obj.id] = metrics;
+    metricsHashMap[json_obj.ip] = metrics;
     console.log("metricsHashMap "+JSON.stringify(metricsHashMap));
     io.sockets.emit('clusterMetrics', metricsHashMap);
 
@@ -147,7 +147,7 @@ app.post('/updateGraph',function (req,res){
     // console.log("request is " + JSON.stringify(req.body));
     var json_obj = req.body;
     var output = json_obj.output;
-    console.log(output);
+    // console.log(output);
     if(output['humidityDataPoints'].length!=0){
         HumidityData = output.humidityDataPoints;
         for(var key in HumidityData){
