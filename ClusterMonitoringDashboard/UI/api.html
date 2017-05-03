@@ -135,9 +135,10 @@
                             <!--<button id="b1" class="btn add-more" type="button">+</button>-->
                             <div class="form-group">
 
-                                <label class="control-label col-xs-2" >Sensor:</label>
+                                <label class="control-label col-xs-2">Sensor:</label>
                                 <div class="dropdown col-xs-1">
-                                    <button class="btn btn-default dropdown-toggle " type="button" data-toggle="dropdown"
+                                    <button class="btn btn-default dropdown-toggle " type="button"
+                                            data-toggle="dropdown"
                                             id="sensor" name="sensor">Choose a sensor <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" id="sensor1DD">
@@ -153,18 +154,18 @@
                                     <input type="text" class="form-control" id="startTime"
                                            placeholder="Enter time">
                                 </div>
-                                <label class="control-label col-xs-2 " >End Time:</label>
+                                <label class="control-label col-xs-2 ">End Time:</label>
                                 <div class="col-xs-2">
                                     <input type="text" class="form-control" id="endTime"
                                            placeholder="Enter time">
                                 </div>
                                 <!--<div class="col-xs-1 ">-->
-                                    <!--<input type='button' class="btn btn-danger" value='-' id='removeButton'-->
-                                           <!--onclick="removeTask(this)"/>-->
+                                <!--<input type='button' class="btn btn-danger" value='-' id='removeButton'-->
+                                <!--onclick="removeTask(this)"/>-->
                                 <!--</div>-->
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-xs-2" >Sensor:</label>
+                                <label class="control-label col-xs-2">Sensor:</label>
                                 <div class="dropdown col-xs-1">
                                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
                                             id="sensor2" name="sensor">Choose a sensor <span class="caret"></span>
@@ -175,19 +176,19 @@
                                         <!--<li><a href="#" onclick="changeDDText(this)">Temperature & Humidity</a></li>-->
                                     </ul>
                                 </div>
-                                <label class="control-label col-xs-2 " >Start Time:</label>
+                                <label class="control-label col-xs-2 ">Start Time:</label>
                                 <div class="col-xs-2">
                                     <input type="text" class="form-control" id="startTime2"
                                            placeholder="Enter time">
                                 </div>
-                                <label class="control-label col-xs-2 " >End Time:</label>
+                                <label class="control-label col-xs-2 ">End Time:</label>
                                 <div class="col-xs-2">
                                     <input type="text" class="form-control" id="endTime2"
                                            placeholder="Enter time">
                                 </div>
                                 <!--<div class="col-xs-1 ">-->
-                                    <!--<input type='button' class="btn btn-danger" value='-' id='removeButton2'-->
-                                           <!--onclick="removeTask(this)"/>-->
+                                <!--<input type='button' class="btn btn-danger" value='-' id='removeButton2'-->
+                                <!--onclick="removeTask(this)"/>-->
                                 <!--</div>-->
                             </div>
                         </div>
@@ -214,97 +215,107 @@
                         </div>
                         <br>
 
-
-
-                        <!-- Graph code here -->
-                        <div class="row">
-                            <div id="Temperature"></div>
+                        <div class="form-group" id="timeTakenDiv" hidden>
+                                <label class="control-label col-xs-2">Time Taken:</label>
+                                <div class="col-xs-1"><label class="control-label " id="timeTaken"></label>
+                                </div>
                         </div>
+                            <!-- Graph code here -->
+                            <div class="row">
+                                <div id="Temperature"></div>
+                            </div>
 
-                        <div class="row" id="temperatureMetricsRow" style="display: none">
-                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                <div class="card card-inverse card-primary o-hidden h-100">
-                                    <div class="card-block">
-                                        <div class="mr-5" id="min" style="color: #ffffff">
+                            <div class="row" id="temperatureMetricsRow" style="display: none">
+                                <div class="col-xl-3 col-sm-6 mb-3"
+                                     style="border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                    <div class="card card-inverse card-primary o-hidden h-100">
+                                        <div class="card-block">
+                                            <div class="mr-5" id="min" style="color: #ffffff">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #ddc221;padding: 20px; width: 23%; height: 80px; margin: 10px
+                                <div class="col-xl-3 col-sm-6 mb-3" style="border-radius: 25px; height: 150px; background: #ddc221;padding: 20px; width: 23%; height: 80px; margin: 10px
 ">
-                                <div class="card card-inverse card-success o-hidden h-100">
-                                    <div class="card-block">
-                                        <div class="mr-5" id="max" style="color: #ffffff">
+                                    <div class="card card-inverse card-success o-hidden h-100">
+                                        <div class="card-block">
+                                            <div class="mr-5" id="max" style="color: #ffffff">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-sm-6 mb-3"
+                                     style="border-radius: 25px; height: 150px; background: #FF7F50;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                    <div class="card card-inverse card-warning o-hidden h-100">
+                                        <div class="card-block" style="height:80px">
+                                            <div class="mr-5" id="avg" style="color: #ffffff">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-sm-6 mb-3"
+                                     style="border-radius: 25px; height: 150px; background: #e55b5b;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                    <div class="card card-inverse card-danger o-hidden h-100">
+                                        <div class="card-block" style="height:80px">
+                                            <div class="mr-5" id="count" style="color: #ffffff">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- /.row -->
+                            <!-- Second Graph -->
+                            <div class="row">
+                                <div id="Humidity"></div>
+                            </div>
+                            <div class="row" id="humidityMetricsRow" style="display: none">
+                                <div class="col-xl-3 col-sm-6 mb-3"
+                                     style="border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                    <div class="card card-inverse card-primary o-hidden h-100">
+                                        <div class="card-block" style="height:80px">
+                                            <div class="mr-5" id="Hmin" style="color: #ffffff">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-sm-6 mb-3"
+                                     style="border-radius: 25px; height: 150px; background: #ddc221;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                    <div class="card card-inverse card-primary o-hidden h-100">
+                                        <div class="card-block" style="height:80px">
+                                            <div class="mr-5" id="Hmax" style="color: #ffffff">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-sm-6 mb-3"
+                                     style="border-radius: 25px; height: 150px; background: #FF7F50;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                    <div class="card card-inverse card-warning o-hidden h-100">
+                                        <div class="card-block">
+                                            <div class="mr-5" id="Havg" style="color: #ffffff">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-sm-6 mb-3"
+                                     style="border-radius: 25px; height: 150px; background: #e55b5b;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                                    <div class="card card-inverse card-danger o-hidden h-100">
+                                        <div class="card-block">
+                                            <div class="mr-5" id="Hcount" style="color: #ffffff">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #FF7F50;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                <div class="card card-inverse card-warning o-hidden h-100">
-                                    <div class="card-block" style="height:80px">
-                                        <div class="mr-5" id="avg" style="color: #ffffff">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #e55b5b;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                <div class="card card-inverse card-danger o-hidden h-100">
-                                    <div class="card-block" style="height:80px">
-                                        <div class="mr-5" id="count" style="color: #ffffff">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                        <!-- /.row -->
-                        <!-- Second Graph -->
-                        <div class="row">
-                            <div id="Humidity"></div>
-                        </div>
-                        <div class="row" id="humidityMetricsRow" style="display: none">
-                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                <div class="card card-inverse card-primary o-hidden h-100">
-                                    <div class="card-block" style="height:80px">
-                                        <div class="mr-5" id="Hmin" style="color: #ffffff">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #ddc221;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                <div class="card card-inverse card-primary o-hidden h-100">
-                                    <div class="card-block" style="height:80px">
-                                        <div class="mr-5" id="Hmax" style="color: #ffffff">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #FF7F50;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                <div class="card card-inverse card-warning o-hidden h-100">
-                                    <div class="card-block">
-                                        <div class="mr-5" id="Havg" style="color: #ffffff">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #e55b5b;padding: 20px; width: 23%; height: 80px; margin: 10px">
-                                <div class="card card-inverse card-danger o-hidden h-100">
-                                    <div class="card-block">
-                                        <div class="mr-5" id="Hcount" style="color: #ffffff">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <br>
-                        <label for="response">Response:</label>
-                        <textarea class="form-control" rows="5" id="response"></textarea>
+                            <br>
+                            <label for="response">Response:</label>
+                            <textarea class="form-control" rows="5" id="response"></textarea>
 
                     </form>
                 </div>

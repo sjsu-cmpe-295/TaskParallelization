@@ -1,6 +1,7 @@
 var clientIP = "localhost";
 var task = {tasks: []};
-var sensorSelected = false;
+var startTime;
+var endTime;
 // ,{sensor:"humidity", time:"10"}];
 // var task={sensor:"humidity", time:"5"};
 // var task={sensor:"both", time:"5"};
@@ -46,6 +47,7 @@ $("#btnSubmit").button().click(function () {
 
     document.getElementById("response").innerHTML = "";
     if (task["tasks"].length > 0) {
+        startTime = new Date().getTime();
         socket.emit('submitTask', task);
         swal("Task submitted!");
     }
@@ -71,6 +73,9 @@ function showTime(object) {
 
 socket.on('getOutput', function (data) {
     if (data) {
+        endTime = new Date().getTime();
+        document.getElementById("timeTaken").innerHTML = ((endTime-startTime)/1000)+"s";
+        document.getElementById("timeTakenDiv").style.display="block";
         console.log("Output received ");
         document.getElementById("response").innerHTML = document.getElementById("response").textContent + JSON.stringify(data);
 
