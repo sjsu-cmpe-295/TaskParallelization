@@ -25,7 +25,7 @@ public class TaskSubmission {
     protected static Logger logger = LoggerFactory.getLogger("TaskSubmission");
     private String clientIP = "";
 
-    public void callMaster(Task task, Notifiable notifiable){
+    public void callMaster(Task task, Notifiable notifiable) {
         // TODO Need leader ip, not the clientIP
         // Need leader ip, not the clientIP
         String output = sendTask(HeartbeatSenderTask.masterIP, task.toString());
@@ -34,44 +34,37 @@ public class TaskSubmission {
 
     @Async
     public void callWorker(Task task, String isTp, Notifiable notifiable) {
+
         logger.info("calling worker");
+
         clientIP = HeartbeatSenderTask.clientIP;
-        String taskId = task.getId();
         String ip = "";
+        String taskId = task.getId();
+
         String[] workerIPs = new String[HeartbeatSenderTask.workerStatusMap.keySet().size()];
         int index = 0;
 
-        if (isTp.equals("false")){
-            ip = clientIP;
-            // HeartbeatSenderTask.workerStatusMap.put(ip, 1);
-        } else {
-            ///get free worker
-            for (String key : HeartbeatSenderTask.workerStatusMap.keySet()) {
-                workerIPs[index++] = key;
-                if (HeartbeatSenderTask.workerStatusMap.get(key) == 0) {
-                    HeartbeatSenderTask.workerStatusMap.put(key, 1);
-                    ip = key;
-                    logger.info("Idle node found, ip: " + ip);
-                    break;
-                }
+        ///get free worker
+        for (String key : HeartbeatSenderTask.workerStatusMap.keySet()) {
+            workerIPs[index++] = key;
+            if (HeartbeatSenderTask.workerStatusMap.get(key) == 0) {
+                HeartbeatSenderTask.workerStatusMap.put(key, 1);
+                ip = key;
+                logger.info("Idle node found, ip: " + ip);
+                break;
             }
         }
 
-        //if all workers are busy, get random ip
-//        if (ip.isEmpty()) {
-//
-//            ip = workerIPs[new Random().nextInt(workerIPs.length)];
-//            HeartbeatSenderTask.workerStatusMap.put(ip, 1);
-//            logger.info("No idle node, random ip chosen " + ip);
-//        }
-//
-//
-//        String output = sendTask(ip, task.toString());
-//        HeartbeatSenderTask.workerStatusMap.put(ip, 0);
-
-
-        // if all workers are busy, get random ip
-        if (ip.isEmpty() && HeartbeatSenderTask.workerStatusMap.size() > 0) {
+        if (ip.isEmpty() && HeartbeatSenderTask.workerStatusMap.size() == 0) {
+            // No Workers, isTp == true, hence empty Ip, therefore choosing master
+            logger.info("Choosing master: " + ip + "to work because, workers:"
+                    + HeartbeatSenderTask.workerStatusMap.size() + "; isTP:" + isTp + ".");
+            ip = HeartbeatSenderTask.masterIP;
+            String output = sendTask(ip, task.toString());
+            notifiable.onTaskCompletion(taskId, output);
+        } else if (ip.isEmpty() && HeartbeatSenderTask.workerStatusMap.size() != 0) {
+            // All workers were busy
+            logger.info("No idle node, random ip chosen " + ip);
             ArrayList<String> ipList = new ArrayList<>();
             for (String key : HeartbeatSenderTask.workerStatusMap.keySet()) {
                 ipList.add(key);
@@ -80,24 +73,20 @@ public class TaskSubmission {
             int indexForIP = random.nextInt(HeartbeatSenderTask.workerStatusMap.size());
             ip = ipList.get(indexForIP);
 
-            HeartbeatSenderTask.workerStatusMap.put(ip, 1);
-            logger.info("No idle node, random ip chosen " + ip);
+            HeartbeatSenderTask.workerStatusMap.put(ip, HeartbeatSenderTask.workerStatusMap.get(ip) + 1);
 
-        } else {
+            String output = sendTask(ip, task.toString());
 
-            // HeartbeatSenderTask.workerStatusMap.put(ip, 1);
-            logger.info("Choosing master: " + ip + "to work because, workers:"
-            + HeartbeatSenderTask.workerStatusMap.size() + "; isTP:" + isTp + ".");
+            HeartbeatSenderTask.workerStatusMap.put(ip, HeartbeatSenderTask.workerStatusMap.get(ip) - 1);
+            notifiable.onTaskCompletion(taskId, output);
+
+        } else if (!ip.isEmpty()) {
+            // Found worker
+            HeartbeatSenderTask.workerStatusMap.put(ip, HeartbeatSenderTask.workerStatusMap.get(ip) + 1);
+            String output = sendTask(ip, task.toString());
+            HeartbeatSenderTask.workerStatusMap.put(ip, HeartbeatSenderTask.workerStatusMap.get(ip) - 1);
+            notifiable.onTaskCompletion(taskId, output);
         }
-
-        String output = sendTask(ip, task.toString());
-        if (!isTp.equals("false")) {
-            HeartbeatSenderTask.workerStatusMap.put(ip, 0);
-        }
-
-        notifiable.onTaskCompletion(taskId, output);
-
-        //Combine outputs and send
 
     }
 
