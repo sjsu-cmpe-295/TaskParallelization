@@ -70,7 +70,8 @@ public class SystemMonitorMetricsThread extends TimerTask{
 		logger.info(masterResponse);
 		URL url;
 		try {
-			url = new URL("http://192.168.0.23:1300/updateMetrics");
+
+			url = new URL("http://"+nodeState.getRoutingConfig().getClientIP()+":1300/updateMetrics");
 			URLConnection connection = url.openConnection();
 			connection.setDoOutput(true);
 			connection.setRequestProperty("Content-Type", "application/json");
