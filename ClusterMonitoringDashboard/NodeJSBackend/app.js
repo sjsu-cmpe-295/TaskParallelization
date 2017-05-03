@@ -12,6 +12,7 @@ const http = require('http');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var app = express();
 var avg,min,max,count;
 var avgT,minT,maxT,countT;
 var humidityMinDate;
@@ -30,7 +31,7 @@ var taskId = 0;
 var masterIp;
 var sockets;
 var taskIdtoSocketIdMap=[];
-var app = express();
+//var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 server.listen(1301);
@@ -42,7 +43,11 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
+
+
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb'}));
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -210,14 +215,14 @@ app.post('/getOutput', function (req, res) {
         var data = {};
         data['id'] = req.body.id;
         data['output'] = JSON.stringify(req.body.output);
-        mysql.query('INSERT INTO tasks SET ?', data, function (err, res) {
-            if (err) {
-                // throw err;
-                console.log("error " + err);
-            }
-            console.log(res);
+        // mysql.query('INSERT INTO tasks SET ?', data, function (err, res) {
+        //     if (err) {
+        //         // throw err;
+        //         console.log("error " + err);
+        //     }
+        //     console.log(res);
 
-        });
+        // });
     }
     res.sendStatus(200);
 });

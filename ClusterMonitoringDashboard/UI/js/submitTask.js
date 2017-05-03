@@ -1,4 +1,4 @@
-var clientIP = "localhost";
+var clientIP = "192.168.0.23";
 var task = {tasks: []};
 var sensorSelected = false;
 // ,{sensor:"humidity", time:"10"}];

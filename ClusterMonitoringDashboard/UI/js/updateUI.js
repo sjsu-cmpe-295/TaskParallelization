@@ -1,4 +1,4 @@
-var clientIP = "localhost";
+var clientIP = "192.168.0.23";
 var nodes = null, links = [];
 //    var pageReload = true;
 //    getClientIP();
