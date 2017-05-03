@@ -42,8 +42,8 @@ $("#btnSubmit").button().click(function () {
     console.log("task is " + JSON.stringify(task));
     document.getElementById("humidityMetricsRow").style.display='none';
     document.getElementById("temperatureMetricsRow").style.display='none';
-    document.getElementById("Temperature").style.display='none';
-    document.getElementById("Humidity").style.display='none';
+    document.getElementById("tempDiv").style.display='none';
+    document.getElementById("humDiv").style.display='none';
 
     document.getElementById("response").innerHTML = "";
     if (task["tasks"].length > 0) {
@@ -307,8 +307,9 @@ function showtemperatureStats(data,minDate){
     // console.log(minDate);
     //graph(data,'temperature',minDate);
     if(data){
+        document.getElementById("tempDiv").style.display='block';
         graph(data,'Temperature',minDate);
-        document.getElementById("Temperature").style.display='block';
+
 
     }
 }
@@ -319,7 +320,8 @@ function showhumidityStats(data,minDate){
     // console.log(minDate);
     // graph(data,'humidity',minDate);
     if(data){
+        document.getElementById("humDiv").style.display='block';
         graph(data,'Humidity',minDate);
-        document.getElementById("Humidity").style.display='block';
+
     }
 }
