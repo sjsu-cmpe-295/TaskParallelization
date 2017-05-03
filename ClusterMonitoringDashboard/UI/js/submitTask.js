@@ -1,4 +1,4 @@
-var clientIP = "192.168.0.23";
+var clientIP = "localhost";
 var task = {tasks: []};
 var startTime;
 var endTime;
@@ -77,10 +77,10 @@ socket.on('getOutput', function (data) {
         document.getElementById("timeTaken").innerHTML = ((endTime-startTime)/1000)+"s";
         document.getElementById("timeTakenDiv").style.display="block";
         console.log("Output received ");
-        document.getElementById("response").innerHTML = document.getElementById("response").textContent + JSON.stringify(data);
+        document.getElementById("response").innerHTML = JSON.stringify(data);
 
         //Update graphs and metrics
-        drawSensorGraphs(data);
+        drawSensorGraphs( JSON.parse(document.getElementById("response").textContent));
 
 
     }
@@ -171,7 +171,8 @@ function drawSensorGraphs(data) {
     // console.log("request is " + JSON.stringify(req.body));
     var json_obj = data;
     var output = json_obj.output;
-    // console.log("humidityDataPoints count "+Object.keys(output.humidityDataPoints).length);
+    // console.log("output --- "+JSON.stringify(output));
+    // console.log("humidityDataPoints count "+output.humidityDataPoints);
     if(output.humidityDataPoints && Object.keys(output.humidityDataPoints).length>0){
         // console.log('in humdity points');
         HumidityData = output.humidityDataPoints;
