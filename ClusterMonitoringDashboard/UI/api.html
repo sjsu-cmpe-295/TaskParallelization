@@ -212,9 +212,8 @@
                                 <button type="button" class="btn btn-primary " id="btnSubmit">Submit</button>
                             </div>
                         </div>
-                        <label for="response">Response:</label>
-                        <textarea class="form-control" rows="5" id="response"></textarea>
                         <br>
+
 
 
                         <!-- Graph code here -->
@@ -222,7 +221,7 @@
                             <div id="Temperature"></div>
                         </div>
 
-                        <div class="row" id="humidityMetricsRow" style="display: none">
+                        <div class="row" id="temperatureMetricsRow" style="display: none">
                             <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
                                 <div class="card card-inverse card-primary o-hidden h-100">
                                     <div class="card-block">
@@ -262,13 +261,13 @@
 
                         </div>
 
+
                         <!-- /.row -->
                         <!-- Second Graph -->
                         <div class="row">
                             <div id="Humidity"></div>
                         </div>
-
-                        <div class="row" id="temperatureMetricsRow" style="display: none">
+                        <div class="row" id="humidityMetricsRow" style="display: none">
                             <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
                                 <div class="card card-inverse card-primary o-hidden h-100">
                                     <div class="card-block" style="height:80px">
@@ -302,6 +301,11 @@
                                 </div>
                             </div>
                         </div>
+
+                        <br>
+                        <label for="response">Response:</label>
+                        <textarea class="form-control" rows="5" id="response"></textarea>
+
                     </form>
                 </div>
             </div>

@@ -23,7 +23,7 @@ $("#btnSubmit").button().click(function () {
     for (i = 0; i < childDivs.length; i++) {
         var childDiv = childDivs[i];
         if (childDiv.getElementsByTagName("button")[0].innerText.toLowerCase() !== "choose a sensor ") {
-            console.log("inside " + childDiv.getElementsByTagName("button")[0].innerText.toLowerCase());
+            // console.log("inside " + childDiv.getElementsByTagName("button")[0].innerText.toLowerCase());
             task["tasks"].push({
                 "sensor": childDiv.getElementsByTagName("button")[0].innerText.toLowerCase(),
                 "startTime": childDiv.getElementsByTagName("input")[0].value.toLowerCase(),
@@ -39,6 +39,10 @@ $("#btnSubmit").button().click(function () {
         }
     }
     console.log("task is " + JSON.stringify(task));
+    document.getElementById("humidityMetricsRow").style.display='none';
+    document.getElementById("temperatureMetricsRow").style.display='none';
+    document.getElementById("Temperature").style.display='none';
+    document.getElementById("Humidity").style.display='none';
 
     document.getElementById("response").innerHTML = "";
     if (task["tasks"].length > 0) {
@@ -67,7 +71,7 @@ function showTime(object) {
 
 socket.on('getOutput', function (data) {
     if (data) {
-        console.log("Output received " + JSON.stringify(data));
+        console.log("Output received ");
         document.getElementById("response").innerHTML = document.getElementById("response").textContent + JSON.stringify(data);
 
         //Update graphs and metrics
@@ -162,8 +166,9 @@ function drawSensorGraphs(data) {
     // console.log("request is " + JSON.stringify(req.body));
     var json_obj = data;
     var output = json_obj.output;
-    console.log(output);
-    if(output['humidityDataPoints'].length!=0){
+    // console.log("humidityDataPoints count "+Object.keys(output.humidityDataPoints).length);
+    if(output.humidityDataPoints && Object.keys(output.humidityDataPoints).length>0){
+        // console.log('in humdity points');
         HumidityData = output.humidityDataPoints;
         for(var key in HumidityData){
             humidityDates.push(new Date(key.split(' ')[0]));
@@ -171,31 +176,34 @@ function drawSensorGraphs(data) {
             humidityMinDate=new Date(Math.min.apply(null,humidityDates));
 
         }
-        console.log(humidityMinDate);
-        console.log(humidityValues);
-        showhumidityStats(humidityValues,humidityMinDate);
+        // console.log(humidityMinDate);
+        // console.log(humidityValues);
+        showhumidityStats(humidityValues,humidityMinDate.toISOString());
         // io.sockets.emit('humidityStats', humidityValues,humidityMinDate);
     }
-    if(output['humidityMetrics']!=null){
+    // console.log("humidityMetrics count "+Object.keys(output.humidityMetrics).length);
+    if(output.humidityMetrics!=null){
+        // console.log('in humdity metrics');
         humidityMetrics = output.humidityMetrics;
         avg = humidityMetrics['average'];
         min = humidityMetrics['minimum'];
         max = humidityMetrics['maximum'];
         count = humidityMetrics['count'];
-        console.log(avg,min,max,count);
+
+        // console.log(avg,min,max,count);
         showhumidityMetrics(avg,min,max,count);
         // io.sockets.emit('humidityMetrics', avg,min,max,count);
     }
-    if(output['temperatureDataPoints'].length!=0){
+    if(Object.keys(output.temperatureDataPoints).length>0){
         TempData = output.temperatureDataPoints;
         for(var key in TempData){
             tempDates.push(new Date(key));
             TemperatureValues.push(TempData[key]);
             tempMinDate=new Date(Math.min.apply(null,tempDates));
         }
-        console.log(TemperatureValues);
-        console.log(tempMinDate);
-        showtemperatureStats(TemperatureValues,tempMinDate);
+        // console.log(TemperatureValues);
+        // console.log(tempMinDate);
+        showtemperatureStats(TemperatureValues,tempMinDate.toISOString());
         // io.sockets.emit('temperatureStats', TemperatureValues,tempMinDate);
     }
     if(output['temperatureMetrics']!=null){
@@ -204,7 +212,7 @@ function drawSensorGraphs(data) {
         minT = tempMetrics['minimum'];
         maxT = tempMetrics['maximum'];
         countT = tempMetrics['count'];
-        console.log(avgT,minT,maxT,countT);
+        // console.log(avgT,minT,maxT,countT);
         showtempMetrics(avgT,minT,maxT,countT);
         // io.sockets.emit('tempMetrics', avgT,minT,maxT,countT);
     }
@@ -215,11 +223,12 @@ function showhumidityMetrics(avg,min,max,count)
 {
     //graph(data,'temperature',minDate);
     console.log("inside showhumidityMetrics");
-    console.log(avg,min,max,count);
+    // console.log("humidity metrics "+avg,min,max,count);
     if(avg){
         var avgdiv = document.getElementById('Havg');
         avgdiv.innerHTML = "Average humidity: "+avg;
-    }else{
+    }
+    else{
         var avgdiv = document.getElementById('Havg');
         avgdiv.innerHTML = "Not calculated yet";
     }
@@ -244,14 +253,14 @@ function showhumidityMetrics(avg,min,max,count)
         var countdiv = document.getElementById('Hcount');
         countdiv.innerHTML = "Not calculated yet";
     }
-
+    document.getElementById("humidityMetricsRow").style.display='block';
 }
 
 
 function showtempMetrics(avg,min,max,count){
     //graph(data,'temperature',minDate);
     console.log("inside tempMetrics  ");
-    console.log("Temp: "+avg,min,max,count);
+    // console.log("temperature metrics: "+avg,min,max,count);
     if(avg){
         var avgdiv = document.getElementById('avg');
         avgdiv.innerHTML = "Average Temperature: "+avg;
@@ -280,7 +289,7 @@ function showtempMetrics(avg,min,max,count){
         document.getElementById('count').style.display = 'none';
 
     }
-    // document.getElementById("temperatureMetricsRow").style.display='block';
+    document.getElementById("temperatureMetricsRow").style.display='block';
     // document.getElementById("humidityMetricsRow").style.display='block';
 
 }
@@ -288,20 +297,23 @@ function showtempMetrics(avg,min,max,count){
 function showtemperatureStats(data,minDate){
 
     console.log("inside showtemperatureStats");
-    console.log(data);
-    console.log(minDate);
+    // console.log(data);
+    // console.log(minDate);
     //graph(data,'temperature',minDate);
     if(data){
         graph(data,'Temperature',minDate);
+        document.getElementById("Temperature").style.display='block';
+
     }
 }
 
 function showhumidityStats(data,minDate){
     console.log("inside showhumidityStats");
-    console.log(data);
-    console.log(minDate);
+    // console.log(data);
+    // console.log(minDate);
     // graph(data,'humidity',minDate);
     if(data){
         graph(data,'Humidity',minDate);
+        document.getElementById("Humidity").style.display='block';
     }
 }
