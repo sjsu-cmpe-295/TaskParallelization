@@ -51,7 +51,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
 
             <ul class="nav navbar-nav side-nav">
-                <li >
+                <li>
                     <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
                 <li>
@@ -94,7 +94,8 @@
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-striped" id="taskTable">
+                                    <table class="table table-bordered table-hover table-striped" id="taskTable"
+                                           class="overflow-x: scroll;">
                                         <thead>
                                         <tr>
                                             <th>Task ID</th>
@@ -128,10 +129,10 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <script>
-    var clientIP="localhost";
+    var clientIP = "localhost";
     $.ajax({
         type: "GET",
-        url: "http://"+clientIP+":1300/getTasks",
+        url: "http://" + clientIP + ":1300/getTasks",
         success: function (result) {
             console.log("result is " + result);
             var old_tbody = document.getElementById("taskTable").tBodies[0];
@@ -143,9 +144,33 @@
                 var cell1 = row.insertCell(0);
                 cell1.innerHTML = result[i].id;
                 cell1 = row.insertCell(1);
-                cell1.innerHTML = result[i].output;
+//                cell1.innerHTML = result[i].output;
+                var div = document.createElement('div');
+//                div.setAttribute('style', 'width:330px; float:left');
+                div.style.width = '100%';
+                div.style.height = '100%';
+                div.style.maxHeight = '100px';
+                div.style.paddding = '0%';
+                div.style.overflow = 'scroll';
+//                div.style.float = 'left';
+//                var label = document.createElement('label');
+//                label.innerHTML = result[i].output;
+                div.innerText = result[i].output;
+                cell1.onclick=function () {
+                    console.log(" cell text is "+this.innerText);
+                    localStorage.setItem("output",this.innerText);
+                    location.href = "onlyGraph.html";
+                }
+//                div.appendChild(label);
+                cell1.appendChild(div);
+//                cell1.setAttribute('width', '500px');
+//                cell1.setAttribute('height', '300px');
             }
-        }});
+        }
+    });
+    $("#btnSubmit").button().click(function () {
+
+    });
 </script>
 
 </body>
