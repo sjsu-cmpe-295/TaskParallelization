@@ -14,7 +14,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/app.css">
+    <!-- <link rel="stylesheet" href="css/graph.css"> -->
 
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
@@ -28,34 +28,17 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <!--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
-    <!--<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
-    <!--<![endif]&ndash;&gt;-->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-    <style>
-        .svg-container {
-            display: inline-block;
-            position: relative;
-            width: 100%;
-            padding-bottom: 60%; /* aspect ratio */
-            vertical-align: top;
-            overflow: hidden;
-        }
-
-        .svg-content {
-            display: inline-block;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-    </style>
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
 
-    <script src="js/d3.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
 
 
 </head>
@@ -97,66 +80,8 @@
                             </div>
                         </a>
                     </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong>John Smith</strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong>John Smith</strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
                     <li class="message-footer">
                         <a href="#">Read All New Messages</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b
-                        class="caret"></b></a>
-                <ul class="dropdown-menu alert-dropdown">
-                    <li>
-                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">View All</a>
                     </li>
                 </ul>
             </li>
@@ -183,14 +108,14 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <li class="active">
+                <li>
                     <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
-                <li>
-                    <a href="api.html"><i class="fa fa-fw fa-send"></i> API Client </a>
+                <li class="active">
+                    <a href="dataGraphs.html"><i class="fa fa-fw fa-line-chart"></i> Data </a>
                 </li>
                 <li>
-                    <a href="taskHistory.html"><i class="fa fa-fw fa-history"></i> Task History </a>
+                    <a href="api.html"><i class="fa fa-fw fa-bar-chart-o"></i> API Client </a>
                 </li>
             </ul>
         </div>
@@ -206,7 +131,7 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">
                         Dashboard
-                        <small>Statistics Overview</small>
+                        <small>Data Overview</small>
                     </h1>
                     <!--  <ol class="breadcrumb">
                          <li class="active">
@@ -229,8 +154,7 @@
                 <div class="col-lg-12">
                     <div class="alert alert-danger alert-dismissable" id="alertBoxDiv">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <i class="fa fa-info-circle"></i> <strong id="alertMessage">No cluster has been formed,
-                        yet!</strong>
+                        <i class="fa fa-info-circle"></i> <strong id="alertMessage">No cluster has been formed, yet!</strong>
                     </div>
                 </div>
             </div>
@@ -327,47 +251,128 @@
                 </div>
             </div>
              --><!-- /.row -->
+             <!-- <div class = "row">
+                <div class = "col-xl-3 col-sm-6 mb-3" style = "background-color: lightblue"> 
+                    <div class="card card-inverse card-primary o-hidden h-100 ">
+                        <div class="card-block">
+                            <div class="mr-5">
+                                Min Value : 23
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class = "col-xl-3 col-sm-6 mb-3" style = "background-color: green"> 
+                    <div class="card card-inverse card-primary o-hidden h-100 ">
+                        <div class="card-block">
+                            <div class="mr-5">
+                                Min Value : 23
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-xl-3 col-sm-6 mb-3" style = "background-color: red"> 
+                    <div class="card card-inverse card-primary o-hidden h-100 ">
+                        <div class="card-block">
+                            <div class="mr-5">
+                                Min Value : 23
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-xl-3 col-sm-6 mb-3" style = "background-color: yellow"> 
+                    <div class="card card-inverse card-primary o-hidden h-100 ">
+                        <div class="card-block">
+                            <div class="mr-5">
+                                Min Value : 23
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div> -->
+            <div class="row">
+                <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                    <div class="card card-inverse card-primary o-hidden h-100">
+                        <div class="card-block">
+                            <div class="mr-5" id="min" style="color: #ffffff">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #ddc221;padding: 20px; width: 23%; height: 80px; margin: 10px
+">
+                    <div class="card card-inverse card-success o-hidden h-100">
+                        <div class="card-block">
+                                <div class="mr-5" id="max" style="color: #ffffff">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #FF7F50;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                    <div class="card card-inverse card-warning o-hidden h-100">
+                        <div class="card-block" style="height:80px">
+                            <div class="mr-5" id="avg" style="color: #ffffff">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #e55b5b;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                    <div class="card card-inverse card-danger o-hidden h-100">
+                        <div class="card-block" style="height:80px">
+                            <div class="mr-5" id="count" style="color: #ffffff">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
             <!-- Graph code here -->
             <div class="row">
-                <div id='canvas'>
-                </div>
+                <div id="temperature"></div>
             </div>
             <!-- /.row -->
-
+            <!-- Second Graph -->
             <div class="row">
-
-
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Node Details</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover table-striped" id="nodeTable">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>IP address</th>
-                                        <th>Master/Worker</th>
-                                        <th>State</th>
-                                        <th> CPU Utilization</th>
-                                        <th> Memory Utilization </th>
-                                        <th> Network In </th>
-                                        <th> Network Out </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #73AD21;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                    <div class="card card-inverse card-primary o-hidden h-100">
+                        <div class="card-block" style="height:80px">
+                            <div class="mr-5" id="Hmin" style="color: #ffffff">
                             </div>
-                            <div class="text-right">
-                                <a href="Nodes.html">View All Node Details <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #ddc221;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                    <div class="card card-inverse card-primary o-hidden h-100">
+                        <div class="card-block" style="height:80px">
+                            <div class="mr-5" id="Hmax" style="color: #ffffff">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #FF7F50;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                    <div class="card card-inverse card-warning o-hidden h-100">
+                        <div class="card-block">
+                            <div class="mr-5" id="Havg" style="color: #ffffff">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-3" style = "border-radius: 25px; height: 150px; background: #e55b5b;padding: 20px; width: 23%; height: 80px; margin: 10px">
+                    <div class="card card-inverse card-danger o-hidden h-100">
+                        <div class="card-block">
+                            <div class="mr-5" id="Hcount" style="color: #ffffff">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div id="humidity"></div>
+            </div> 
             <!-- /.row -->
 
         </div>
@@ -378,9 +383,13 @@
 
 </div>
 <!-- /#wrapper -->
-<script src="js/drawGraph.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
 <script src="js/socket.io.js"></script>
-<script src="js/updateUI.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/graphUI.js"></script>
+
 
 </body>
 

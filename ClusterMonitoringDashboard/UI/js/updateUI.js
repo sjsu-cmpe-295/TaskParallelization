@@ -6,7 +6,7 @@ var nodes = null, links = [];
 
 var socket = io('http://' + clientIP + ':1301');
 socket.on('connect_error', function () {
-    console.log('Connection Failed');
+    console.log('Socket connection failed');
     document.getElementById("alertBoxDiv").classList.add('alert-danger');
     document.getElementById("alertBoxDiv").classList.remove('alert-info');
 
@@ -24,11 +24,11 @@ socket.on('clusterStats', function (data) {
         links = [];
 
         for (var i in data.nodes) {
-            console.log("inside for");
+            // console.log("inside for");
 
             //Update graph
             d3.select("svg").remove();
-            console.log(data.nodes[i].state);
+            // console.log(data.nodes[i].state);
             if(data.nodes[i].state=="ACTIVE") {
                 nodes.push({id: data.nodes[i].id, reflexive: false});
                 if (i > 0)
@@ -63,6 +63,57 @@ socket.on('clusterStats', function (data) {
 
     }
 });
+
+socket.on('clusterMetrics', function (data) {
+    console.log('In clusterMetrics');
+    if (data) {
+        // console.log(data);
+        document.getElementById("alertDiv").style.display = 'none';
+        var new_tbody = document.createElement('tbody');
+        var old_tbody = document.getElementById("nodeTable").tBodies[0];
+
+
+        for(var i=0,row;row = old_tbody.rows[i];i++){
+            // console.log(row.cells[1]);
+            console.log(row.cells[1].innerHTML);
+            if(data.hasOwnProperty(row.cells[1].innerHTML)){
+                console.log("in IF");
+                // console.log(row.cells[1]);
+                metricsArray = data[row.cells[1].innerHTML];
+
+                // console.log(metricsArray);
+                if(row.cells[4]){
+                    row.cells[4].innerHTML = metricsArray[0];
+                }else{
+                    cell1 = row.insertCell(4);
+                    cell1.innerHTML = metricsArray[0];
+                }
+                if(row.cells[5]){
+                    row.cells[5].innerHTML = metricsArray[1];
+                }else{
+                    cell1 = row.insertCell(5);
+                    cell1.innerHTML = metricsArray[1];
+                }
+                if(row.cells[6]){
+                    row.cells[6].innerHTML = metricsArray[2];
+                }else{
+                    cell1 = row.insertCell(5);
+                    cell1.innerHTML = metricsArray[2];
+                }
+                if(row.cells[7]){
+                    row.cells[7].innerHTML = metricsArray[3];
+                }else{
+                    cell1 = row.insertCell(6);
+                    cell1.innerHTML = metricsArray[3];
+
+                }
+
+        }
+        
+   
+}}});
+
+
 
 //        socket.emit('my other event', { my: 'data' });
 

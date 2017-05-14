@@ -24,7 +24,7 @@ public class MessageRouter {
 
 		if (msg.getHeader().getNodeId() == nodeState.getRoutingConfig()
 			.getNodeId()) {
-			logger.info("Same message received by source! Dropping message...");
+			logger.debug("Same message received by source! Dropping message...");
 			return null;
 		}
 		return route0(msg);

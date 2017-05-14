@@ -13,6 +13,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
@@ -23,85 +24,273 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-</head>
-
-<body>
-
-    <div id="wrapper">
-
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Raspberry-Pi Cluster Health</a>
-            </div>
-            <!-- Top Menu Items -->
-            
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                
-               <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="Nodes.html"><i class="fa fa-fw fa-bar-chart-o"></i> Nodes </a>
-                    </li>
-                    <li>
-                        <a href="api.html"><i class="fa fa-fw fa-bar-chart-o"></i> API Client </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-
-        <div id="page-wrapper">
-
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            API Client
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-file"></i> API Client
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- /.row -->
-
-            </div>
-            <!-- /.container-fluid -->
-
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
+    <style>
+        * {
+        . border-radius(0) !important;
+        }
+
+        #field {
+            margin-bottom: 20px;
+        }
+
+        .hoverBlk{
+            cursor: pointer;
+        }
+
+        .hoverBlk:hover{
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Raspberry-Pi Cluster Health</a>
+        </div>
+        <!-- Top Menu Items -->
+
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                </li>
+                <li class="active">
+                    <a href="api.html"><i class="fa fa-fw fa-send"></i> API Client </a>
+                </li>
+                <li>
+                    <a href="taskHistory.html"><i class="fa fa-fw fa-history"></i> Task History </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        API Client
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li>
+                            <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
+                        </li>
+                        <li class="active">
+                            <i class="fa fa-file"></i> API Client
+                        </li>
+                    </ol>
+                    <form class="form-horizontal" id="taskDetails">
+
+                        <!--working old code-->
+
+                        <!--<div class="form-group">-->
+                        <!--<label class="control-label col-xs-2" for="sensor">Sensor:</label>-->
+                        <!--<div class="dropdown col-xs-10">-->
+                        <!--<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"-->
+                        <!--id="sensor" name="sensor">Choose a sensor <span class="caret"></span></button>-->
+                        <!--<ul class="dropdown-menu" id="sens">-->
+                        <!--<li><a href="#">Temperature</a></li>-->
+                        <!--<li><a href="#">Humidity</a></li>-->
+                        <!--<li><a href="#">Temperature & Humidity</a></li>-->
+                        <!--</ul>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                        <!--<label class="control-label col-xs-2" for="time">Time:</label>-->
+                        <!--<div class="col-xs-4">-->
+                        <!--<input type="text" class="form-control" id="time" name="time"-->
+                        <!--placeholder="Enter time in minutes">-->
+                        <!--</div>-->
+                        <!--</div>-->
+
+                        <!--end-->
+
+
+                        <div id="task-wrapper">
+                            <!--<button id="b1" class="btn add-more" type="button">+</button>-->
+                            <div class="form-group">
+
+                                <label class="control-label col-xs-2">Sensor:</label>
+                                <div class="dropdown col-xs-1">
+                                    <button class="btn btn-default dropdown-toggle " type="button"
+                                            data-toggle="dropdown"
+                                            id="sensor" name="sensor">Choose a sensor <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" id="sensor1DD">
+                                        <li><a href="#" onclick="changeDDText(this)">Temperature</a></li>
+                                        <li><a href="#" onclick="changeDDText(this)">Humidity</a></li>
+                                        <!--<li><a href="#" onclick="changeDDText(this)">Temperature & Humidity</a></li>-->
+                                    </ul>
+                                </div>
+                                <!--<div class="">-->
+                                <label class="control-label col-xs-2 ">Start Time:</label>
+                                <!--</div>-->
+                                <div class="col-xs-2">
+                                    <input type="text" class="form-control" id="startTime"
+                                           placeholder="Enter time">
+                                </div>
+                                <label class="control-label col-xs-2 ">End Time:</label>
+                                <div class="col-xs-2">
+                                    <input type="text" class="form-control" id="endTime"
+                                           placeholder="Enter time">
+                                </div>
+                                <!--<div class="col-xs-1 ">-->
+                                <!--<input type='button' class="btn btn-danger" value='-' id='removeButton'-->
+                                <!--onclick="removeTask(this)"/>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-2">Sensor:</label>
+                                <div class="dropdown col-xs-1">
+                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                                            id="sensor2" name="sensor">Choose a sensor <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" id="sensor2DD">
+                                        <li><a href="#" onclick="changeDDText(this)">Temperature</a></li>
+                                        <li><a href="#" onclick="changeDDText(this)">Humidity</a></li>
+                                        <!--<li><a href="#" onclick="changeDDText(this)">Temperature & Humidity</a></li>-->
+                                    </ul>
+                                </div>
+                                <label class="control-label col-xs-2 ">Start Time:</label>
+                                <div class="col-xs-2">
+                                    <input type="text" class="form-control" id="startTime2"
+                                           placeholder="Enter time">
+                                </div>
+                                <label class="control-label col-xs-2 ">End Time:</label>
+                                <div class="col-xs-2">
+                                    <input type="text" class="form-control" id="endTime2"
+                                           placeholder="Enter time">
+                                </div>
+                                <!--<div class="col-xs-1 ">-->
+                                <!--<input type='button' class="btn btn-danger" value='-' id='removeButton2'-->
+                                <!--onclick="removeTask(this)"/>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group">-->
+                        <!--<div class=" col-xs-offset-2 col-xs-2">-->
+                        <!--<input type='button' class="btn btn-primary" value='Add another task' id='addButton'/>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <div class="radio col-xs-offset-2 col-xs-2 ">
+                                <label><input type="radio" name="tpRadio" value="With Task Parallelism">With Task
+                                    Parallelism</label>
+                            </div>
+                            <div class="radio col-xs-4 text-left">
+                                <label><input type="radio" name="tpRadio" value="Without Task Parallelism">Without Task
+                                    Parallelism</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-offset-2 col-xs-2">
+                                <button type="button" class="btn btn-primary " id="btnSubmit">Submit</button>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group" id="timeTakenDiv" hidden>
+                                <label class="control-label col-xs-2">Time Taken:</label>
+                                <div class="col-xs-1"><label class="control-label " id="timeTaken"></label>
+                                </div>
+                        </div>
+                            <!-- Graph code here -->
+                            <div class="row" id="tempDiv">
+                                <div id="Temperature"></div>
+                            </div>
+
+                            <div class="row" id="temperatureMetricsRow" style="display: none">
+                                <div id="min" class="alert alert-info col-lg-3 col-md-6" >
+                                </div>
+                                <div id="max" class="alert alert-info col-lg-3 col-md-6" >
+                                </div>
+                                <div id="avg" class="alert alert-info col-lg-3 col-md-6" >
+                                </div>
+                                <div id="count" class="alert alert-info col-lg-3 col-md-6" >
+                                </div>
+
+                            </div>
+
+
+                            <!-- /.row -->
+                            <!-- Second Graph -->
+                            <div class="row" id="humDiv">
+                                <div id="Humidity"></div>
+                            </div>
+                            <div class="row" id="humidityMetricsRow" style="display: none">
+                                <div id="Hmin" class="alert alert-info col-lg-3 col-md-6" >
+                                </div>
+                                <div id="Hmax" class="alert alert-info col-lg-3 col-md-6" >
+                                </div>
+                                <div id="Havg" class="alert alert-info col-lg-3 col-md-6" >
+                                </div>
+                                <div id="Hcount" class="alert alert-info col-lg-3 col-md-6">
+                                </div>
+                            </div>
+
+                            <br>
+                            <label for="response">Response:</label>
+                            <textarea class="form-control" rows="5" id="response"></textarea>
+
+                    </form>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
+<script src="js/sweetalert.min.js"></script>
+<link rel="stylesheet" href="css/sweetalert.css">
+<script src="js/socket.io.js"></script>
+<script src="js/highcharts.js"></script>
+<script src="js/exporting.js"></script>
+<script src="js/highcharts-more.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/submitTask.js"></script>
+<!--<script src="js/graphUI.js"></script>-->
+
 </body>
 
 </html>
+
+

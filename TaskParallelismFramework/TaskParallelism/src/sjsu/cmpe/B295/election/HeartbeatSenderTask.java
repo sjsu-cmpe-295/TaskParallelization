@@ -6,6 +6,8 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,9 @@ public class HeartbeatSenderTask extends TimerTask {
     private static final String RESPONSE_END = "]}";
     private String masterResponse = "";
     private StringBuffer workerResponse = new StringBuffer("");
+    public static ConcurrentHashMap<String,AtomicInteger> workerStatusMap=new ConcurrentHashMap<>();
+    public static String clientIP="";
+    public static String masterIP="";
 
     public HeartbeatSenderTask(Leader leader, NodeState nodeState) {
         this.nodeState = nodeState;
@@ -56,6 +61,8 @@ public class HeartbeatSenderTask extends TimerTask {
         piNodeLeader.setPiNodeState(PiNodeState.ACTIVE);
         piNodeLeader.setPiNodeType(PiNodeType.MASTER);
         cluster.addPiNode(piNodeLeader);
+        if(updateUI)
+        masterIP=piNodeLeader.getIpAddress();
 
 
         nodeState.getEdgeMonitor().getOutboundEdges().getEdgesMap().values()
@@ -64,7 +71,7 @@ public class HeartbeatSenderTask extends TimerTask {
                 PiNode piNode = new PiNode();
                 if (ei.getChannel().isOpen()) {
 
-                    logger.info(
+                    logger.debug(
                             "Node " + nodeState.getRoutingConfig().getNodeId()
                                     + " sending heartbeat to node " + ei.getRef());
                     CommunicationMessage commMsg = this.util
@@ -112,20 +119,31 @@ public class HeartbeatSenderTask extends TimerTask {
                     workerResponse.append("{\"id\": \"" + id + "\", \"ip\": \"" + ri.getHost() + "\",\"isMaster\": \"" + PiNodeType.WORKER +"\",\"state\": \"" + piNode.getPiNodeState()+ "\"},");
 
                 });
-        logger.info("@@@@@@@@@@@@@@ Cluster Details @@@@@@@@@@@@@@ ");
+        logger.debug("@@@@@@@@@@@@@@ Cluster Details @@@@@@@@@@@@@@ ");
         for (Integer piNodeId : cluster.getPiNodes().keySet()) {
             PiNode piNode = cluster.getPiNodes().get(piNodeId);
-            logger.info(piNode.getId() + "-" + piNode.getIpAddress() + "-"
+            logger.debug(piNode.getId() + "-" + piNode.getIpAddress() + "-"
                     + piNode.getPiNodeState() + "-" + piNode.getPiNodeType());
         }
-        logger.info("@@@@@@@@@@@@@@ Cluster Details @@@@@@@@@@@@@@ ");
-        if (updateUI)
+        logger.debug("@@@@@@@@@@@@@@ Cluster Details @@@@@@@@@@@@@@ ");
+
+        if (updateUI) {
+            if(workerStatusMap.size()>0)
+            workerStatusMap.clear();
+
+            for (Integer piNodeId : cluster.getPiNodes().keySet()) {
+                PiNode piNode = cluster.getPiNodes().get(piNodeId);
+                if(piNode.getPiNodeState().equals(PiNodeState.ACTIVE) && piNode.getPiNodeType().equals(PiNodeType.WORKER))
+                workerStatusMap.put(piNode.getIpAddress(), new AtomicInteger(0));
+            }
             updateUI();
+        }
     }
 
     public void updateUI() {
         response.setLength(0);
         try {
+            clientIP= nodeState.getRoutingConfig().getClientIP();
             URL url = new URL("http://" + nodeState.getRoutingConfig().getClientIP() + ":1300/updateCluster");
             URLConnection connection = url.openConnection();
             connection.setDoOutput(true);
@@ -150,8 +168,8 @@ public class HeartbeatSenderTask extends TimerTask {
             response.setLength(0);
             workerResponse.setLength(0);
         } catch (Exception e) {
-            logger.info("Error while calling updateCluster");
-            logger.info(e.getMessage());
+            logger.error("Error while calling updateCluster");
+            logger.error(e.getMessage());
             workerResponse.setLength(0);
         }
     }
